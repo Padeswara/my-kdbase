@@ -223,10 +223,6 @@ export function useSites() {
 
   // 5. Hapus Site
   const deleteSite = async (id) => {
-    if (!window.confirm('Apakah Anda yakin ingin menghapus data site ini?')) {
-      return { success: false }
-    }
-
     try {
       setSites((prev) => prev.filter((item) => item.id !== id))
 

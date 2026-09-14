@@ -18,6 +18,7 @@ import {
   LayoutGrid
 } from 'lucide-react'
 import { exportSitesToExcel } from '../../utils/excelExport'
+import { StatusDropdown } from '../StatusDropdown'
 
 const STATUS_CONFIG = {
   'On Going': {
@@ -222,24 +223,14 @@ export function CardView({
                     </div>
                   )}
 
-                  {/* Dropdown Status Cepat di Pojok Kartu */}
-                  <div className="absolute top-2 right-2 shadow-sm">
-                    <select
-                      value={site.status}
+                  {/* Status Dropdown Estetik di Pojok Kartu */}
+                  <div className="absolute top-2 right-2">
+                    <StatusDropdown
+                      currentStatus={site.status}
                       disabled={updatingId === site.id}
-                      onChange={(e) => handleStatusChange(site.id, e.target.value)}
-                      className={`text-[11px] font-bold px-2 py-0.5 rounded-lg border appearance-none pr-5 cursor-pointer outline-none transition ${config.badge} ${
-                        updatingId === site.id ? 'opacity-50' : ''
-                      }`}
-                      title="Klik untuk langsung mengubah status"
-                    >
-                      {ALL_STATUSES.map((st) => (
-                        <option key={st} value={st} className="bg-white text-slate-800 font-medium">
-                          {st}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown className="w-2.5 h-2.5 text-current absolute right-1.5 top-1.5 pointer-events-none opacity-70" />
+                      onChange={(newStatus) => handleStatusChange(site.id, newStatus)}
+                      size="sm"
+                    />
                   </div>
                 </div>
 

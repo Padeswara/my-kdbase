@@ -5,6 +5,7 @@ import { TableView } from './components/views/TableView'
 import { CardView } from './components/views/CardView'
 import { SiteModal } from './components/SiteModal'
 import { ImagePreviewModal } from './components/ImagePreviewModal'
+import { DeleteConfirmModal } from './components/DeleteConfirmModal'
 import { useSites } from './hooks/useSites'
 import { 
   Clock, 
@@ -54,6 +55,8 @@ export function App() {
   const [isSiteModalOpen, setIsSiteModalOpen] = useState(false)
   const [editingSite, setEditingSite] = useState(null)
   const [previewImage, setPreviewImage] = useState({ isOpen: false, url: '', title: '' })
+  const [deleteTarget, setDeleteTarget] = useState({ isOpen: false, id: null, name: '' })
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const handleOpenAddModal = () => {
     setEditingSite(null)
@@ -75,6 +78,23 @@ export function App() {
 
   const handlePreviewImage = (url, title) => {
     setPreviewImage({ isOpen: true, url, title })
+  }
+
+  const handleRequestDelete = (siteId) => {
+    const target = sites.find((s) => s.id === siteId)
+    setDeleteTarget({
+      isOpen: true,
+      id: siteId,
+      name: target?.company_name || 'Site ini'
+    })
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget.id) return
+    setIsDeleting(true)
+    await deleteSite(deleteTarget.id)
+    setIsDeleting(false)
+    setDeleteTarget({ isOpen: false, id: null, name: '' })
   }
 
   // Ringkasan Statistik
@@ -104,57 +124,70 @@ export function App() {
       {/* Konten Utama */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4">
         
-        {/* Baris Ringkasan Kartu Statistik (Compact & Mobile Friendly) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
+        {/* Ringkasan Statistik: Total Site 100% Width & 4 Status di Bawahnya */}
+        <div className="space-y-2 sm:space-y-3">
           
-          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
-              <Layers className="w-4 h-4" />
+          {/* Total Site Card (Width 100%) */}
+          <div className="w-full bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs">
+                <Layers className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Site</div>
+                <div className="text-xs text-slate-500 truncate hidden xs:block sm:block">
+                  Jumlah seluruh lokasi site yang terdaftar
+                </div>
+              </div>
             </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Total Site</div>
-              <div className="text-base sm:text-lg font-bold text-slate-900">{stats.total}</div>
-            </div>
-          </div>
-
-          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-              <Clock className="w-4 h-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">On Going</div>
-              <div className="text-base sm:text-lg font-bold text-blue-600">{stats.onGoing}</div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 shrink-0 pr-1">
+              {stats.total}
             </div>
           </div>
 
-          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
-              <Clock className="w-4 h-4" />
+          {/* 4 Status Cards (Grid 2 Kolom di Mobile, 4 Kolom di Desktop) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+            
+            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                <Clock className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">On Going</div>
+                <div className="text-base sm:text-lg font-bold text-blue-600">{stats.onGoing}</div>
+              </div>
             </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Pending</div>
-              <div className="text-base sm:text-lg font-bold text-amber-600">{stats.pending}</div>
-            </div>
-          </div>
 
-          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
-              <CheckCircle className="w-4 h-4" />
+            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+                <Clock className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Pending</div>
+                <div className="text-base sm:text-lg font-bold text-amber-600">{stats.pending}</div>
+              </div>
             </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Approve</div>
-              <div className="text-base sm:text-lg font-bold text-emerald-600">{stats.approve}</div>
-            </div>
-          </div>
 
-          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5 col-span-2 sm:col-span-1">
-            <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
-              <XCircle className="w-4 h-4" />
+            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+                <CheckCircle className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Approve</div>
+                <div className="text-base sm:text-lg font-bold text-emerald-600">{stats.approve}</div>
+              </div>
             </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Decline</div>
-              <div className="text-base sm:text-lg font-bold text-rose-600">{stats.decline}</div>
+
+            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
+                <XCircle className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Decline</div>
+                <div className="text-base sm:text-lg font-bold text-rose-600">{stats.decline}</div>
+              </div>
             </div>
+
           </div>
 
         </div>
@@ -169,7 +202,7 @@ export function App() {
             onOpenAddModal={handleOpenAddModal}
             onOpenEditModal={handleOpenEditModal}
             onUpdateStatus={updateStatus}
-            onDeleteSite={deleteSite}
+            onDeleteSite={handleRequestDelete}
             onPreviewImage={handlePreviewImage}
             onRefresh={fetchSites}
           />
@@ -182,7 +215,7 @@ export function App() {
             onOpenAddModal={handleOpenAddModal}
             onOpenEditModal={handleOpenEditModal}
             onUpdateStatus={updateStatus}
-            onDeleteSite={deleteSite}
+            onDeleteSite={handleRequestDelete}
             onPreviewImage={handlePreviewImage}
             onRefresh={fetchSites}
           />
@@ -211,6 +244,15 @@ export function App() {
         imageUrl={previewImage.url}
         title={previewImage.title}
         onClose={() => setPreviewImage({ isOpen: false, url: '', title: '' })}
+      />
+
+      {/* Modal Konfirmasi Hapus Data Estetik */}
+      <DeleteConfirmModal
+        isOpen={deleteTarget.isOpen}
+        siteName={deleteTarget.name}
+        isDeleting={isDeleting}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteTarget({ isOpen: false, id: null, name: '' })}
       />
 
     </div>

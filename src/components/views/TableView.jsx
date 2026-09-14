@@ -16,6 +16,7 @@ import {
   LayoutGrid
 } from 'lucide-react'
 import { exportSitesToExcel } from '../../utils/excelExport'
+import { StatusDropdown } from '../StatusDropdown'
 
 const STATUS_CONFIG = {
   'On Going': {
@@ -301,28 +302,14 @@ export function TableView({
                         </div>
                       </td>
 
-                      {/* Status (Dropdown Ubah Cepat Langsung di Baris Tabel) */}
+                      {/* Status Dropdown Estetik */}
                       <td className="py-3.5 px-4">
-                        <div className="relative inline-block">
-                          <select
-                            value={site.status}
-                            disabled={updatingId === site.id}
-                            onChange={(e) => handleInlineStatusChange(site.id, e.target.value)}
-                            className={`text-xs font-semibold px-2.5 py-1.5 rounded-lg border appearance-none pr-7 cursor-pointer outline-none transition ${statusStyle.bg} ${
-                              updatingId === site.id ? 'opacity-50' : ''
-                            }`}
-                            title="Klik untuk langsung mengubah status"
-                          >
-                            {ALL_STATUSES.map((st) => (
-                              <option key={st} value={st} className="bg-white text-slate-800 font-medium">
-                                {st}
-                              </option>
-                            ))}
-                          </select>
-                          <div className="pointer-events-none absolute right-2 top-2.5 text-current opacity-70">
-                            <ChevronDown className="w-3 h-3" />
-                          </div>
-                        </div>
+                        <StatusDropdown
+                          currentStatus={site.status}
+                          disabled={updatingId === site.id}
+                          onChange={(newStatus) => handleInlineStatusChange(site.id, newStatus)}
+                          size="sm"
+                        />
                       </td>
 
                       {/* Keterangan */}
