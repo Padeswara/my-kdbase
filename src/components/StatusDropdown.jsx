@@ -103,7 +103,7 @@ export function StatusDropdown({ currentStatus = 'Pending', onChange, disabled =
                     <span className={`w-2 h-2 rounded-full ${itemConfig.dot}`}></span>
                     <span>{status}</span>
                   </span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-blue-600 shrink-0" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-slate-900 shrink-0" />}
                 </button>
               )
             })}

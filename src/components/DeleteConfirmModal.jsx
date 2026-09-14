@@ -10,7 +10,7 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
       onClick={onCancel}
     >
       <div 
-        className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 overflow-hidden animate-in zoom-in-95 duration-150 text-center"
+        className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-150 text-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Tombol Tutup Silang */}
@@ -21,16 +21,16 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
           <X className="w-4 h-4" />
         </button>
 
-        {/* Icon Peringatan Estetik */}
-        <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-inner">
+        {/* Icon Peringatan Minimalis */}
+        <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-xs">
           <AlertTriangle className="w-7 h-7" />
         </div>
 
-        <h3 className="text-lg font-bold text-slate-900 m-0">
+        <h3 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">
           Hapus Data Site?
         </h3>
 
-        <p className="text-xs text-slate-500 mt-2 mb-6 leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-500 mt-2 mb-6 leading-relaxed">
           Apakah Anda yakin ingin menghapus data <span className="font-bold text-slate-800">"{siteName}"</span>? Tindakan ini tidak dapat dibatalkan.
         </p>
 
@@ -40,7 +40,7 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             type="button"
             onClick={onCancel}
             disabled={isDeleting}
-            className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition cursor-pointer disabled:opacity-50"
+            className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition cursor-pointer disabled:opacity-50"
           >
             Batal
           </button>
@@ -48,7 +48,7 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="w-full py-2.5 px-4 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-rose-600/20 transition cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-xs transition duration-200 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5 active:scale-98"
           >
             {isDeleting ? (
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -65,4 +65,3 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
     </div>
   )
 }
-

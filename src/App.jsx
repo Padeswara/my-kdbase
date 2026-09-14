@@ -44,7 +44,7 @@ export function App() {
     localStorage.removeItem('kdbase_auth_session')
     localStorage.removeItem('kdbase_last_activity')
     setCurrentUser(null)
-    setIdleNotice('Sesi Anda telah berakhir otomatis karena tidak ada aktivitas selama 10 menit.')
+    setIdleNotice('Sesi Anda telah berakhir otomatis karena tidak ada aktivitas selama 10 menit demi keamanan akun.')
   }
 
   useIdleTimer({
@@ -145,20 +145,22 @@ export function App() {
         {/* Ringkasan Statistik: Total Site 100% Width & 4 Status di Bawahnya */}
         <div className="space-y-2 sm:space-y-3">
           
-          {/* Total Site Card (Width 100%) */}
-          <div className="w-full bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-between">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs">
-                <Layers className="w-4 h-4 sm:w-5 sm:h-5" />
+          {/* Total Site Card (Width 100% Minimalist Style) */}
+          <div className="w-full bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
+            <div className="flex items-center gap-3.5 min-w-0">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
+                <Layers className="w-5 h-5" />
               </div>
               <div className="min-w-0">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Site</div>
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  Total Site
+                </div>
                 <div className="text-xs text-slate-500 truncate hidden xs:block sm:block">
                   Jumlah seluruh lokasi site yang terdaftar
                 </div>
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 shrink-0 pr-1">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 shrink-0 pr-1">
               {stats.total}
             </div>
           </div>
@@ -166,43 +168,43 @@ export function App() {
           {/* 4 Status Cards (Grid 2 Kolom di Mobile, 4 Kolom di Desktop) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">On Going</div>
-                <div className="text-base sm:text-lg font-bold text-blue-600">{stats.onGoing}</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">On Going</div>
+                <div className="text-base sm:text-lg font-black text-slate-900">{stats.onGoing}</div>
               </div>
             </div>
 
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Pending</div>
-                <div className="text-base sm:text-lg font-bold text-amber-600">{stats.pending}</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Pending</div>
+                <div className="text-base sm:text-lg font-black text-slate-900">{stats.pending}</div>
               </div>
             </div>
 
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
                 <CheckCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Approve</div>
-                <div className="text-base sm:text-lg font-bold text-emerald-600">{stats.approve}</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Approve</div>
+                <div className="text-base sm:text-lg font-black text-slate-900">{stats.approve}</div>
               </div>
             </div>
 
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
+            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
                 <XCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Decline</div>
-                <div className="text-base sm:text-lg font-bold text-rose-600">{stats.decline}</div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Decline</div>
+                <div className="text-base sm:text-lg font-black text-slate-900">{stats.decline}</div>
               </div>
             </div>
 
@@ -210,7 +212,7 @@ export function App() {
 
         </div>
 
-        {/* Tampilan Aktif: Default CardView yang lebih compact */}
+        {/* Tampilan Aktif: CardView atau TableView */}
         {currentView === 'card' ? (
           <CardView
             sites={sites}
@@ -241,11 +243,9 @@ export function App() {
 
       </main>
 
-      {/* Footer */}
-      <footer className="mt-auto py-6 border-t border-slate-200 bg-white/70 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4">
-          <p className="m-0">© 2026 Rittergeistworks by Padeswaraa. All rights reserved.</p>
-        </div>
+      {/* Footer Paling Bawah (Sama Persis dengan Login Page) */}
+      <footer className="mt-auto w-full py-5 border-t border-slate-200/60 text-center text-xs text-slate-400 bg-white/40">
+        © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
       {/* Modal Tambahkan / Edit Site */}
