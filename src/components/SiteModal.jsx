@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { X, Upload, Building2, MapPin, User, Phone } from 'lucide-react'
 
 const STATUS_CONFIGS = [
-  { value: 'On Going', label: 'On Going', color: 'border-blue-300 bg-blue-50/80 text-blue-700 ring-blue-500/20' },
-  { value: 'Pending', label: 'Pending', color: 'border-amber-300 bg-amber-50/80 text-amber-700 ring-amber-500/20' },
-  { value: 'Approve', label: 'Approve', color: 'border-emerald-300 bg-emerald-50/80 text-emerald-700 ring-emerald-500/20' },
-  { value: 'Decline', label: 'Decline', color: 'border-rose-300 bg-rose-50/80 text-rose-700 ring-rose-500/20' }
+  { value: 'On Going', label: 'On Going', color: 'border-blue-500/50 bg-blue-500/20 text-blue-300 ring-blue-500/30' },
+  { value: 'Pending', label: 'Pending', color: 'border-amber-500/50 bg-amber-500/20 text-amber-300 ring-amber-500/30' },
+  { value: 'Approve', label: 'Approve', color: 'border-emerald-500/50 bg-emerald-500/20 text-emerald-300 ring-emerald-500/30' },
+  { value: 'Decline', label: 'Decline', color: 'border-rose-500/50 bg-rose-500/20 text-rose-300 ring-rose-500/30' }
 ]
 
 export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
@@ -106,7 +106,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/45 backdrop-blur-xl overflow-y-auto animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-2xl overflow-y-auto animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div 
@@ -115,13 +115,13 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
       >
         
         {/* Header Modal */}
-        <div className="flex items-center justify-between px-6 py-5 bg-white/45 backdrop-blur-md border-b border-white/60">
+        <div className="flex items-center justify-between px-6 py-5 bg-white/[0.04] backdrop-blur-md border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-md shadow-slate-900/20">
+            <div className="w-10 h-10 rounded-2xl bg-white text-slate-950 flex items-center justify-center shadow-lg shadow-white/10">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 leading-tight tracking-tight">
+              <h2 className="text-base sm:text-lg font-black text-white m-0 leading-tight tracking-tight">
                 {editingSite ? 'Edit Site Data' : 'Add New Site'}
               </h2>
               <p className="text-xs text-slate-400 m-0 mt-0.5">
@@ -131,7 +131,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-white/80 rounded-full transition cursor-pointer backdrop-blur-sm"
+            className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -141,28 +141,28 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4 max-h-[80vh] overflow-y-auto">
           {errorMsg && (
-            <div className="p-3 bg-rose-50/90 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl animate-in fade-in backdrop-blur-sm">
+            <div className="p-3 bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-bold rounded-xl animate-in fade-in backdrop-blur-sm">
               {errorMsg}
             </div>
           )}
 
           {/* Photo Upload */}
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
               Photo Documentation
             </label>
-            <div className="border-2 border-dashed border-slate-300/80 hover:border-slate-400 bg-white/40 hover:bg-white/60 backdrop-blur-sm rounded-2xl p-3 sm:p-4 transition text-center shadow-2xs">
+            <div className="border-2 border-dashed border-white/15 hover:border-white/30 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-sm rounded-2xl p-3 sm:p-4 transition text-center shadow-2xs">
               {imagePreview ? (
                 <div className="relative inline-block group">
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="w-44 h-28 object-cover rounded-xl shadow-xs border border-white/80 mx-auto"
+                    className="w-44 h-28 object-cover rounded-xl shadow-xs border border-white/20 mx-auto"
                   />
                   <button
                     type="button"
                     onClick={handleRemoveImage}
-                    className="absolute -top-2 -right-2 p-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full shadow-md transition cursor-pointer"
+                    className="absolute -top-2 -right-2 p-1 bg-rose-600 hover:bg-rose-500 text-white rounded-full shadow-md transition cursor-pointer"
                     title="Remove photo"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -170,10 +170,10 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                 </div>
               ) : (
                 <label className="cursor-pointer flex flex-col items-center justify-center py-2">
-                  <div className="w-10 h-10 rounded-2xl bg-white/90 border border-white flex items-center justify-center text-slate-700 mb-1.5 shadow-xs">
+                  <div className="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center text-slate-200 mb-1.5 shadow-xs">
                     <Upload className="w-4 h-4" />
                   </div>
-                  <span className="text-xs font-bold text-slate-900 hover:underline">
+                  <span className="text-xs font-bold text-white hover:underline">
                     Choose Photo File
                   </span>
                   <span className="text-[11px] text-slate-400 mt-0.5">
@@ -193,8 +193,8 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
           <div className="space-y-3">
             {/* Company Name */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                Company Name <span className="text-rose-500">*</span>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                Company Name <span className="text-rose-400">*</span>
               </label>
               <div className="relative">
                 <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -204,15 +204,15 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   value={formData.company_name}
                   onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                   placeholder="e.g. Acme Technologies"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Address */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                Full Address <span className="text-rose-500">*</span>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                Full Address <span className="text-rose-400">*</span>
               </label>
               <div className="relative">
                 <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -222,7 +222,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   placeholder="e.g. 123 Main Street, Suite 400"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
                 />
               </div>
             </div>
@@ -230,8 +230,8 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
             {/* PIC & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                  PIC Name <span className="text-rose-500">*</span>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  PIC Name <span className="text-rose-400">*</span>
                 </label>
                 <div className="relative">
                   <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -241,14 +241,14 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     value={formData.pic_name}
                     onChange={(e) => setFormData({ ...formData, pic_name: e.target.value })}
                     placeholder="e.g. John Doe"
-                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
+                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                  PIC WhatsApp Number <span className="text-rose-500">*</span>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  PIC WhatsApp Number <span className="text-rose-400">*</span>
                 </label>
                 <div className="relative">
                   <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -258,7 +258,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     value={formData.pic_phone}
                     onChange={(e) => setFormData({ ...formData, pic_phone: e.target.value })}
                     placeholder="e.g. 08123456789"
-                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
+                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -266,7 +266,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
 
             {/* Status Selection */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-2">
                 Site Status
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -280,13 +280,13 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                       className={`py-2 px-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                         isSelected
                           ? `${opt.color} shadow-xs ring-2 scale-[1.02] backdrop-blur-sm`
-                          : 'border-white/80 bg-white/50 backdrop-blur-sm text-slate-700 hover:bg-white/90 hover:text-slate-900'
+                          : 'border-white/10 bg-white/[0.05] backdrop-blur-sm text-slate-300 hover:bg-white/10 hover:text-white'
                       }`}
                     >
                       <span className={`w-2 h-2 rounded-full ${
-                        opt.value === 'On Going' ? 'bg-blue-500' :
-                        opt.value === 'Pending' ? 'bg-amber-500' :
-                        opt.value === 'Approve' ? 'bg-emerald-500' : 'bg-rose-500'
+                        opt.value === 'On Going' ? 'bg-blue-400' :
+                        opt.value === 'Pending' ? 'bg-amber-400' :
+                        opt.value === 'Approve' ? 'bg-emerald-400' : 'bg-rose-400'
                       }`}></span>
                       <span>{opt.label}</span>
                     </button>
@@ -297,7 +297,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
 
             {/* Additional Notes */}
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                 Additional Notes
               </label>
               <textarea
@@ -305,28 +305,28 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 placeholder="Progress notes, obstacles, or specifications..."
-                className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none resize-none"
+                className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none resize-none"
               />
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-white/60">
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-white/10">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 glass-btn-secondary rounded-xl cursor-pointer"
+              className="px-4 py-2.5 text-xs font-bold text-slate-300 hover:text-white glass-btn-secondary rounded-xl cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2.5 bg-slate-900 hover:bg-black text-white font-bold text-xs rounded-xl shadow-md shadow-slate-900/15 transition duration-200 cursor-pointer disabled:opacity-50 flex items-center gap-1.5 active:scale-98"
+              className="px-5 py-2.5 bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-white/10 transition duration-200 cursor-pointer disabled:opacity-50 flex items-center gap-1.5 active:scale-98"
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
                   <span>Saving...</span>
                 </>
               ) : (

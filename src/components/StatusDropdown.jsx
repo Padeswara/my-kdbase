@@ -4,24 +4,24 @@ import { ChevronDown, Check } from 'lucide-react'
 
 const STATUS_MAP = {
   'On Going': {
-    badge: 'bg-white/90 backdrop-blur-md text-blue-700 border-blue-200/90 hover:bg-white shadow-2xs shadow-blue-500/10',
-    dot: 'bg-blue-500 shadow-xs shadow-blue-500/50 ring-2 ring-blue-400/20',
-    hover: 'hover:bg-blue-50/80 hover:text-blue-800'
+    badge: 'bg-blue-500/15 backdrop-blur-md text-blue-300 border-blue-500/30 hover:bg-blue-500/25 shadow-xs shadow-blue-500/10',
+    dot: 'bg-blue-400 shadow-xs shadow-blue-500/50 ring-2 ring-blue-400/30',
+    hover: 'hover:bg-white/10 hover:text-white'
   },
   'Pending': {
-    badge: 'bg-white/90 backdrop-blur-md text-amber-700 border-amber-200/90 hover:bg-white shadow-2xs shadow-amber-500/10',
-    dot: 'bg-amber-500 shadow-xs shadow-amber-500/50 ring-2 ring-amber-400/20',
-    hover: 'hover:bg-amber-50/80 hover:text-amber-800'
+    badge: 'bg-amber-500/15 backdrop-blur-md text-amber-300 border-amber-500/30 hover:bg-amber-500/25 shadow-xs shadow-amber-500/10',
+    dot: 'bg-amber-400 shadow-xs shadow-amber-500/50 ring-2 ring-amber-400/30',
+    hover: 'hover:bg-white/10 hover:text-white'
   },
   'Approve': {
-    badge: 'bg-white/90 backdrop-blur-md text-emerald-700 border-emerald-200/90 hover:bg-white shadow-2xs shadow-emerald-500/10',
-    dot: 'bg-emerald-500 shadow-xs shadow-emerald-500/50 ring-2 ring-emerald-400/20',
-    hover: 'hover:bg-emerald-50/80 hover:text-emerald-800'
+    badge: 'bg-emerald-500/15 backdrop-blur-md text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/25 shadow-xs shadow-emerald-500/10',
+    dot: 'bg-emerald-400 shadow-xs shadow-emerald-500/50 ring-2 ring-emerald-400/30',
+    hover: 'hover:bg-white/10 hover:text-white'
   },
   'Decline': {
-    badge: 'bg-white/90 backdrop-blur-md text-rose-700 border-rose-200/90 hover:bg-white shadow-2xs shadow-rose-500/10',
-    dot: 'bg-rose-500 shadow-xs shadow-rose-500/50 ring-2 ring-rose-400/20',
-    hover: 'hover:bg-rose-50/80 hover:text-rose-800'
+    badge: 'bg-rose-500/15 backdrop-blur-md text-rose-300 border-rose-500/30 hover:bg-rose-500/25 shadow-xs shadow-rose-500/10',
+    dot: 'bg-rose-400 shadow-xs shadow-rose-500/50 ring-2 ring-rose-400/30',
+    hover: 'hover:bg-white/10 hover:text-white'
   }
 }
 
@@ -171,15 +171,15 @@ export function StatusDropdown({
                   onClick={() => handleSelect(status)}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-slate-900 text-white font-bold shadow-xs'
-                      : `text-slate-700 hover:bg-white/80`
+                      ? 'bg-white text-slate-950 font-bold shadow-xs'
+                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   <span className="flex items-center gap-2">
                     <span className={`w-2 h-2 rounded-full ${itemConfig.dot}`}></span>
                     <span>{status}</span>
                   </span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-white shrink-0" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-slate-950 shrink-0" />}
                 </button>
               )
             })}

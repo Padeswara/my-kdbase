@@ -130,7 +130,7 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+    <div className="min-h-screen bg-[#0b0f19] flex flex-col font-sans text-slate-100">
       
       {/* Responsive Navbar */}
       <Navbar
@@ -141,10 +141,10 @@ export function App() {
 
       {/* Ambient Glass Background Glows */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-sky-300/35 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl" />
-        <div className="absolute top-2/3 -left-20 w-88 h-88 bg-violet-200/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 right-1/4 w-96 h-96 bg-emerald-200/35 rounded-full blur-3xl" />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-2/3 -left-20 w-88 h-88 bg-violet-600/15 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl" />
       </div>
 
       {/* Main Content */}
@@ -156,19 +156,19 @@ export function App() {
           {/* Total Sites Card (100% Width) */}
           <div className="w-full glass-panel-hover p-4 sm:p-5 rounded-2xl flex items-center justify-between cursor-default">
             <div className="flex items-center gap-3.5 min-w-0">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-md shadow-slate-900/20">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-white/10">
                 <Layers className="w-5 h-5" />
               </div>
               <div className="min-w-0">
                 <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   Total Sites
                 </div>
-                <div className="text-xs text-slate-500 truncate hidden xs:block sm:block">
+                <div className="text-xs text-slate-400 truncate hidden xs:block sm:block">
                   Total number of registered site locations
                 </div>
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-black text-slate-900 shrink-0 pr-1">
+            <div className="text-2xl sm:text-3xl font-black text-white shrink-0 pr-1">
               {stats.total}
             </div>
           </div>
@@ -177,42 +177,42 @@ export function App() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             
             <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 border border-blue-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">On Going</div>
-                <div className="text-base sm:text-lg font-black text-slate-900">{stats.onGoing}</div>
+                <div className="text-base sm:text-lg font-black text-white">{stats.onGoing}</div>
               </div>
             </div>
 
             <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 border border-amber-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Pending</div>
-                <div className="text-base sm:text-lg font-black text-slate-900">{stats.pending}</div>
+                <div className="text-base sm:text-lg font-black text-white">{stats.pending}</div>
               </div>
             </div>
 
             <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <CheckCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Approve</div>
-                <div className="text-base sm:text-lg font-black text-slate-900">{stats.approve}</div>
+                <div className="text-base sm:text-lg font-black text-white">{stats.approve}</div>
               </div>
             </div>
 
             <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 border border-rose-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-rose-500/15 text-rose-400 border border-rose-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <XCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Decline</div>
-                <div className="text-base sm:text-lg font-black text-slate-900">{stats.decline}</div>
+                <div className="text-base sm:text-lg font-black text-white">{stats.decline}</div>
               </div>
             </div>
 
@@ -252,7 +252,7 @@ export function App() {
       </main>
 
       {/* Sticky Bottom Footer */}
-      <footer className="mt-auto w-full py-5 border-t border-white/80 text-center text-xs text-slate-400 bg-white/50 backdrop-blur-md">
+      <footer className="mt-auto w-full py-5 border-t border-white/10 text-center text-xs text-slate-400 bg-slate-950/40 backdrop-blur-xl">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
