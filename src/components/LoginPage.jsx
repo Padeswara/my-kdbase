@@ -29,6 +29,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
         onLoginSuccess('Keils00')
       } else {
         setError('Username atau Password yang Anda masukkan salah. Silakan coba lagi.')
+        setError('Invalid username or password. Please try again.')
       }
       setIsLoading(false)
     }, 400)
@@ -38,13 +39,16 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
     <div className="min-h-screen bg-slate-50 flex flex-col justify-between items-center px-4 font-sans text-slate-900">
       
       {/* Spacer Atas */}
+      {/* Top Spacer */}
       <div className="h-6"></div>
 
       {/* Card Login Minimalis */}
+      {/* Minimalist Login Card */}
       <div className="w-full max-w-sm my-auto">
         <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 sm:p-8">
           
           {/* Header Brand Minimalis */}
+          {/* Header Brand */}
           <div className="text-center mb-6">
             <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center mx-auto mb-3 shadow-sm">
               <Database className="w-5 h-5" />
@@ -54,10 +58,12 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
             </h1>
             <p className="text-xs text-slate-400 m-0 mt-1">
               Masuk untuk mengelola database site
+              Sign in to manage the site database
             </p>
           </div>
 
           {/* Pesan Error */}
+          {/* Error Message */}
           {error && (
             <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium rounded-xl animate-in fade-in">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-500 mt-0.5" />
@@ -66,6 +72,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
           )}
 
           {/* Form Login */}
+          {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
@@ -111,6 +118,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
               ) : (
                 <>
                   <span>Masuk</span>
+                  <span>Sign In</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
@@ -121,44 +129,54 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
       </div>
 
       {/* Footer Paling Bawah */}
+      {/* Footer */}
       <footer className="w-full py-5 border-t border-slate-200/60 text-center text-xs text-slate-400">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
       {/* Popup Modal Timeout Sesi Estetik */}
+      {/* Session Timeout Modal */}
       {showTimeoutModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="w-full max-w-sm bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 text-center relative animate-in zoom-in-95 duration-200">
             {/* Tombol Tutup X */}
+            {/* Close Button */}
             <button
               type="button"
               onClick={() => setShowTimeoutModal(false)}
               className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition cursor-pointer"
               title="Tutup"
+              title="Close"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Icon Jam / Timeout */}
+            {/* Timeout Clock Icon */}
             <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center mx-auto mb-4 text-amber-600 shadow-xs">
               <Clock className="w-7 h-7" />
             </div>
 
             {/* Judul & Pesan */}
+            {/* Title & Message */}
             <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2">
               Sesi Telah Berakhir
+              Session Expired
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6">
               {idleNotice || 'Anda tidak melakukan aktivitas selama 10 menit demi keamanan akun. Silakan masuk kembali.'}
+              {idleNotice || 'You have been inactive for 10 minutes. For your account security, please sign in again.'}
             </p>
 
             {/* Tombol Aksi */}
+            {/* Action Button */}
             <button
               type="button"
               onClick={() => setShowTimeoutModal(false)}
               className="w-full py-2.5 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition duration-200 cursor-pointer active:scale-98"
             >
               Masuk Kembali
+              Sign In Again
             </button>
           </div>
         </div>

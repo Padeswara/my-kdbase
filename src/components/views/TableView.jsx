@@ -57,6 +57,7 @@ export function TableView({
   const [openDropdownId, setOpenDropdownId] = useState(null)
 
   // Filter dan pencarian data
+  // Filter and search data
   const filteredSites = useMemo(() => {
     return sites.filter((item) => {
       const matchesStatus = statusFilter === 'ALL' || item.status === statusFilter
@@ -74,6 +75,7 @@ export function TableView({
   }, [sites, searchTerm, statusFilter])
 
   // Handler ubah status langsung dari baris tabel
+  // Inline status change handler
   const handleInlineStatusChange = async (id, newStatus) => {
     setUpdatingId(id)
     await onUpdateStatus(id, newStatus)
@@ -81,22 +83,28 @@ export function TableView({
   }
 
   // Handler Export Excel
+  // Excel export handler
   const handleExport = () => {
     exportSitesToExcel(filteredSites, 'Data_Site_Perusahaan')
+    exportSitesToExcel(filteredSites, 'Site_Data')
   }
 
   return (
     <div className="space-y-4">
       
       {/* Baris Tombol Aksi Utama & Switcher View */}
+      {/* Main Action Buttons & View Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center justify-between sm:justify-start gap-3">
           <div>
             <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Tabel Site</h2>
             <p className="text-xs text-slate-400 m-0">Kelola dan tinjau data site perusahaan</p>
+            <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site Table</h2>
+            <p className="text-xs text-slate-400 m-0">Manage and review company site data</p>
           </div>
 
           {/* Switcher Tampilan (Kartu / Tabel) Minimalis */}
+          {/* View Switcher (Cards / Table) */}
           {onViewChange && (
             <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 shrink-0">
               <button
@@ -108,9 +116,11 @@ export function TableView({
                     : 'text-slate-500 hover:text-slate-900'
                 }`}
                 title="Tampilan Kartu"
+                title="Card View"
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
                 <span>Kartu</span>
+                <span>Cards</span>
               </button>
               <button
                 type="button"
@@ -121,9 +131,11 @@ export function TableView({
                     : 'text-slate-500 hover:text-slate-900'
                 }`}
                 title="Tampilan Tabel"
+                title="Table View"
               >
                 <Table className="w-3.5 h-3.5" />
                 <span>Tabel</span>
+                <span>Table</span>
               </button>
             </div>
           )}
@@ -135,9 +147,11 @@ export function TableView({
             disabled={filteredSites.length === 0}
             className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50 shadow-2xs active:scale-98"
             title="Download data sebagai file Excel (.xlsx)"
+            title="Download data as Excel spreadsheet (.xlsx)"
           >
             <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
             <span>Export ke Excel</span>
+            <span>Export to Excel</span>
           </button>
 
           <button
@@ -146,11 +160,13 @@ export function TableView({
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Tambahkan Site</span>
+            <span>Add Site</span>
           </button>
         </div>
       </div>
 
       {/* Box Khusus Pencarian & Filter Minimalis */}
+      {/* Search & Filter Box */}
       <div className="bg-white p-2.5 sm:p-3 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
         {/* Search Box */}
         <div className="relative flex-1">
@@ -160,11 +176,13 @@ export function TableView({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Cari perusahaan, alamat, PIC, nomor..."
+            placeholder="Search company, address, PIC, phone number..."
             className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
           />
         </div>
 
         {/* Filter Status */}
+        {/* Status Filter & Refresh */}
         <div className="flex items-center gap-2">
           <div className="relative flex-1 sm:w-44">
             <Filter className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
@@ -174,6 +192,7 @@ export function TableView({
               className="w-full pl-9 pr-8 py-2.5 text-xs font-bold rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-700 appearance-none cursor-pointer"
             >
               <option value="ALL">Semua Status</option>
+              <option value="ALL">All Statuses</option>
               {ALL_STATUSES.map((st) => (
                 <option key={st} value={st}>
                   {st}
@@ -196,6 +215,7 @@ export function TableView({
       </div>
 
       {/* Main Table Container Minimalis */}
+      {/* Main Table Container */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         
         <div className="overflow-x-auto">
@@ -209,6 +229,12 @@ export function TableView({
                 <th className="py-3.5 px-4 min-w-[160px]">Status (Ubah Cepat)</th>
                 <th className="py-3.5 px-4 min-w-[200px]">Keterangan</th>
                 <th className="py-3.5 px-4 w-24 text-right">Aksi</th>
+                <th className="py-3.5 px-4 w-20">Photo</th>
+                <th className="py-3.5 px-4 min-w-[200px]">Company & Address</th>
+                <th className="py-3.5 px-4 min-w-[170px]">PIC & Contact</th>
+                <th className="py-3.5 px-4 min-w-[160px]">Status (Quick Change)</th>
+                <th className="py-3.5 px-4 min-w-[200px]">Notes</th>
+                <th className="py-3.5 px-4 w-24 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -218,6 +244,7 @@ export function TableView({
                   <td colSpan={7} className="py-16 text-center text-slate-400">
                     <div className="inline-block w-7 h-7 border-2 border-slate-900 border-t-transparent rounded-full animate-spin mb-2"></div>
                     <div className="text-xs">Memuat data database...</div>
+                    <div className="text-xs">Loading database...</div>
                   </td>
                 </tr>
               ) : filteredSites.length === 0 ? (
@@ -225,10 +252,13 @@ export function TableView({
                   <td colSpan={7} className="py-16 text-center text-slate-400">
                     <Building2 className="w-10 h-10 mx-auto text-slate-300 mb-2" />
                     <div className="font-bold text-slate-700">Tidak ada data ditemukan</div>
+                    <div className="font-bold text-slate-700">No data found</div>
                     <div className="text-xs text-slate-400 mt-1">
                       {searchTerm || statusFilter !== 'ALL'
                         ? 'Coba ubah kata kunci pencarian atau filter status Anda'
                         : 'Klik tombol "Tambahkan Site" untuk membuat data pertama'}
+                        ? 'Try adjusting your search query or status filter'
+                        : 'Click "Add Site" to create the first record'}
                     </div>
                   </td>
                 </tr>
@@ -249,12 +279,14 @@ export function TableView({
                       </td>
 
                       {/* Foto */}
+                      {/* Photo */}
                       <td className="py-3.5 px-4">
                         {site.image_url ? (
                           <div 
                             onClick={() => onPreviewImage(site.image_url, site.company_name)}
                             className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200/80 cursor-pointer group-hover:border-slate-400 transition shadow-2xs relative bg-slate-100 flex items-center justify-center"
                             title="Klik untuk melihat foto penuh"
+                            title="Click to view full photo"
                           >
                             <img
                               src={site.image_url}
@@ -276,6 +308,7 @@ export function TableView({
                       </td>
 
                       {/* Perusahaan & Alamat */}
+                      {/* Company & Address */}
                       <td className="py-3.5 px-4">
                         <div className="font-bold text-slate-900 group-hover:text-black transition">
                           {site.company_name}
@@ -286,6 +319,7 @@ export function TableView({
                       </td>
 
                       {/* PIC & Kontak */}
+                      {/* PIC & Contact */}
                       <td className="py-3.5 px-4">
                         <div className="font-semibold text-slate-800 flex items-center gap-1.5">
                           <span>{site.pic_name}</span>
@@ -306,6 +340,7 @@ export function TableView({
                       </td>
 
                       {/* Status Dropdown Estetik */}
+                      {/* Floating Status Dropdown */}
                       <td className="py-3.5 px-4">
                         <StatusDropdown
                           currentStatus={site.status}
@@ -317,6 +352,7 @@ export function TableView({
                       </td>
 
                       {/* Keterangan */}
+                      {/* Notes */}
                       <td className="py-3.5 px-4">
                         <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                           {site.notes || '-'}
@@ -324,6 +360,7 @@ export function TableView({
                       </td>
 
                       {/* Aksi */}
+                      {/* Actions */}
                       <td className="py-3.5 px-4 text-right">
                         <div className="inline-flex items-center gap-1">
                           <button
@@ -337,6 +374,7 @@ export function TableView({
                             onClick={() => onDeleteSite(site.id)}
                             className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
                             title="Hapus Data"
+                            title="Delete Data"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -353,22 +391,39 @@ export function TableView({
 
         {/* Table Footer Summary */}
         <div className="px-5 py-3.5 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        {/* Table Footer Summary (Status text hidden on mobile, dots only) */}
+        <div className="px-4 sm:px-5 py-3.5 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
           <div>
             Menampilkan <span className="font-bold text-slate-800">{filteredSites.length}</span> dari{' '}
             <span className="font-bold text-slate-800">{sites.length}</span> total site
+            Showing <span className="font-bold text-slate-800">{filteredSites.length}</span> of{' '}
+            <span className="font-bold text-slate-800">{sites.length}</span> total sites
           </div>
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1.5 font-medium">
               <span className="w-2 h-2 rounded-full bg-blue-500"></span> On Going
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="inline-flex items-center gap-1.5 font-medium" title="On Going">
+              <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span className="hidden sm:inline">On Going</span>
             </span>
             <span className="inline-flex items-center gap-1.5 font-medium">
               <span className="w-2 h-2 rounded-full bg-amber-500"></span> Pending
+            <span className="inline-flex items-center gap-1.5 font-medium" title="Pending">
+              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+              <span className="hidden sm:inline">Pending</span>
             </span>
             <span className="inline-flex items-center gap-1.5 font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Approve
+            <span className="inline-flex items-center gap-1.5 font-medium" title="Approve">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="hidden sm:inline">Approve</span>
             </span>
             <span className="inline-flex items-center gap-1.5 font-medium">
               <span className="w-2 h-2 rounded-full bg-rose-500"></span> Decline
+            <span className="inline-flex items-center gap-1.5 font-medium" title="Decline">
+              <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+              <span className="hidden sm:inline">Decline</span>
             </span>
           </div>
         </div>

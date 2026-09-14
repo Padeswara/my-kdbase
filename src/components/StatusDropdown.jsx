@@ -138,6 +138,7 @@ export function StatusDropdown({
           size === 'sm' ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
         } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
         title="Klik untuk mengubah status"
+        title="Click to change status"
       >
         <span className={`w-2 h-2 rounded-full shrink-0 ${config.dot}`}></span>
         <span>{currentStatus}</span>
@@ -145,6 +146,7 @@ export function StatusDropdown({
       </button>
 
       {/* Floating Menu via React Portal: Bebas dari overflow-hidden / scroll wrapper tabel */}
+      {/* Floating Menu via React Portal */}
       {isOpen && typeof document !== 'undefined' && createPortal(
         <div 
           ref={menuRef}
@@ -154,6 +156,7 @@ export function StatusDropdown({
         >
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
             Ubah Status
+            Change Status
           </div>
           <div className="space-y-0.5 mt-0.5">
             {ALL_STATUSES.map((status) => {

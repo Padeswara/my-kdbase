@@ -8,6 +8,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
         <div className="flex items-center justify-between h-14 sm:h-16 gap-2">
           
           {/* Logo & Brand: MY KDBASE (Minimalist Black & White like Login Page) */}
+          {/* Logo & Brand: MY KDBASE */}
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-xs shrink-0">
               <Database className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
@@ -18,13 +19,16 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
           </div>
 
           {/* Kanan: Status Database Online / Offline, User, Logout */}
+          {/* Right: Supabase Status, User Profile, Logout */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             
             {/* Status Supabase Database (Online / Offline) */}
+            {/* Supabase Database Status (Online / Offline) */}
             {isDbOnline ? (
               <span 
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs"
                 title="Database Supabase terhubung dan siap digunakan"
+                title="Supabase database is connected and ready"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span className="text-[11px] font-bold">Online</span>
@@ -33,6 +37,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
               <span 
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200/80 shadow-2xs"
                 title="Database Supabase sedang tidak terhubung atau offline"
+                title="Supabase database is disconnected or offline"
               >
                 <span className="w-2 h-2 rounded-full bg-rose-500"></span>
                 <span className="text-[11px] font-bold">Offline</span>
@@ -40,6 +45,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
             )}
 
             {/* User Profile Minimalist */}
+            {/* Minimalist User Profile */}
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
               <div className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-[10px]">
                 {currentUser?.substring(0, 1) || 'K'}
@@ -52,6 +58,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
               onClick={onLogout}
               className="p-1.5 sm:p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition cursor-pointer"
               title="Keluar / Logout"
+              title="Log out"
             >
               <LogOut className="w-4 h-4" />
             </button>

@@ -17,6 +17,7 @@ import {
 
 export function App() {
   // 1. Autentikasi Sederhana
+  // 1. Simple Authentication
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const session = localStorage.getItem('kdbase_auth_session')
@@ -40,11 +41,13 @@ export function App() {
   }
 
   // Auto-logout jika idle / AFK selama 10 menit
+  // Auto-logout after 10 minutes of AFK / inactivity
   const handleIdleTimeout = () => {
     localStorage.removeItem('kdbase_auth_session')
     localStorage.removeItem('kdbase_last_activity')
     setCurrentUser(null)
     setIdleNotice('Sesi Anda telah berakhir otomatis karena tidak ada aktivitas selama 10 menit demi keamanan akun.')
+    setIdleNotice('Your session has automatically expired due to 10 minutes of inactivity for account security.')
   }
 
   useIdleTimer({
@@ -53,6 +56,7 @@ export function App() {
   })
 
   // 2. Data Hook Terpusat
+  // 2. Data Hook
   const {
     sites,
     loading,
@@ -67,6 +71,7 @@ export function App() {
   } = useSites()
 
   // 3. Tampilan Default: 'card' (tampilan kartu ringkas sesuai permintaan)
+  // 3. Default View: 'card'
   const [currentView, setCurrentView] = useState('card')
 
   // 4. Modal States
@@ -104,6 +109,7 @@ export function App() {
       isOpen: true,
       id: siteId,
       name: target?.company_name || 'Site ini'
+      name: target?.company_name || 'This site'
     })
   }
 
@@ -116,6 +122,7 @@ export function App() {
   }
 
   // Ringkasan Statistik
+  // Summary Statistics
   const stats = {
     total: sites.length,
     onGoing: sites.filter((s) => s.status === 'On Going').length,
@@ -125,6 +132,7 @@ export function App() {
   }
 
   // Jika belum login, tampilkan halaman Login
+  // If not logged in, render LoginPage
   if (!currentUser) {
     return <LoginPage onLoginSuccess={handleLoginSuccess} idleNotice={idleNotice} />
   }
@@ -133,6 +141,7 @@ export function App() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
       
       {/* Navbar Atas Responsif */}
+      {/* Responsive Navbar */}
       <Navbar
         currentUser={currentUser}
         onLogout={handleLogout}
@@ -140,12 +149,15 @@ export function App() {
       />
 
       {/* Konten Utama */}
+      {/* Main Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4">
         
         {/* Ringkasan Statistik: Total Site 100% Width & 4 Status di Bawahnya */}
+        {/* Statistics Summary: Total Sites (100% Width) & 4 Status Cards */}
         <div className="space-y-2 sm:space-y-3">
           
           {/* Total Site Card (Width 100% Minimalist Style) */}
+          {/* Total Sites Card (100% Width) */}
           <div className="w-full bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
             <div className="flex items-center gap-3.5 min-w-0">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
@@ -154,9 +166,11 @@ export function App() {
               <div className="min-w-0">
                 <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   Total Site
+                  Total Sites
                 </div>
                 <div className="text-xs text-slate-500 truncate hidden xs:block sm:block">
                   Jumlah seluruh lokasi site yang terdaftar
+                  Total number of registered site locations
                 </div>
               </div>
             </div>
@@ -166,6 +180,7 @@ export function App() {
           </div>
 
           {/* 4 Status Cards (Grid 2 Kolom di Mobile, 4 Kolom di Desktop) */}
+          {/* 4 Status Cards (2 Columns on Mobile, 4 Columns on Desktop) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             
             <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
@@ -213,6 +228,7 @@ export function App() {
         </div>
 
         {/* Tampilan Aktif: CardView atau TableView */}
+        {/* Active View: CardView or TableView */}
         {currentView === 'card' ? (
           <CardView
             sites={sites}
@@ -244,11 +260,13 @@ export function App() {
       </main>
 
       {/* Footer Paling Bawah (Sama Persis dengan Login Page) */}
+      {/* Sticky Bottom Footer */}
       <footer className="mt-auto w-full py-5 border-t border-slate-200/60 text-center text-xs text-slate-400 bg-white/40">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
       {/* Modal Tambahkan / Edit Site */}
+      {/* Add / Edit Site Modal */}
       <SiteModal
         isOpen={isSiteModalOpen}
         onClose={() => setIsSiteModalOpen(false)}
@@ -257,6 +275,7 @@ export function App() {
       />
 
       {/* Modal Preview Gambar Ukuran Penuh */}
+      {/* Full Size Image Preview Lightbox */}
       <ImagePreviewModal
         isOpen={previewImage.isOpen}
         imageUrl={previewImage.url}
@@ -265,6 +284,7 @@ export function App() {
       />
 
       {/* Modal Konfirmasi Hapus Data Estetik */}
+      {/* Delete Confirmation Modal */}
       <DeleteConfirmModal
         isOpen={deleteTarget.isOpen}
         siteName={deleteTarget.name}
