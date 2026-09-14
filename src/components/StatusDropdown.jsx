@@ -150,7 +150,7 @@ export function StatusDropdown({
       >
         <span className={`w-2 h-2 rounded-full shrink-0 ${config.dot}`}></span>
         <span>{currentStatus}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${bgWhite ? 'text-slate-400' : 'opacity-60'} ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${bgWhite ? 'text-slate-700 dark:text-slate-800' : 'text-current opacity-80'} ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Floating Menu via React Portal */}

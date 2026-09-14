@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Database, AlertCircle, ArrowRight, Clock, X, Sun, Moon } from 'lucide-react'
+import { Database, AlertCircle, ArrowRight, Clock, X, Sun, Moon, User, Lock, Eye, EyeOff } from 'lucide-react'
 
 export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', onToggleTheme }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showTimeoutModal, setShowTimeoutModal] = useState(Boolean(idleNotice))
@@ -93,28 +94,47 @@ export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', on
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Username
               </label>
-              <input
-                type="text"
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
-              />
+              <div className="relative">
+                <User className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
+                <input
+                  type="text"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
+                />
+              </div>
             </div>
 
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Password
               </label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
-              />
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  className="w-full pl-10 pr-10 py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-2.5 p-1 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition cursor-pointer active:scale-95"
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
             </div>
 
             <button

@@ -134,7 +134,7 @@ export function CardView({
         {/* Row 1 on Mobile / Left Column on Desktop: Search Bar + Mobile Refresh */}
         <div className="flex items-center gap-2 flex-1">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+            <Search className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3" />
             <input
               type="text"
               value={searchTerm}
@@ -146,7 +146,7 @@ export function CardView({
               <button
                 type="button"
                 onClick={() => setSearchTerm('')}
-                className="absolute right-3 top-2.5 p-0.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer"
+                className="absolute right-3 top-2.5 p-0.5 rounded-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white cursor-pointer"
                 title="Clear search"
               >
                 <X className="w-4 h-4" />
@@ -159,10 +159,10 @@ export function CardView({
             <button
               type="button"
               onClick={onRefresh}
-              className="sm:hidden p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
+              className="sm:hidden p-2.5 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
               title="Refresh Data"
             >
-              <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <RotateCw className={`w-4 h-4 text-current ${loading ? 'animate-spin' : ''}`} />
             </button>
           )}
         </div>
@@ -187,10 +187,10 @@ export function CardView({
             <button
               type="button"
               onClick={handleResetFilters}
-              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold cursor-pointer active:scale-95 shrink-0"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white text-xs font-bold cursor-pointer active:scale-95 shrink-0"
               title="Reset all filters & sort"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
+              <RotateCcw className="w-3.5 h-3.5 text-current" />
               <span className="hidden md:inline">Reset</span>
             </button>
           )}
@@ -200,10 +200,10 @@ export function CardView({
             <button
               type="button"
               onClick={onRefresh}
-              className="hidden sm:flex p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
+              className="hidden sm:flex p-2.5 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
               title="Refresh Data"
             >
-              <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <RotateCw className={`w-4 h-4 text-current ${loading ? 'animate-spin' : ''}`} />
             </button>
           )}
         </div>
@@ -278,20 +278,20 @@ export function CardView({
 
                     {/* Address */}
                     <div className="flex items-start gap-1 text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
-                      <MapPin className="w-3 h-3 text-slate-400 mt-0.5 shrink-0" />
+                      <MapPin className="w-3 h-3 text-current mt-0.5 shrink-0" />
                       <span className="line-clamp-1">{site.address}</span>
                     </div>
 
                     {/* PIC & WhatsApp Contact */}
                     <div className="pt-2 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-xs gap-2">
                       <div className="truncate">
-                        <span className="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">PIC</span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-bold tracking-wider">PIC</span>
                         <span className="font-bold text-slate-800 dark:text-slate-200 truncate block text-xs">
                           {site.pic_name}
                         </span>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Contact</span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 block uppercase font-bold tracking-wider">Contact</span>
                         <a
                           href={`https://wa.me/${site.pic_phone.replace(/[^0-9]/g, '').replace(/^0/, '62')}`}
                           target="_blank"
@@ -314,23 +314,23 @@ export function CardView({
                   </div>
 
                   {/* Actions Footer */}
-                  <div className="pt-2 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+                  <div className="pt-2 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-slate-400" />
+                      <Calendar className="w-3 h-3 text-current" />
                       {site.created_at ? new Date(site.created_at).toLocaleDateString('en-US') : '-'}
                     </span>
 
                     <div className="flex items-center gap-0.5">
                       <button
                         onClick={() => onOpenEditModal(site)}
-                        className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
+                        className="p-1.5 text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
                         title="Edit Data"
                       >
                         <Edit className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => onDeleteSite(site.id)}
-                        className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
+                        className="p-1.5 text-slate-600 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
                         title="Delete Data"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

@@ -181,15 +181,15 @@ export function App() {
           {/* Total Sites Card (100% Width) */}
           <div 
             onClick={() => handleStatCardClick('ALL')}
-            className={`w-full glass-panel-hover p-4 sm:p-5 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition-all select-none ${
+            className={`w-full glass-panel-hover p-4 sm:p-5 rounded-2xl flex items-center justify-between cursor-pointer sm:active:scale-98 transition-colors select-none ${
               statusFilter === 'ALL'
                 ? 'ring-2 ring-slate-900/30 dark:ring-white/40 border-slate-900/40 dark:border-white/40 shadow-md'
-                : 'hover:border-slate-300 dark:hover:border-white/25'
+                : 'sm:hover:border-slate-300 sm:dark:hover:border-white/25'
             }`}
             title="Click to view all site locations"
           >
             <div className="flex items-center gap-3.5 min-w-0">
-              <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-md transition-all ${
+              <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-md transition-colors ${
                 statusFilter === 'ALL'
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-slate-900/20 dark:shadow-white/20'
                   : 'bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white border border-slate-200 dark:border-white/10'
@@ -221,14 +221,14 @@ export function App() {
             {/* On Going Card */}
             <div 
               onClick={() => handleStatCardClick('On Going')}
-              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer sm:active:scale-98 transition-colors select-none ${
                 statusFilter === 'On Going'
                   ? 'ring-2 ring-blue-500 border-blue-500 bg-blue-500/10 dark:bg-blue-500/20 shadow-md shadow-blue-500/20'
-                  : 'hover:border-blue-400/40'
+                  : 'sm:hover:border-blue-400/40'
               }`}
               title={statusFilter === 'On Going' ? 'Click to reset filter' : 'Click to filter On Going sites'}
             >
-              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${
                 statusFilter === 'On Going'
                   ? 'bg-blue-500 text-white border-blue-400 shadow-sm shadow-blue-500/50'
                   : 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30 backdrop-blur-sm'
@@ -248,14 +248,14 @@ export function App() {
             {/* Pending Card */}
             <div 
               onClick={() => handleStatCardClick('Pending')}
-              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer sm:active:scale-98 transition-colors select-none ${
                 statusFilter === 'Pending'
                   ? 'ring-2 ring-amber-500 border-amber-500 bg-amber-500/10 dark:bg-amber-500/20 shadow-md shadow-amber-500/20'
-                  : 'hover:border-amber-400/40'
+                  : 'sm:hover:border-amber-400/40'
               }`}
               title={statusFilter === 'Pending' ? 'Click to reset filter' : 'Click to filter Pending sites'}
             >
-              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${
                 statusFilter === 'Pending'
                   ? 'bg-amber-500 text-white border-amber-400 shadow-sm shadow-amber-500/50'
                   : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 backdrop-blur-sm'
@@ -275,14 +275,14 @@ export function App() {
             {/* Approve Card */}
             <div 
               onClick={() => handleStatCardClick('Approve')}
-              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer sm:active:scale-98 transition-colors select-none ${
                 statusFilter === 'Approve'
                   ? 'ring-2 ring-emerald-500 border-emerald-500 bg-emerald-500/10 dark:bg-emerald-500/20 shadow-md shadow-emerald-500/20'
-                  : 'hover:border-emerald-400/40'
+                  : 'sm:hover:border-emerald-400/40'
               }`}
               title={statusFilter === 'Approve' ? 'Click to reset filter' : 'Click to filter Approved sites'}
             >
-              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${
                 statusFilter === 'Approve'
                   ? 'bg-emerald-500 text-white border-emerald-400 shadow-sm shadow-emerald-500/50'
                   : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 backdrop-blur-sm'
@@ -302,14 +302,14 @@ export function App() {
             {/* Decline Card */}
             <div 
               onClick={() => handleStatCardClick('Decline')}
-              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer sm:active:scale-98 transition-colors select-none ${
                 statusFilter === 'Decline'
                   ? 'ring-2 ring-rose-500 border-rose-500 bg-rose-500/10 dark:bg-rose-500/20 shadow-md shadow-rose-500/20'
-                  : 'hover:border-rose-400/40'
+                  : 'sm:hover:border-rose-400/40'
               }`}
               title={statusFilter === 'Decline' ? 'Click to reset filter' : 'Click to filter Declined sites'}
             >
-              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-colors ${
                 statusFilter === 'Decline'
                   ? 'bg-rose-500 text-white border-rose-400 shadow-sm shadow-rose-500/50'
                   : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 backdrop-blur-sm'
