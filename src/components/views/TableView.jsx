@@ -3,7 +3,6 @@ import {
   Plus, 
   FileSpreadsheet, 
   Search, 
-  Filter, 
   Edit, 
   Trash2, 
   Image as ImageIcon, 
@@ -12,12 +11,15 @@ import {
   Building2,
   ExternalLink,
   RotateCw,
+  RotateCcw,
   Table,
   LayoutGrid
 } from 'lucide-react'
 import { exportSitesToExcel } from '../../utils/excelExport'
 import { StatusDropdown } from '../StatusDropdown'
 import { ViewSwitcher } from '../ViewSwitcher'
+import { StatusFilterDropdown } from '../StatusFilterDropdown'
+import { SortDropdown } from '../SortDropdown'
 
 const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 
@@ -35,12 +37,21 @@ export function TableView({
 }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('ALL')
+  const [sortBy, setSortBy] = useState('date-desc')
   const [updatingId, setUpdatingId] = useState(null)
   const [openDropdownId, setOpenDropdownId] = useState(null)
 
-  // Filter and search data
+  const hasActiveFilters = Boolean(searchTerm || statusFilter !== 'ALL' || sortBy !== 'date-desc')
+
+  const handleResetFilters = () => {
+    setSearchTerm('')
+    setStatusFilter('ALL')
+    setSortBy('date-desc')
+  }
+
+  // Filter, search and sort data
   const filteredSites = useMemo(() => {
-    return sites.filter((item) => {
+    const list = sites.filter((item) => {
       const matchesStatus = statusFilter === 'ALL' || item.status === statusFilter
       const searchLower = searchTerm.toLowerCase()
       const matchesSearch =
@@ -53,7 +64,23 @@ export function TableView({
 
       return matchesStatus && matchesSearch
     })
-  }, [sites, searchTerm, statusFilter])
+
+    return list.sort((a, b) => {
+      if (sortBy === 'name-asc') {
+        return (a.company_name || '').localeCompare(b.company_name || '', undefined, { sensitivity: 'base' })
+      }
+      if (sortBy === 'name-desc') {
+        return (b.company_name || '').localeCompare(a.company_name || '', undefined, { sensitivity: 'base' })
+      }
+      if (sortBy === 'date-desc') {
+        return new Date(b.created_at || 0) - new Date(a.created_at || 0)
+      }
+      if (sortBy === 'date-asc') {
+        return new Date(a.created_at || 0) - new Date(b.created_at || 0)
+      }
+      return 0
+    })
+  }, [sites, searchTerm, statusFilter, sortBy])
 
   // Inline status change handler
   const handleInlineStatusChange = async (id, newStatus) => {
@@ -117,29 +144,31 @@ export function TableView({
           />
         </div>
 
-        {/* Status Filter & Refresh */}
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1 sm:w-44">
-            <Filter className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full pl-9 pr-8 py-2.5 text-xs font-bold rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-700 appearance-none cursor-pointer"
+        {/* Filters, Sort & Refresh */}
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
+          {/* Status Filter */}
+          <StatusFilterDropdown value={statusFilter} onChange={setStatusFilter} />
+
+          {/* Sort Dropdown */}
+          <SortDropdown value={sortBy} onChange={setSortBy} />
+
+          {/* Reset Filters button */}
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={handleResetFilters}
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200/90 bg-white/75 hover:bg-white text-slate-600 hover:text-slate-900 text-xs font-bold backdrop-blur-xl transition cursor-pointer shadow-2xs active:scale-95"
+              title="Reset all filters & sort"
             >
-              <option value="ALL">All Statuses</option>
-              {ALL_STATUSES.map((st) => (
-                <option key={st} value={st}>
-                  {st}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-3 pointer-events-none" />
-          </div>
+              <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+              <span className="hidden sm:inline">Reset</span>
+            </button>
+          )}
 
           {onRefresh && (
             <button
               onClick={onRefresh}
-              className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-white/80 rounded-xl border border-slate-200/80 bg-white/40 backdrop-blur-sm transition cursor-pointer shrink-0 active:scale-95"
+              className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-white/80 rounded-xl border border-slate-200/80 bg-white/40 backdrop-blur-sm transition cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
               title="Refresh Data"
             >
               <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
