@@ -1,5 +1,4 @@
 import React from 'react'
-import { X, ExternalLink, Download } from 'lucide-react'
 import { X, ExternalLink } from 'lucide-react'
 
 export function ImagePreviewModal({ isOpen, imageUrl, title, onClose }) {
@@ -14,11 +13,9 @@ export function ImagePreviewModal({ isOpen, imageUrl, title, onClose }) {
         className="relative max-w-2xl w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-700/60 animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header Bar Estetik */}
         {/* Header Bar */}
         <div className="flex items-center justify-between px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 text-white">
           <div className="font-bold text-xs sm:text-sm truncate pr-4 text-slate-200">
-            {title || 'Dokumentasi Site'}
             {title || 'Site Documentation'}
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
@@ -27,7 +24,6 @@ export function ImagePreviewModal({ isOpen, imageUrl, title, onClose }) {
               target="_blank"
               rel="noreferrer"
               className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition"
-              title="Buka gambar di tab baru"
               title="Open image in new tab"
             >
               <ExternalLink className="w-4 h-4" />
@@ -46,7 +42,6 @@ export function ImagePreviewModal({ isOpen, imageUrl, title, onClose }) {
         <div className="bg-slate-950 flex items-center justify-center max-h-[75vh] p-3 sm:p-4">
           <img
             src={imageUrl}
-            alt={title || 'Foto Site'}
             alt={title || 'Site Photo'}
             className="max-h-[70vh] w-auto max-w-full object-contain rounded-2xl shadow-xl"
           />

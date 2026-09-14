@@ -41,17 +41,17 @@ export function StatusDropdown({
 
   const config = STATUS_MAP[currentStatus] || STATUS_MAP['Pending']
 
-  // Hitung posisi fixed menu agar keluar dari batas overflow table / card
+  // Calculate fixed position to escape table overflow wrapper
   const updatePosition = () => {
     if (!buttonRef.current) return
     const rect = buttonRef.current.getBoundingClientRect()
     const menuWidth = 144 // 9rem = 144px
-    const menuHeight = 165 // estimasi tinggi 4 opsi + header
+    const menuHeight = 165 // estimated height
     const spaceBelow = window.innerHeight - rect.bottom
     const spaceAbove = rect.top
     const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow
 
-    // Posisi horizontal: rata kanan tombol trigger
+    // Horizontal alignment: right-aligned with trigger button
     let left = rect.right - menuWidth
     if (left < 10) left = 10
     if (left + menuWidth > window.innerWidth - 10) {
@@ -69,7 +69,7 @@ export function StatusDropdown({
     })
   }
 
-  // Buka / Tutup dropdown
+  // Toggle dropdown
   const handleToggle = (e) => {
     e.stopPropagation()
     const nextState = !isOpen
@@ -80,7 +80,7 @@ export function StatusDropdown({
     onOpenChange?.(nextState)
   }
 
-  // Update posisi saat scroll layar atau resize
+  // Update position on scroll or resize
   useEffect(() => {
     if (!isOpen) return
 
@@ -99,7 +99,7 @@ export function StatusDropdown({
     }
   }, [isOpen])
 
-  // Tutup dropdown jika klik di luar
+  // Close when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -128,7 +128,7 @@ export function StatusDropdown({
 
   return (
     <>
-      {/* Trigger Button Estetik */}
+      {/* Trigger Button */}
       <button
         ref={buttonRef}
         type="button"
@@ -137,7 +137,6 @@ export function StatusDropdown({
         className={`inline-flex items-center gap-1.5 font-bold rounded-xl border transition-all duration-200 cursor-pointer select-none active:scale-95 ${config.badge} ${
           size === 'sm' ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
         } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
-        title="Klik untuk mengubah status"
         title="Click to change status"
       >
         <span className={`w-2 h-2 rounded-full shrink-0 ${config.dot}`}></span>
@@ -145,7 +144,6 @@ export function StatusDropdown({
         <ChevronDown className={`w-3 h-3 transition-transform duration-200 opacity-60 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      {/* Floating Menu via React Portal: Bebas dari overflow-hidden / scroll wrapper tabel */}
       {/* Floating Menu via React Portal */}
       {isOpen && typeof document !== 'undefined' && createPortal(
         <div 
@@ -155,7 +153,6 @@ export function StatusDropdown({
           onClick={(e) => e.stopPropagation()}
         >
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
-            Ubah Status
             Change Status
           </div>
           <div className="space-y-0.5 mt-0.5">

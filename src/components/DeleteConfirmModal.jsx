@@ -13,7 +13,6 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
         className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-150 text-center"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Tombol Tutup Silang */}
         {/* Close Button */}
         <button
           onClick={onCancel}
@@ -23,23 +22,19 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
           <X className="w-4 h-4" />
         </button>
 
-        {/* Icon Peringatan Minimalis */}
         {/* Warning Icon */}
         <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-xs">
           <AlertTriangle className="w-7 h-7" />
         </div>
 
         <h3 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">
-          Hapus Data Site?
           Delete Site Data?
         </h3>
 
         <p className="text-xs sm:text-sm text-slate-500 mt-2 mb-6 leading-relaxed">
-          Apakah Anda yakin ingin menghapus data <span className="font-bold text-slate-800">"{siteName}"</span>? Tindakan ini tidak dapat dibatalkan.
           Are you sure you want to delete data for <span className="font-bold text-slate-800">"{siteName}"</span>? This action cannot be undone.
         </p>
 
-        {/* Tombol Aksi */}
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-2.5">
           <button
@@ -48,7 +43,6 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             disabled={isDeleting}
             className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition cursor-pointer disabled:opacity-50"
           >
-            Batal
             Cancel
           </button>
           <button
@@ -62,7 +56,6 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             ) : (
               <>
                 <Trash2 className="w-3.5 h-3.5" />
-                <span>Ya, Hapus</span>
                 <span>Yes, Delete</span>
               </>
             )}

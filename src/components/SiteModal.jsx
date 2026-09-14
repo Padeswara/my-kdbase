@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { X, Upload, Building2, MapPin, User, Phone, Image as ImageIcon } from 'lucide-react'
 import { X, Upload, Building2, MapPin, User, Phone } from 'lucide-react'
 
 const STATUS_CONFIGS = [
@@ -58,7 +57,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
     const file = e.target.files?.[0]
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        setErrorMsg('Ukuran file gambar maksimal 5MB!')
         setErrorMsg('Image file size must be less than 5MB!')
         return
       }
@@ -79,22 +77,18 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
     setErrorMsg('')
 
     if (!formData.company_name.trim()) {
-      setErrorMsg('Nama Perusahaan wajib diisi!')
       setErrorMsg('Company Name is required!')
       return
     }
     if (!formData.address.trim()) {
-      setErrorMsg('Alamat wajib diisi!')
       setErrorMsg('Address is required!')
       return
     }
     if (!formData.pic_name.trim()) {
-      setErrorMsg('Nama PIC wajib diisi!')
       setErrorMsg('PIC Name is required!')
       return
     }
     if (!formData.pic_phone.trim()) {
-      setErrorMsg('Nomor PIC wajib diisi!')
       setErrorMsg('PIC WhatsApp Number is required!')
       return
     }
@@ -106,7 +100,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
     if (result?.success) {
       onClose()
     } else {
-      setErrorMsg(result?.error || 'Terjadi kesalahan saat menyimpan data.')
       setErrorMsg(result?.error || 'An error occurred while saving data.')
     }
   }
@@ -121,7 +114,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
         onClick={(e) => e.stopPropagation()}
       >
         
-        {/* Header Modal Minimalis Sesuai Gaya Login */}
         {/* Header Modal */}
         <div className="flex items-center justify-between px-6 py-5 bg-white border-b border-slate-100">
           <div className="flex items-center gap-3">
@@ -130,11 +122,9 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 leading-tight tracking-tight">
-                {editingSite ? 'Edit Data Site' : 'Tambahkan Site Baru'}
                 {editingSite ? 'Edit Site Data' : 'Add New Site'}
               </h2>
               <p className="text-xs text-slate-400 m-0 mt-0.5">
-                {editingSite ? 'Perbarui informasi detail lokasi' : 'Lengkapi data site dan upload dokumentasi foto'}
                 {editingSite ? 'Update location details' : 'Fill in site information and upload photo documentation'}
               </p>
             </div>
@@ -156,11 +146,9 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
             </div>
           )}
 
-          {/* Upload Foto Minimalis */}
           {/* Photo Upload */}
           <div>
             <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              Dokumentasi Foto
               Photo Documentation
             </label>
             <div className="border-2 border-dashed border-slate-200 hover:border-slate-400 bg-slate-50/50 hover:bg-slate-100/50 rounded-2xl p-3 sm:p-4 transition text-center">
@@ -175,7 +163,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     type="button"
                     onClick={handleRemoveImage}
                     className="absolute -top-2 -right-2 p-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full shadow-md transition cursor-pointer"
-                    title="Hapus foto"
                     title="Remove photo"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -187,11 +174,9 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     <Upload className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-900 hover:underline">
-                    Pilih File Foto
                     Choose Photo File
                   </span>
                   <span className="text-[11px] text-slate-400 mt-0.5">
-                    JPG, PNG, atau WEBP (Maksimal 5MB)
                     JPG, PNG, or WEBP (Max 5MB)
                   </span>
                   <input
@@ -206,11 +191,9 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
           </div>
 
           <div className="space-y-3">
-            {/* Nama Perusahaan */}
             {/* Company Name */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                Nama Perusahaan <span className="text-rose-500">*</span>
                 Company Name <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
@@ -220,18 +203,15 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   required
                   value={formData.company_name}
                   onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
-                  placeholder="Contoh: PT Teknologi Nusantara"
                   placeholder="e.g. Acme Technologies"
                   className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
                 />
               </div>
             </div>
 
-            {/* Alamat */}
             {/* Address */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                Alamat Lengkap <span className="text-rose-500">*</span>
                 Full Address <span className="text-rose-500">*</span>
               </label>
               <div className="relative">
@@ -241,19 +221,16 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   required
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  placeholder="Contoh: Jl. Jendral Sudirman No. 45, Jakarta"
                   placeholder="e.g. 123 Main Street, Suite 400"
                   className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
                 />
               </div>
             </div>
 
-            {/* PIC & Nomor WhatsApp */}
             {/* PIC & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                  Nama PIC <span className="text-rose-500">*</span>
                   PIC Name <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
@@ -263,7 +240,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     required
                     value={formData.pic_name}
                     onChange={(e) => setFormData({ ...formData, pic_name: e.target.value })}
-                    placeholder="Contoh: Budi Santoso"
                     placeholder="e.g. John Doe"
                     className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
                   />
@@ -272,7 +248,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
 
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                  Nomor WA PIC <span className="text-rose-500">*</span>
                   PIC WhatsApp Number <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
@@ -282,7 +257,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     required
                     value={formData.pic_phone}
                     onChange={(e) => setFormData({ ...formData, pic_phone: e.target.value })}
-                    placeholder="Contoh: 08123456789"
                     placeholder="e.g. 08123456789"
                     className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
                   />
@@ -290,11 +264,9 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               </div>
             </div>
 
-            {/* Pilihan Status Estetik */}
             {/* Status Selection */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
-                Status Site
                 Site Status
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -323,25 +295,21 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               </div>
             </div>
 
-            {/* Keterangan */}
             {/* Additional Notes */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-                Keterangan Tambahan
                 Additional Notes
               </label>
               <textarea
                 rows={2}
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                placeholder="Catatan progres, kendala, atau spesifikasi khusus..."
                 placeholder="Progress notes, obstacles, or specifications..."
                 className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900 resize-none"
               />
             </div>
           </div>
 
-          {/* Action Buttons Minimalis */}
           {/* Action Buttons */}
           <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
             <button
@@ -349,7 +317,6 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               onClick={onClose}
               className="px-4 py-2.5 text-xs font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition cursor-pointer"
             >
-              Batal
               Cancel
             </button>
             <button
@@ -360,11 +327,9 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               {isSubmitting ? (
                 <>
                   <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Menyimpan...</span>
                   <span>Saving...</span>
                 </>
               ) : (
-                <span>{editingSite ? 'Simpan Perubahan' : 'Tambahkan Site'}</span>
                 <span>{editingSite ? 'Save Changes' : 'Add Site'}</span>
               )}
             </button>
