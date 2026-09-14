@@ -6,19 +6,16 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md animate-in fade-in duration-150"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/45 backdrop-blur-xl animate-in fade-in duration-200"
       onClick={onCancel}
     >
       <div 
-        className="relative w-full max-w-sm bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/80 p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-150 text-center"
         className="relative w-full max-w-sm glass-modal rounded-3xl p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-200 text-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition cursor-pointer"
           className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-white/80 rounded-full transition cursor-pointer backdrop-blur-sm"
           title="Close"
         >
@@ -26,7 +23,6 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
         </button>
 
         {/* Warning Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-rose-50/80 border border-rose-200/80 flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-xs">
         <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-300/60 backdrop-blur-sm flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-sm shadow-rose-500/10">
           <AlertTriangle className="w-7 h-7" />
         </div>
@@ -45,7 +41,6 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             type="button"
             onClick={onCancel}
             disabled={isDeleting}
-            className="w-full py-2.5 px-4 bg-white/80 hover:bg-white text-slate-700 font-bold text-xs rounded-xl border border-slate-200/80 shadow-2xs transition cursor-pointer disabled:opacity-50 active:scale-98"
             className="w-full py-2.5 px-4 glass-btn-secondary text-slate-700 font-bold text-xs rounded-xl cursor-pointer disabled:opacity-50 active:scale-98"
           >
             Cancel
@@ -54,7 +49,6 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="w-full py-2.5 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-xs transition duration-200 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5 active:scale-98"
             className="w-full py-2.5 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-md shadow-rose-600/20 transition duration-200 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5 active:scale-98"
           >
             {isDeleting ? (

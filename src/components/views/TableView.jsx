@@ -112,7 +112,6 @@ export function TableView({
           <button
             onClick={handleExport}
             disabled={filteredSites.length === 0}
-            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-white/80 bg-white/75 backdrop-blur-xl hover:bg-white text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50 shadow-2xs active:scale-98"
             className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl glass-btn-secondary text-slate-700 text-xs font-bold cursor-pointer disabled:opacity-50 active:scale-98"
             title="Download data as Excel spreadsheet (.xlsx)"
           >
@@ -123,7 +122,6 @@ export function TableView({
           {/* Add Site Button */}
           <button
             onClick={onOpenAddModal}
-            className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
             className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-md shadow-slate-900/20 transition duration-200 cursor-pointer active:scale-98"
           >
             <Plus className="w-3.5 h-3.5" />
@@ -133,7 +131,6 @@ export function TableView({
       </div>
 
       {/* Search & Filter Box */}
-      <div className="bg-white/75 backdrop-blur-xl p-2.5 sm:p-3 rounded-2xl border border-white/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
       <div className="glass-panel p-2.5 sm:p-3 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
         {/* Search Box */}
         <div className="relative flex-1">
@@ -143,7 +140,6 @@ export function TableView({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search company, address, PIC, phone number..."
-            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-900"
             className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
           />
         </div>
@@ -161,7 +157,6 @@ export function TableView({
             <button
               type="button"
               onClick={handleResetFilters}
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200/90 bg-white/75 hover:bg-white text-slate-600 hover:text-slate-900 text-xs font-bold backdrop-blur-xl transition cursor-pointer shadow-2xs active:scale-95"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-600 hover:text-slate-900 text-xs font-bold cursor-pointer active:scale-95"
               title="Reset all filters & sort"
             >
@@ -173,7 +168,6 @@ export function TableView({
           {onRefresh && (
             <button
               onClick={onRefresh}
-              className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-white/80 rounded-xl border border-slate-200/80 bg-white/40 backdrop-blur-sm transition cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
               className="p-2.5 text-slate-400 hover:text-slate-900 glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
               title="Refresh Data"
             >
@@ -184,13 +178,11 @@ export function TableView({
       </div>
 
       {/* Main Table Container */}
-      <div className="bg-white/75 backdrop-blur-xl rounded-2xl border border-white/80 shadow-xs overflow-hidden">
       <div className="glass-panel rounded-2xl overflow-hidden">
         
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-100/50 backdrop-blur-md border-b border-slate-200/70 text-[11px] font-bold uppercase tracking-wider text-slate-500">
               <tr className="bg-white/40 backdrop-blur-md border-b border-white/60 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <th className="py-3.5 px-4 w-12 text-center">No</th>
                 <th className="py-3.5 px-4 w-20">Photo</th>
@@ -342,7 +334,6 @@ export function TableView({
         </div>
 
         {/* Table Footer Summary (Status text hidden on mobile, dots only) */}
-        <div className="px-4 sm:px-5 py-3.5 bg-white/50 backdrop-blur-md border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500">
         <div className="px-4 sm:px-5 py-3.5 bg-white/40 backdrop-blur-md border-t border-white/60 flex items-center justify-between text-xs text-slate-500">
           <div>
             Showing <span className="font-bold text-slate-800">{filteredSites.length}</span> of{' '}

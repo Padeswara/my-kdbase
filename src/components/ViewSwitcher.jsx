@@ -42,7 +42,6 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
   return (
     <>
       {/* Desktop View: Segmented Pill */}
-      <div className="hidden sm:flex items-center bg-slate-200/50 backdrop-blur-md p-0.5 rounded-xl border border-white/80 shrink-0">
       <div className="hidden sm:flex items-center bg-white/50 backdrop-blur-xl p-0.5 rounded-xl border border-white/80 shrink-0 shadow-2xs">
         <button
           type="button"
@@ -77,11 +76,8 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer shadow-2xs active:scale-98 select-none ${
           className={`w-full inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer select-none active:scale-98 ${
             isOpen
-              ? 'border-slate-900 bg-white/95 ring-2 ring-slate-900/10 text-slate-900'
-              : 'border-white/80 bg-white/75 backdrop-blur-xl hover:bg-white text-slate-700'
               ? 'border-slate-900 bg-white/95 ring-2 ring-slate-900/10 text-slate-900 shadow-xs'
               : 'glass-btn-secondary text-slate-700 hover:text-slate-900'
           }`}
@@ -107,7 +103,6 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
 
         {isOpen && (
           <div
-            className="absolute left-0 top-full mt-1.5 w-52 bg-white/85 backdrop-blur-2xl rounded-2xl border border-white/90 shadow-xl shadow-slate-900/10 p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150"
             className="absolute left-0 top-full mt-1.5 w-52 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150"
             role="listbox"
           >
@@ -126,7 +121,6 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
               className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
                 currentView === 'card'
                   ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-700 hover:bg-slate-100/80'
                   : 'text-slate-700 hover:bg-white/80'
               }`}
             >
@@ -155,7 +149,6 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
               className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer mt-1 ${
                 currentView === 'table'
                   ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-700 hover:bg-slate-100/80'
                   : 'text-slate-700 hover:bg-white/80'
               }`}
             >
