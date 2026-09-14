@@ -190,6 +190,13 @@ export function App() {
 
       </main>
 
+      {/* Footer */}
+      <footer className="mt-auto py-6 border-t border-slate-200 bg-white/70 text-center text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="m-0">© 2026 Rittergeistworks by Padeswaraa. All rights reserved.</p>
+        </div>
+      </footer>
+
       {/* Modal Tambahkan / Edit Site */}
       <SiteModal
         isOpen={isSiteModalOpen}

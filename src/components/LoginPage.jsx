@@ -107,6 +107,11 @@ export function LoginPage({ onLoginSuccess }) {
         </div>
 
       </div>
+
+      {/* Footer Copyright */}
+      <footer className="mt-8 text-center text-xs text-slate-400">
+        © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
+      </footer>
     </div>
   )
 }
