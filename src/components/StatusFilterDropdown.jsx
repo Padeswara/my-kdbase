@@ -53,7 +53,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer select-none active:scale-98 min-w-[140px] sm:min-w-[155px] ${
+        className={`w-full sm:w-auto inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer select-none active:scale-98 sm:min-w-[145px] ${
           isOpen
             ? 'border-slate-900/30 dark:border-white/30 bg-slate-900/10 dark:bg-white/15 ring-2 ring-slate-900/10 dark:ring-white/10 text-slate-900 dark:text-white shadow-xs'
             : value !== 'ALL'
@@ -82,7 +82,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
       {/* Floating Dropdown Menu */}
       {isOpen && (
         <div
-          className="absolute right-0 sm:left-0 top-full mt-1.5 w-48 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 select-none"
+          className="absolute left-0 top-full mt-1.5 w-48 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 select-none shadow-xl"
           role="listbox"
         >
           <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">

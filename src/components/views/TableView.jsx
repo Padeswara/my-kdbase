@@ -3,6 +3,7 @@ import {
   Plus, 
   FileSpreadsheet, 
   Search, 
+  X,
   Edit, 
   Trash2, 
   Image as ImageIcon, 
@@ -129,46 +130,76 @@ export function TableView({
 
       {/* Search & Filter Box */}
       <div className="glass-panel p-2.5 sm:p-3 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-        {/* Search Box */}
-        <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search company, address, PIC, phone number..."
-            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
-          />
+        {/* Row 1 on Mobile / Left Column on Desktop: Search Bar + Mobile Refresh */}
+        <div className="flex items-center gap-2 flex-1">
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search company, address, PIC, phone number..."
+              className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
+            />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm('')}
+                className="absolute right-3 top-2.5 p-0.5 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer"
+                title="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Mobile-only Refresh button (stays cleanly beside search input) */}
+          {onRefresh && (
+            <button
+              type="button"
+              onClick={onRefresh}
+              className="sm:hidden p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
+              title="Refresh Data"
+            >
+              <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            </button>
+          )}
         </div>
 
-        {/* Filters, Sort & Refresh */}
-        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
-          {/* Status Filter */}
-          <StatusFilterDropdown 
-            value={statusFilter} 
-            onChange={(val) => onStatusFilterChange?.(val)} 
-          />
+        {/* Row 2 on Mobile / Right Column on Desktop: Filters, Sort, Reset & Desktop Refresh */}
+        <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
+          {/* Status Filter (50% on mobile, auto on desktop) */}
+          <div className="flex-1 sm:flex-initial min-w-0">
+            <StatusFilterDropdown 
+              value={statusFilter} 
+              onChange={(val) => onStatusFilterChange?.(val)} 
+            />
+          </div>
 
-          {/* Sort Dropdown */}
-          <SortDropdown value={sortBy} onChange={setSortBy} />
+          {/* Sort Dropdown (50% on mobile, auto on desktop) */}
+          <div className="flex-1 sm:flex-initial min-w-0">
+            <SortDropdown value={sortBy} onChange={setSortBy} />
+          </div>
 
           {/* Reset Filters button */}
           {hasActiveFilters && (
             <button
               type="button"
               onClick={handleResetFilters}
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold cursor-pointer active:scale-95"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold cursor-pointer active:scale-95 shrink-0"
               title="Reset all filters & sort"
             >
               <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
-              <span className="hidden sm:inline">Reset</span>
+              <span className="hidden md:inline">Reset</span>
             </button>
           )}
 
+          {/* Desktop-only Refresh button */}
           {onRefresh && (
             <button
+              type="button"
               onClick={onRefresh}
-              className="p-2.5 text-slate-400 hover:text-slate-900 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
+              className="hidden sm:flex p-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
               title="Refresh Data"
             >
               <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
