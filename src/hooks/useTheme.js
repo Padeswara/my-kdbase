@@ -12,7 +12,7 @@ export function useTheme() {
     } catch {
       // Fallback
     }
-    return 'dark'
+    return 'light'
   })
 
   useEffect(() => {

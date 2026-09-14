@@ -20,7 +20,6 @@ import { ViewSwitcher } from '../ViewSwitcher'
 import { StatusFilterDropdown } from '../StatusFilterDropdown'
 import { SortDropdown } from '../SortDropdown'
 
-const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 
 const STATUS_DOT = {
   'On Going': 'bg-blue-500 ring-4 ring-blue-500/20',

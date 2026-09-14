@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { ArrowUpDown, ArrowDownAZ, ArrowUpZA, Calendar, Check } from 'lucide-react'
+import { ArrowDownAZ, ArrowUpZA, Calendar, Check, ChevronDown } from 'lucide-react'
 
 const SORT_OPTIONS = [
   { value: 'name-asc', label: 'Name (A - Z)', icon: ArrowDownAZ, description: 'Alphabetical ascending' },

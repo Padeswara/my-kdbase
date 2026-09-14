@@ -8,7 +8,6 @@ import {
   Trash2, 
   Image as ImageIcon, 
   Phone, 
-  ChevronDown,
   Building2,
   ExternalLink,
   RotateCw,

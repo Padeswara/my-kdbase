@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Database, AlertCircle, ArrowRight, Clock, X, Sun, Moon } from 'lucide-react'
 
-export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'dark', onToggleTheme }) {
+export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', onToggleTheme }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
