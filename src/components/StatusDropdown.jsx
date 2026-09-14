@@ -4,23 +4,23 @@ import { ChevronDown, Check } from 'lucide-react'
 
 const STATUS_MAP = {
   'On Going': {
-    badge: 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100/80 shadow-xs shadow-blue-500/5',
-    dot: 'bg-blue-500 shadow-xs shadow-blue-500/50',
+    badge: 'bg-white/90 backdrop-blur-md text-blue-700 border-blue-200/90 hover:bg-white shadow-2xs shadow-blue-500/10',
+    dot: 'bg-blue-500 shadow-xs shadow-blue-500/50 ring-2 ring-blue-400/20',
     hover: 'hover:bg-blue-50/80 hover:text-blue-800'
   },
   'Pending': {
-    badge: 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100/80 shadow-xs shadow-amber-500/5',
-    dot: 'bg-amber-500 shadow-xs shadow-amber-500/50',
+    badge: 'bg-white/90 backdrop-blur-md text-amber-700 border-amber-200/90 hover:bg-white shadow-2xs shadow-amber-500/10',
+    dot: 'bg-amber-500 shadow-xs shadow-amber-500/50 ring-2 ring-amber-400/20',
     hover: 'hover:bg-amber-50/80 hover:text-amber-800'
   },
   'Approve': {
-    badge: 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100/80 shadow-xs shadow-emerald-500/5',
-    dot: 'bg-emerald-500 shadow-xs shadow-emerald-500/50',
+    badge: 'bg-white/90 backdrop-blur-md text-emerald-700 border-emerald-200/90 hover:bg-white shadow-2xs shadow-emerald-500/10',
+    dot: 'bg-emerald-500 shadow-xs shadow-emerald-500/50 ring-2 ring-emerald-400/20',
     hover: 'hover:bg-emerald-50/80 hover:text-emerald-800'
   },
   'Decline': {
-    badge: 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100/80 shadow-xs shadow-rose-500/5',
-    dot: 'bg-rose-500 shadow-xs shadow-rose-500/50',
+    badge: 'bg-white/90 backdrop-blur-md text-rose-700 border-rose-200/90 hover:bg-white shadow-2xs shadow-rose-500/10',
+    dot: 'bg-rose-500 shadow-xs shadow-rose-500/50 ring-2 ring-rose-400/20',
     hover: 'hover:bg-rose-50/80 hover:text-rose-800'
   }
 }
@@ -32,6 +32,7 @@ export function StatusDropdown({
   onChange, 
   disabled = false, 
   size = 'sm',
+  align = 'auto',
   onOpenChange 
 }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -51,8 +52,11 @@ export function StatusDropdown({
     const spaceAbove = rect.top
     const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow
 
-    // Horizontal alignment: right-aligned with trigger button
-    let left = rect.right - menuWidth
+    // Horizontal alignment: smart auto or explicit align
+    let left = rect.left
+    if (align === 'right' || (align === 'auto' && rect.left > window.innerWidth / 2)) {
+      left = rect.right - menuWidth
+    }
     if (left < 10) left = 10
     if (left + menuWidth > window.innerWidth - 10) {
       left = window.innerWidth - menuWidth - 10
@@ -134,7 +138,7 @@ export function StatusDropdown({
         type="button"
         disabled={disabled}
         onClick={handleToggle}
-        className={`inline-flex items-center gap-1.5 font-bold rounded-xl border transition-all duration-200 cursor-pointer select-none active:scale-95 ${config.badge} ${
+        className={`inline-flex items-center gap-1.5 font-bold rounded-full border transition-all duration-200 cursor-pointer select-none active:scale-95 shadow-xs ${config.badge} ${
           size === 'sm' ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
         } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
         title="Click to change status"

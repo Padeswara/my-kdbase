@@ -20,25 +20,6 @@ import { exportSitesToExcel } from '../../utils/excelExport'
 import { StatusDropdown } from '../StatusDropdown'
 import { ViewSwitcher } from '../ViewSwitcher'
 
-const STATUS_CONFIG = {
-  'On Going': {
-    badge: 'bg-blue-50 text-blue-700 border-blue-200',
-    border: 'border-l-blue-500'
-  },
-  'Pending': {
-    badge: 'bg-amber-50 text-amber-700 border-amber-200',
-    border: 'border-l-amber-500'
-  },
-  'Approve': {
-    badge: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    border: 'border-l-emerald-500'
-  },
-  'Decline': {
-    badge: 'bg-rose-50 text-rose-700 border-rose-200',
-    border: 'border-l-rose-500'
-  }
-}
-
 const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 
 export function CardView({
@@ -173,18 +154,17 @@ export function CardView({
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {filteredSites.map((site) => {
-            const config = STATUS_CONFIG[site.status] || STATUS_CONFIG['Pending']
             const isDropdownOpen = openDropdownId === site.id
 
             return (
               <div
                 key={site.id}
-                className={`bg-white/75 backdrop-blur-xl rounded-2xl border border-white/80 shadow-xs hover:border-slate-300 hover:bg-white/90 hover:shadow-md transition-all duration-300 flex flex-col border-l-4 ${config.border} relative ${
+                className={`bg-white/75 backdrop-blur-xl rounded-2xl border border-white/80 shadow-xs hover:border-slate-300 hover:bg-white/90 hover:shadow-md transition-all duration-300 flex flex-col relative group ${
                   isDropdownOpen ? 'z-40' : 'z-10'
                 }`}
               >
                 {/* Image Header */}
-                <div className="relative h-28 bg-slate-100/60 rounded-tr-xl overflow-hidden">
+                <div className="relative h-28 bg-slate-100/60 rounded-t-2xl overflow-hidden">
                   {site.image_url ? (
                     <img
                       src={site.image_url}
@@ -197,17 +177,18 @@ export function CardView({
                       <ImageIcon className="w-6 h-6" />
                     </div>
                   )}
-                </div>
 
-                {/* Floating Status Dropdown (Outside photo overflow) */}
-                <div className="absolute top-2.5 right-2.5 z-30">
-                  <StatusDropdown
-                    currentStatus={site.status}
-                    disabled={updatingId === site.id}
-                    onChange={(newStatus) => handleStatusChange(site.id, newStatus)}
-                    onOpenChange={(isOpen) => setOpenDropdownId(isOpen ? site.id : null)}
-                    size="sm"
-                  />
+                  {/* Floating Status Pill (Top-Right of Image) */}
+                  <div className="absolute top-2.5 right-2.5 z-30">
+                    <StatusDropdown
+                      currentStatus={site.status}
+                      disabled={updatingId === site.id}
+                      onChange={(newStatus) => handleStatusChange(site.id, newStatus)}
+                      onOpenChange={(isOpen) => setOpenDropdownId(isOpen ? site.id : null)}
+                      size="sm"
+                      align="right"
+                    />
+                  </div>
                 </div>
 
                 {/* Card Body */}
