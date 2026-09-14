@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
-import { Lock, User, Database, AlertCircle, ArrowRight, Clock } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Lock, User, Database, AlertCircle, ArrowRight, Clock, X } from 'lucide-react'
 
 export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showTimeoutModal, setShowTimeoutModal] = useState(Boolean(idleNotice))
+
+  useEffect(() => {
+    if (idleNotice) {
+      setShowTimeoutModal(true)
+    }
+  }, [idleNotice])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -49,14 +56,6 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
               Masuk untuk mengelola database site
             </p>
           </div>
-
-          {/* Notifikasi Sesi AFK / Idle 10 Menit */}
-          {idleNotice && !error && (
-            <div className="mb-4 flex items-start gap-2.5 p-3 bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium rounded-xl animate-in fade-in">
-              <Clock className="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
-              <div className="leading-snug">{idleNotice}</div>
-            </div>
-          )}
 
           {/* Pesan Error */}
           {error && (
@@ -125,6 +124,45 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
       <footer className="w-full py-5 border-t border-slate-200/60 text-center text-xs text-slate-400">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
+
+      {/* Popup Modal Timeout Sesi Estetik */}
+      {showTimeoutModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="w-full max-w-sm bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 text-center relative animate-in zoom-in-95 duration-200">
+            {/* Tombol Tutup X */}
+            <button
+              type="button"
+              onClick={() => setShowTimeoutModal(false)}
+              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition cursor-pointer"
+              title="Tutup"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Icon Jam / Timeout */}
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center mx-auto mb-4 text-amber-600 shadow-xs">
+              <Clock className="w-7 h-7" />
+            </div>
+
+            {/* Judul & Pesan */}
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2">
+              Sesi Telah Berakhir
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6">
+              {idleNotice || 'Anda tidak melakukan aktivitas selama 10 menit demi keamanan akun. Silakan masuk kembali.'}
+            </p>
+
+            {/* Tombol Aksi */}
+            <button
+              type="button"
+              onClick={() => setShowTimeoutModal(false)}
+              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition duration-200 cursor-pointer active:scale-98"
+            >
+              Masuk Kembali
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   )
