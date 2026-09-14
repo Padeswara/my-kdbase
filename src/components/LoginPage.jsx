@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Lock, User, Database, AlertCircle, ArrowRight } from 'lucide-react'
+import { Lock, User, Database, AlertCircle, ArrowRight, Clock } from 'lucide-react'
 
-export function LoginPage({ onLoginSuccess }) {
+export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -18,6 +18,7 @@ export function LoginPage({ onLoginSuccess }) {
           username: 'Keils00',
           loggedInAt: new Date().toISOString()
         }))
+        localStorage.setItem('kdbase_last_activity', Date.now().toString())
         onLoginSuccess('Keils00')
       } else {
         setError('Username atau Password yang Anda masukkan salah. Silakan coba lagi.')
@@ -48,6 +49,14 @@ export function LoginPage({ onLoginSuccess }) {
               Masuk untuk mengelola database site
             </p>
           </div>
+
+          {/* Notifikasi Sesi AFK / Idle 10 Menit */}
+          {idleNotice && !error && (
+            <div className="mb-4 flex items-start gap-2.5 p-3 bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium rounded-xl animate-in fade-in">
+              <Clock className="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
+              <div className="leading-snug">{idleNotice}</div>
+            </div>
+          )}
 
           {/* Pesan Error */}
           {error && (

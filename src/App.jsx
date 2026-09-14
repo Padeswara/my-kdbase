@@ -7,6 +7,7 @@ import { SiteModal } from './components/SiteModal'
 import { ImagePreviewModal } from './components/ImagePreviewModal'
 import { DeleteConfirmModal } from './components/DeleteConfirmModal'
 import { useSites } from './hooks/useSites'
+import { useIdleTimer } from './hooks/useIdleTimer'
 import { 
   Clock, 
   CheckCircle, 
@@ -24,15 +25,32 @@ export function App() {
       return null
     }
   })
+  const [idleNotice, setIdleNotice] = useState('')
 
   const handleLoginSuccess = (username) => {
+    setIdleNotice('')
     setCurrentUser(username)
   }
 
   const handleLogout = () => {
+    setIdleNotice('')
     localStorage.removeItem('kdbase_auth_session')
+    localStorage.removeItem('kdbase_last_activity')
     setCurrentUser(null)
   }
+
+  // Auto-logout jika idle / AFK selama 10 menit
+  const handleIdleTimeout = () => {
+    localStorage.removeItem('kdbase_auth_session')
+    localStorage.removeItem('kdbase_last_activity')
+    setCurrentUser(null)
+    setIdleNotice('Sesi Anda telah berakhir otomatis karena tidak ada aktivitas selama 10 menit.')
+  }
+
+  useIdleTimer({
+    onIdle: handleIdleTimeout,
+    enabled: Boolean(currentUser)
+  })
 
   // 2. Data Hook Terpusat
   const {
@@ -108,7 +126,7 @@ export function App() {
 
   // Jika belum login, tampilkan halaman Login
   if (!currentUser) {
-    return <LoginPage onLoginSuccess={handleLoginSuccess} />
+    return <LoginPage onLoginSuccess={handleLoginSuccess} idleNotice={idleNotice} />
   }
 
   return (
