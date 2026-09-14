@@ -73,8 +73,8 @@ export function TableView({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center justify-between sm:justify-start gap-3">
           <div>
-            <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site Table</h2>
-            <p className="text-xs text-slate-400 m-0">Manage and review company site data</p>
+            <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site List</h2>
+            <p className="text-xs text-slate-400 m-0">Manage and monitor all site locations</p>
           </div>
 
           {/* View Switcher (Cards / Table) */}
