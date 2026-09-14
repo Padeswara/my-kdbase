@@ -71,48 +71,14 @@ export function TableView({
       
       {/* Main Action Buttons & View Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex items-center justify-between sm:justify-start gap-3">
-          <div>
-            <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site List</h2>
-            <p className="text-xs text-slate-400 m-0">Manage and monitor all site locations</p>
-          </div>
         <div>
           <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site List</h2>
           <p className="text-xs text-slate-400 m-0">Manage and monitor all site locations</p>
         </div>
 
-          {/* View Switcher (Cards / Table) */}
         <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
           {/* View Switcher: Segmented on Desktop, Dropdown on Mobile (Positioned Left of Export to Excel) */}
           {onViewChange && (
-            <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 shrink-0">
-              <button
-                type="button"
-                onClick={() => onViewChange('card')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
-                  currentView === 'card'
-                    ? 'bg-white text-slate-900 shadow-2xs'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-                title="Card View"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>Cards</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => onViewChange('table')}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
-                  currentView === 'table'
-                    ? 'bg-white text-slate-900 shadow-2xs'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-                title="Table View"
-              >
-                <Table className="w-3.5 h-3.5" />
-                <span>Table</span>
-              </button>
-            </div>
             <>
               {/* Desktop Segmented Pill */}
               <div className="hidden sm:flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 shrink-0">
@@ -169,9 +135,7 @@ export function TableView({
               </div>
             </>
           )}
-        </div>
 
-        <div className="grid grid-cols-2 sm:flex items-center gap-2">
           {/* Export to Excel */}
           <button
             onClick={handleExport}
@@ -179,7 +143,6 @@ export function TableView({
             className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50 shadow-2xs active:scale-98"
             title="Download data as Excel spreadsheet (.xlsx)"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
             <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span>Export to Excel</span>
           </button>
@@ -187,7 +150,6 @@ export function TableView({
           {/* Add Site Button */}
           <button
             onClick={onOpenAddModal}
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
             className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
           >
             <Plus className="w-3.5 h-3.5" />
