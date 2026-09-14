@@ -72,7 +72,7 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
       </div>
 
       {/* Mobile View: Custom Styled Dropdown */}
-      <div className="relative sm:hidden" ref={dropdownRef}>
+      <div className={`relative sm:hidden ${isOpen ? 'z-30' : 'z-10'}`} ref={dropdownRef}>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}

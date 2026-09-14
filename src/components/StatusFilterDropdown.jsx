@@ -48,7 +48,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
   }, [isOpen])
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className={`relative ${isOpen ? 'z-30' : 'z-10'}`} ref={dropdownRef}>
       {/* Trigger Button */}
       <button
         type="button"

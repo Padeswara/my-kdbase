@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const THEME_STORAGE_KEY = 'my_kdbase_theme'
+const THEME_STORAGE_KEY = 'my_kdbase_theme_v2'
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {

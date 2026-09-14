@@ -95,7 +95,7 @@ export function TableView({
     <div className="space-y-4">
       
       {/* Main Action Buttons & View Switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-20">
         <div>
           <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white m-0 tracking-tight">Site List</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 m-0">Manage and monitor all site locations</p>
@@ -128,7 +128,7 @@ export function TableView({
       </div>
 
       {/* Search & Filter Box */}
-      <div className="glass-panel p-2.5 sm:p-3 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+      <div className="glass-panel p-2.5 sm:p-3 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 relative z-20">
         {/* Row 1 on Mobile / Left Column on Desktop: Search Bar + Mobile Refresh */}
         <div className="flex items-center gap-2 flex-1">
           <div className="relative flex-1">

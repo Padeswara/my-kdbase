@@ -3,7 +3,7 @@ import { Database, LogOut, Sun, Moon } from 'lucide-react'
 
 export function Navbar({ currentUser, onLogout, isDbOnline, theme = 'dark', onToggleTheme }) {
   return (
-    <header className="glass-panel sticky top-0 z-30 border-b border-slate-200/80 dark:border-white/10 backdrop-blur-2xl">
+    <header className="glass-panel sticky top-0 z-40 border-b border-slate-200/80 dark:border-white/10 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 gap-2">
           
