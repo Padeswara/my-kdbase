@@ -107,17 +107,21 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/40 backdrop-blur-md overflow-y-auto animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/45 backdrop-blur-xl overflow-y-auto animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div 
         className="relative w-full max-w-lg bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/80 my-auto animate-in zoom-in-95 duration-150"
+        className="relative w-full max-w-lg glass-modal rounded-3xl overflow-hidden my-auto animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header Modal */}
         <div className="flex items-center justify-between px-6 py-5 bg-white/60 backdrop-blur-md border-b border-slate-200/60">
+        <div className="flex items-center justify-between px-6 py-5 bg-white/45 backdrop-blur-md border-b border-white/60">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-md shadow-slate-900/20">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
@@ -132,6 +136,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
           <button
             onClick={onClose}
             className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-white/80 rounded-full transition cursor-pointer backdrop-blur-sm"
             title="Close"
           >
             <X className="w-4 h-4" />
@@ -142,6 +147,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
         <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4 max-h-[80vh] overflow-y-auto">
           {errorMsg && (
             <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl animate-in fade-in">
+            <div className="p-3 bg-rose-50/90 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl animate-in fade-in backdrop-blur-sm">
               {errorMsg}
             </div>
           )}
@@ -152,12 +158,14 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               Photo Documentation
             </label>
             <div className="border-2 border-dashed border-slate-200 hover:border-slate-400 bg-slate-50/50 hover:bg-slate-100/50 rounded-2xl p-3 sm:p-4 transition text-center">
+            <div className="border-2 border-dashed border-slate-300/80 hover:border-slate-400 bg-white/40 hover:bg-white/60 backdrop-blur-sm rounded-2xl p-3 sm:p-4 transition text-center shadow-2xs">
               {imagePreview ? (
                 <div className="relative inline-block group">
                   <img
                     src={imagePreview}
                     alt="Preview"
                     className="w-44 h-28 object-cover rounded-xl shadow-xs border border-slate-200 mx-auto"
+                    className="w-44 h-28 object-cover rounded-xl shadow-xs border border-white/80 mx-auto"
                   />
                   <button
                     type="button"
@@ -171,6 +179,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               ) : (
                 <label className="cursor-pointer flex flex-col items-center justify-center py-2">
                   <div className="w-10 h-10 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 mb-1.5 shadow-xs">
+                  <div className="w-10 h-10 rounded-2xl bg-white/90 border border-white flex items-center justify-center text-slate-700 mb-1.5 shadow-xs">
                     <Upload className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-bold text-slate-900 hover:underline">
@@ -205,6 +214,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                   placeholder="e.g. Acme Technologies"
                   className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
                 />
               </div>
             </div>
@@ -223,6 +233,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   placeholder="e.g. 123 Main Street, Suite 400"
                   className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
                 />
               </div>
             </div>
@@ -242,6 +253,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     onChange={(e) => setFormData({ ...formData, pic_name: e.target.value })}
                     placeholder="e.g. John Doe"
                     className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
+                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
                   />
                 </div>
               </div>
@@ -259,6 +271,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                     onChange={(e) => setFormData({ ...formData, pic_phone: e.target.value })}
                     placeholder="e.g. 08123456789"
                     className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
+                    className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
                   />
                 </div>
               </div>
@@ -281,6 +294,8 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                         isSelected
                           ? `${opt.color} shadow-xs ring-2 scale-[1.02]`
                           : 'border-slate-200 bg-slate-50/50 text-slate-600 hover:bg-slate-100 hover:text-slate-800'
+                          ? `${opt.color} shadow-xs ring-2 scale-[1.02] backdrop-blur-sm`
+                          : 'border-white/80 bg-white/50 backdrop-blur-sm text-slate-700 hover:bg-white/90 hover:text-slate-900'
                       }`}
                     >
                       <span className={`w-2 h-2 rounded-full ${
@@ -306,16 +321,19 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 placeholder="Progress notes, obstacles, or specifications..."
                 className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900 resize-none"
+                className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none resize-none"
               />
             </div>
           </div>
 
           {/* Action Buttons */}
           <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-white/60">
             <button
               type="button"
               onClick={onClose}
               className="px-4 py-2.5 text-xs font-bold text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition cursor-pointer"
+              className="px-4 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 glass-btn-secondary rounded-xl cursor-pointer"
             >
               Cancel
             </button>
@@ -323,6 +341,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
               type="submit"
               disabled={isSubmitting}
               className="px-5 py-2.5 bg-slate-900 hover:bg-black text-white font-bold text-xs rounded-xl shadow-xs transition duration-200 cursor-pointer disabled:opacity-50 flex items-center gap-1.5 active:scale-98"
+              className="px-5 py-2.5 bg-slate-900 hover:bg-black text-white font-bold text-xs rounded-xl shadow-md shadow-slate-900/15 transition duration-200 cursor-pointer disabled:opacity-50 flex items-center gap-1.5 active:scale-98"
             >
               {isSubmitting ? (
                 <>

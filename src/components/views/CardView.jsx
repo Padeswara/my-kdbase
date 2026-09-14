@@ -114,6 +114,7 @@ export function CardView({
             onClick={() => exportSitesToExcel(filteredSites, 'Site_Data')}
             disabled={filteredSites.length === 0}
             className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-white/80 bg-white/75 backdrop-blur-xl hover:bg-white text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50 shadow-2xs active:scale-98"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl glass-btn-secondary text-slate-700 text-xs font-bold cursor-pointer disabled:opacity-50 active:scale-98"
             title="Download Excel (.xlsx)"
           >
             <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -124,6 +125,7 @@ export function CardView({
           <button
             onClick={onOpenAddModal}
             className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
+            className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-md shadow-slate-900/20 transition duration-200 cursor-pointer active:scale-98"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Site</span>
@@ -133,6 +135,7 @@ export function CardView({
 
       {/* Search & Filter Box */}
       <div className="bg-white/75 backdrop-blur-xl p-2.5 sm:p-3 rounded-2xl border border-white/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+      <div className="glass-panel p-2.5 sm:p-3 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
         {/* Search Box */}
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -142,6 +145,7 @@ export function CardView({
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search company, address, PIC, phone number..."
             className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-900"
+            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
           />
         </div>
 
@@ -159,6 +163,7 @@ export function CardView({
               type="button"
               onClick={handleResetFilters}
               className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200/90 bg-white/75 hover:bg-white text-slate-600 hover:text-slate-900 text-xs font-bold backdrop-blur-xl transition cursor-pointer shadow-2xs active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-600 hover:text-slate-900 text-xs font-bold cursor-pointer active:scale-95"
               title="Reset all filters & sort"
             >
               <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
@@ -170,6 +175,7 @@ export function CardView({
             <button
               onClick={onRefresh}
               className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-white/80 rounded-xl border border-slate-200/80 bg-white/40 backdrop-blur-sm transition cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
+              className="p-2.5 text-slate-400 hover:text-slate-900 glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
               title="Refresh Data"
             >
               <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -181,6 +187,7 @@ export function CardView({
       {/* Grid of Compact Cards */}
       {filteredSites.length === 0 ? (
         <div className="bg-white/75 backdrop-blur-xl rounded-2xl border border-white/80 p-8 text-center text-slate-400 shadow-xs">
+        <div className="glass-panel rounded-2xl p-8 text-center text-slate-400">
           <Building2 className="w-10 h-10 mx-auto text-slate-300 mb-2" />
           <div className="text-sm font-bold text-slate-700">No site data found</div>
           <div className="text-xs text-slate-400 mt-0.5">
@@ -196,6 +203,7 @@ export function CardView({
               <div
                 key={site.id}
                 className={`bg-white/75 backdrop-blur-xl rounded-2xl border border-white/80 shadow-xs hover:border-slate-300 hover:bg-white/90 hover:shadow-md transition-all duration-300 flex flex-col relative group ${
+                className={`glass-panel-hover rounded-2xl overflow-hidden flex flex-col relative group ${
                   isDropdownOpen ? 'z-40' : 'z-10'
                 }`}
               >
@@ -273,6 +281,7 @@ export function CardView({
                     {/* Additional Notes */}
                     {site.notes && (
                       <p className="text-[11px] text-slate-600 line-clamp-2 bg-white/50 backdrop-blur-xs p-2 rounded-xl border border-slate-200/60 leading-relaxed">
+                      <p className="text-[11px] text-slate-600 line-clamp-2 bg-white/40 backdrop-blur-xs p-2 rounded-xl border border-white/80 leading-relaxed">
                         {site.notes}
                       </p>
                     )}
@@ -313,6 +322,7 @@ export function CardView({
 
       {/* Card View Summary Footer (No text labels on mobile, only dots) */}
       <div className="bg-white/75 backdrop-blur-xl p-3 sm:px-4 rounded-2xl border border-white/80 shadow-xs flex items-center justify-between text-xs text-slate-500">
+      <div className="glass-panel p-3 sm:px-4 rounded-2xl flex items-center justify-between text-xs text-slate-500">
         <div>
           Showing <span className="font-bold text-slate-800">{filteredSites.length}</span> of{' '}
           <span className="font-bold text-slate-800">{sites.length}</span> sites

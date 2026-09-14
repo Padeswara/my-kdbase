@@ -144,6 +144,10 @@ export function App() {
         <div className="absolute -top-28 -left-28 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl" />
         <div className="absolute top-1/3 -right-28 w-96 h-96 bg-indigo-100/30 rounded-full blur-3xl" />
         <div className="absolute -bottom-28 left-1/3 w-96 h-96 bg-emerald-100/25 rounded-full blur-3xl" />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-sky-300/35 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl" />
+        <div className="absolute top-2/3 -left-20 w-88 h-88 bg-violet-200/30 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 w-96 h-96 bg-emerald-200/35 rounded-full blur-3xl" />
       </div>
 
       {/* Main Content */}
@@ -154,8 +158,10 @@ export function App() {
           
           {/* Total Sites Card (100% Width) */}
           <div className="w-full bg-white/75 backdrop-blur-xl p-4 sm:p-5 rounded-2xl border border-white/80 shadow-xs shadow-slate-900/5 flex items-center justify-between transition-all duration-200 hover:bg-white/85">
+          <div className="w-full glass-panel-hover p-4 sm:p-5 rounded-2xl flex items-center justify-between cursor-default">
             <div className="flex items-center gap-3.5 min-w-0">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-md shadow-slate-900/20">
                 <Layers className="w-5 h-5" />
               </div>
               <div className="min-w-0">
@@ -177,6 +183,8 @@ export function App() {
             
             <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-600 border border-blue-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
@@ -187,6 +195,8 @@ export function App() {
 
             <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 border border-amber-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
@@ -197,6 +207,8 @@ export function App() {
 
             <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 border border-emerald-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <CheckCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
@@ -207,6 +219,8 @@ export function App() {
 
             <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
+            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
+              <div className="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 border border-rose-200/50 backdrop-blur-sm flex items-center justify-center shrink-0">
                 <XCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">

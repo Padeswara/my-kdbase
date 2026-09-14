@@ -54,11 +54,15 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer shadow-2xs select-none active:scale-98 min-w-[140px] sm:min-w-[155px] ${
+        className={`inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer select-none active:scale-98 min-w-[140px] sm:min-w-[155px] ${
           isOpen
             ? 'border-slate-900 bg-white/95 ring-2 ring-slate-900/10 text-slate-900'
+            ? 'border-slate-900 bg-white/95 ring-2 ring-slate-900/10 text-slate-900 shadow-xs'
             : value !== 'ALL'
             ? 'border-slate-300 bg-white text-slate-900'
             : 'border-white/80 bg-white/75 backdrop-blur-xl hover:bg-white text-slate-700'
+            ? 'border-slate-300 bg-white/90 text-slate-900 shadow-2xs'
+            : 'glass-btn-secondary text-slate-700 hover:text-slate-900'
         }`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
@@ -83,6 +87,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
       {isOpen && (
         <div
           className="absolute right-0 sm:left-0 top-full mt-1.5 w-48 bg-white/90 backdrop-blur-2xl rounded-2xl border border-white/90 shadow-xl shadow-slate-900/10 p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 select-none"
+          className="absolute right-0 sm:left-0 top-full mt-1.5 w-48 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 select-none"
           role="listbox"
         >
           <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -106,6 +111,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
                     isSelected
                       ? 'bg-slate-900 text-white shadow-xs'
                       : 'text-slate-700 hover:bg-slate-100/80'
+                      : 'text-slate-700 hover:bg-white/80'
                   }`}
                 >
                   <div className="flex items-center gap-2">

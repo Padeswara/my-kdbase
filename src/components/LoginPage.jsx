@@ -42,6 +42,9 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
         <div className="absolute top-1/4 -left-20 w-80 h-80 bg-sky-200/40 rounded-full blur-3xl" />
         <div className="absolute top-1/3 -right-20 w-80 h-80 bg-indigo-200/35 rounded-full blur-3xl" />
         <div className="absolute -bottom-20 left-1/3 w-80 h-80 bg-emerald-100/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-sky-300/35 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-20 w-88 h-88 bg-indigo-300/30 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 left-1/3 w-88 h-88 bg-emerald-200/30 rounded-full blur-3xl" />
       </div>
 
       {/* Top Spacer */}
@@ -50,10 +53,12 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
       {/* Minimalist Glass Login Card */}
       <div className="w-full max-w-sm my-auto">
         <div className="bg-white/75 backdrop-blur-2xl rounded-3xl border border-white/80 shadow-xl shadow-slate-900/5 p-6 sm:p-8">
+        <div className="glass-modal rounded-3xl p-6 sm:p-8 relative">
           
           {/* Header Brand */}
           <div className="text-center mb-6">
             <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center mx-auto mb-3 shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center mx-auto mb-3 shadow-md shadow-slate-900/20">
               <Database className="w-5 h-5" />
             </div>
             <h1 className="text-xl font-black tracking-tight text-slate-900 m-0">
@@ -67,6 +72,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
           {/* Error Message */}
           {error && (
             <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-50/90 border border-rose-200 text-rose-700 text-xs font-medium rounded-xl animate-in fade-in">
+            <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-50/90 border border-rose-200 text-rose-700 text-xs font-medium rounded-xl animate-in fade-in backdrop-blur-sm">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-500 mt-0.5" />
               <div className="leading-snug">{error}</div>
             </div>
@@ -85,6 +91,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
                 className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-900"
+                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
               />
             </div>
 
@@ -99,6 +106,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-900"
+                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input text-slate-900 focus:outline-none"
               />
             </div>
 
@@ -106,6 +114,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
               type="submit"
               disabled={isLoading}
               className="w-full mt-2 py-2.5 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition duration-200 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-98"
+              className="w-full mt-2 py-2.5 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-slate-900/20 transition duration-200 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-98"
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -123,6 +132,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
 
       {/* Footer */}
       <footer className="w-full py-5 border-t border-white/80 text-center text-xs text-slate-400 bg-white/40 backdrop-blur-md">
+      <footer className="w-full py-5 border-t border-white/60 text-center text-xs text-slate-400 bg-white/40 backdrop-blur-xl">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
@@ -130,11 +140,14 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
       {showTimeoutModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md animate-in fade-in duration-200">
           <div className="w-full max-w-sm bg-white/90 backdrop-blur-2xl rounded-3xl p-6 sm:p-7 shadow-2xl border border-white/80 text-center relative animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/45 backdrop-blur-xl animate-in fade-in duration-200">
+          <div className="w-full max-w-sm glass-modal rounded-3xl p-6 sm:p-7 text-center relative animate-in zoom-in-95 duration-200">
             {/* Close Button */}
             <button
               type="button"
               onClick={() => setShowTimeoutModal(false)}
               className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-600 hover:bg-white/80 rounded-full transition cursor-pointer backdrop-blur-sm"
               title="Close"
             >
               <X className="w-4 h-4" />
@@ -142,6 +155,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
 
             {/* Timeout Clock Icon */}
             <div className="w-14 h-14 rounded-2xl bg-amber-50/80 border border-amber-200/80 flex items-center justify-center mx-auto mb-4 text-amber-600 shadow-xs">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-300/60 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 text-amber-600 shadow-sm shadow-amber-500/10">
               <Clock className="w-7 h-7" />
             </div>
 
@@ -158,6 +172,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
               type="button"
               onClick={() => setShowTimeoutModal(false)}
               className="w-full py-2.5 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition duration-200 cursor-pointer active:scale-98"
+              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-slate-900/20 transition duration-200 cursor-pointer active:scale-98"
             >
               Sign In Again
             </button>

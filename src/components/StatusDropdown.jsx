@@ -154,6 +154,7 @@ export function StatusDropdown({
           ref={menuRef}
           style={menuStyle}
           className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-900/15 border border-slate-200/80 p-1.5 animate-in fade-in zoom-in-95 duration-150 select-none"
+          className="glass-dropdown rounded-2xl p-1.5 animate-in fade-in zoom-in-95 duration-150 select-none"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
@@ -173,6 +174,8 @@ export function StatusDropdown({
                     isSelected
                       ? 'bg-slate-100 text-slate-900 font-bold'
                       : `text-slate-700 ${itemConfig.hover}`
+                      ? 'bg-slate-900 text-white font-bold shadow-xs'
+                      : `text-slate-700 hover:bg-white/80`
                   }`}
                 >
                   <span className="flex items-center gap-2">
@@ -180,6 +183,7 @@ export function StatusDropdown({
                     <span>{status}</span>
                   </span>
                   {isSelected && <Check className="w-3.5 h-3.5 text-slate-900 shrink-0" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-white shrink-0" />}
                 </button>
               )
             })}
