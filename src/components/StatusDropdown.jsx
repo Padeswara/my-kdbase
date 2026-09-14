@@ -33,7 +33,8 @@ export function StatusDropdown({
   disabled = false, 
   size = 'sm',
   align = 'auto',
-  onOpenChange 
+  onOpenChange,
+  bgWhite = false
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const [menuStyle, setMenuStyle] = useState({})
@@ -138,14 +139,18 @@ export function StatusDropdown({
         type="button"
         disabled={disabled}
         onClick={handleToggle}
-        className={`inline-flex items-center gap-1.5 font-bold rounded-full border transition-all duration-200 cursor-pointer select-none active:scale-95 shadow-xs ${config.badge} ${
+        className={`inline-flex items-center gap-1.5 font-bold rounded-full border transition-all duration-200 cursor-pointer select-none active:scale-95 shadow-xs ${
+          bgWhite
+            ? 'bg-white text-slate-800 border-slate-200/90 hover:bg-slate-50 shadow-sm'
+            : config.badge
+        } ${
           size === 'sm' ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
         } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
         title="Click to change status"
       >
         <span className={`w-2 h-2 rounded-full shrink-0 ${config.dot}`}></span>
         <span>{currentStatus}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform duration-200 opacity-60 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${bgWhite ? 'text-slate-400' : 'opacity-60'} ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Floating Menu via React Portal */}
@@ -153,7 +158,11 @@ export function StatusDropdown({
         <div 
           ref={menuRef}
           style={menuStyle}
-          className="glass-dropdown rounded-2xl p-1.5 animate-in fade-in zoom-in-95 duration-150 select-none"
+          className={`${
+            bgWhite
+              ? 'bg-white border border-slate-200 shadow-2xl'
+              : 'glass-dropdown'
+          } rounded-2xl p-1.5 animate-in fade-in zoom-in-95 duration-150 select-none`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
@@ -171,7 +180,9 @@ export function StatusDropdown({
                   onClick={() => handleSelect(status)}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs'
+                      ? 'bg-slate-900 text-white font-bold shadow-xs'
+                      : bgWhite
+                      ? 'text-slate-700 hover:bg-slate-100 hover:text-slate-950'
                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -179,7 +190,7 @@ export function StatusDropdown({
                     <span className={`w-2 h-2 rounded-full ${itemConfig.dot}`}></span>
                     <span>{status}</span>
                   </span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-slate-950 shrink-0" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-white shrink-0" />}
                 </button>
               )
             })}

@@ -45,13 +45,13 @@ html.dark body {
 /* Standard Glass Panel (Cards, Toolbars, Containers) */
 .glass-panel {
   background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: 
     0 10px 30px -5px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 0 rgba(255, 255, 255, 1);
-  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 html.dark .glass-panel {
   background: rgba(17, 24, 39, 0.65);
@@ -64,20 +64,23 @@ html.dark .glass-panel {
 /* Interactive Glass Panel (Hoverable Cards, Controls) */
 .glass-panel-hover {
   background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: 
     0 10px 30px -5px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 0 rgba(255, 255, 255, 1);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 320px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .glass-panel-hover:hover {
   background: rgba(255, 255, 255, 0.90);
   border-color: rgba(255, 255, 255, 0.95);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 
-    0 16px 40px -8px rgba(0, 0, 0, 0.08),
+    0 16px 36px -8px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 0 rgba(255, 255, 255, 1);
 }
 html.dark .glass-panel-hover {
@@ -90,17 +93,17 @@ html.dark .glass-panel-hover {
 html.dark .glass-panel-hover:hover {
   background: rgba(30, 41, 59, 0.75);
   border-color: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 
-    0 16px 40px -8px rgba(0, 0, 0, 0.6),
+    0 16px 36px -8px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
 }
 
 /* Glass Modal / Dialog Container */
 .glass-modal {
   background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(32px) saturate(190%);
-  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
   border: 1px solid rgba(255, 255, 255, 0.90);
   box-shadow: 
     0 25px 60px -15px rgba(0, 0, 0, 0.15),
@@ -118,8 +121,8 @@ html.dark .glass-modal {
 /* Extra Deep Dark Glass Modal (Image Preview, Media) */
 .glass-modal-dark {
   background: rgba(11, 15, 25, 0.88);
-  backdrop-filter: blur(32px) saturate(190%);
-  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
     0 25px 60px -12px rgba(0, 0, 0, 0.9),
@@ -128,9 +131,9 @@ html.dark .glass-modal {
 
 /* Glass Floating Dropdown / Popover */
 .glass-dropdown {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
   border: 1px solid rgba(255, 255, 255, 0.90);
   box-shadow: 
     0 20px 45px -8px rgba(0, 0, 0, 0.12),

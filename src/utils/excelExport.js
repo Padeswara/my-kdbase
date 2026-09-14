@@ -2,14 +2,19 @@ import * as XLSX from 'xlsx'
 
 /**
  * Export site list to Excel spreadsheet (.xlsx)
+ * Export site list to Excel spreadsheet (.xlsx) - Dynamically loaded on demand
  * @param {Array} sites - Site data list
  * @param {string} fileName - Output filename prefix
  */
 export function exportSitesToExcel(sites = [], fileName = 'Site_Data') {
+export async function exportSitesToExcel(sites = [], fileName = 'Site_Data') {
   if (!sites || sites.length === 0) {
     alert('No data to export!')
     return
   }
+
+  // Dynamically load XLSX only when user clicks export to save ~400kB on initial page load
+  const XLSX = await import('xlsx')
 
   // Format rows for Excel spreadsheet
   const formattedData = sites.map((site, index) => ({

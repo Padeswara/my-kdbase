@@ -236,6 +236,8 @@ export function CardView({
                     <img
                       src={site.image_url}
                       alt={site.company_name}
+                      loading="lazy"
+                      decoding="async"
                       onClick={() => onPreviewImage(site.image_url, site.company_name)}
                       className="w-full h-full object-cover cursor-pointer hover:scale-105 transition duration-200"
                     />
@@ -254,6 +256,7 @@ export function CardView({
                       onOpenChange={(isOpen) => setOpenDropdownId(isOpen ? site.id : null)}
                       size="sm"
                       align="right"
+                      bgWhite={true}
                     />
                   </div>
                 </div>
