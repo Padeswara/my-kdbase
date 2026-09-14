@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { exportSitesToExcel } from '../../utils/excelExport'
 import { StatusDropdown } from '../StatusDropdown'
+import { ViewSwitcher } from '../ViewSwitcher'
 
 const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 
@@ -78,63 +79,7 @@ export function TableView({
 
         <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
           {/* View Switcher: Segmented on Desktop, Dropdown on Mobile (Positioned Left of Export to Excel) */}
-          {onViewChange && (
-            <>
-              {/* Desktop Segmented Pill */}
-              <div className="hidden sm:flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => onViewChange('card')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                    currentView === 'card'
-                      ? 'bg-white text-slate-900 shadow-2xs'
-                      : 'text-slate-500 hover:text-slate-900'
-                  }`}
-                  title="Card View"
-                >
-                  <LayoutGrid className="w-3.5 h-3.5" />
-                  <span>Cards</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onViewChange('table')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
-                    currentView === 'table'
-                      ? 'bg-white text-slate-900 shadow-2xs'
-                      : 'text-slate-500 hover:text-slate-900'
-                  }`}
-                  title="Table View"
-                >
-                  <Table className="w-3.5 h-3.5" />
-                  <span>Table</span>
-                </button>
-              </div>
-
-              {/* Mobile View Dropdown */}
-              <div className="relative sm:hidden">
-                <div className="flex items-center justify-between gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200/80 bg-white text-slate-800 text-xs font-bold shadow-2xs">
-                  <div className="flex items-center gap-1.5">
-                    {currentView === 'card' ? (
-                      <LayoutGrid className="w-3.5 h-3.5 text-slate-900" />
-                    ) : (
-                      <Table className="w-3.5 h-3.5 text-slate-900" />
-                    )}
-                    <span>{currentView === 'card' ? 'Cards' : 'Table'}</span>
-                  </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-                </div>
-                <select
-                  value={currentView}
-                  onChange={(e) => onViewChange(e.target.value)}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                  aria-label="Switch view mode"
-                >
-                  <option value="card">Cards View</option>
-                  <option value="table">Table View</option>
-                </select>
-              </div>
-            </>
-          )}
+          <ViewSwitcher currentView={currentView} onViewChange={onViewChange} />
 
           {/* Export to Excel */}
           <button
