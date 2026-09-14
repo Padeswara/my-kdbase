@@ -20,7 +20,6 @@ export function exportSitesToExcel(sites = [], fileName = 'Site_Data') {
     'PIC Contact': site.pic_phone || '-',
     'Status': site.status || 'Pending',
     'Notes': site.notes || '-',
-    'Photo Link': site.image_url || '-',
     'Date Added': site.created_at
       ? new Date(site.created_at).toLocaleString('en-US', {
           dateStyle: 'medium',
@@ -41,7 +40,6 @@ export function exportSitesToExcel(sites = [], fileName = 'Site_Data') {
     { wch: 18 }, // PIC Contact
     { wch: 14 }, // Status
     { wch: 35 }, // Notes
-    { wch: 30 }, // Photo Link
     { wch: 22 }, // Date Added
   ]
 

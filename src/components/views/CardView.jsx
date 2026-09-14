@@ -22,6 +22,13 @@ import { ViewSwitcher } from '../ViewSwitcher'
 
 const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 
+const STATUS_DOT = {
+  'On Going': 'bg-blue-500 ring-4 ring-blue-500/20',
+  'Pending': 'bg-amber-500 ring-4 ring-amber-500/20',
+  'Approve': 'bg-emerald-500 ring-4 ring-emerald-500/20',
+  'Decline': 'bg-rose-500 ring-4 ring-rose-500/20'
+}
+
 export function CardView({
   sites = [],
   loading = false,
@@ -195,9 +202,15 @@ export function CardView({
                 <div className="p-3.5 flex-1 flex flex-col justify-between space-y-2.5">
                   <div className="space-y-1.5">
                     
-                    {/* Company Name */}
-                    <div className="font-black text-slate-900 text-sm leading-tight line-clamp-1">
-                      {site.company_name}
+                    {/* Company Name & Round Status Dot */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="font-black text-slate-900 text-sm leading-tight line-clamp-1 truncate">
+                        {site.company_name}
+                      </div>
+                      <span 
+                        className={`w-2.5 h-2.5 rounded-full shrink-0 ${STATUS_DOT[site.status] || 'bg-amber-500 ring-4 ring-amber-500/20'}`}
+                        title={`Status: ${site.status}`}
+                      />
                     </div>
 
                     {/* Address */}
