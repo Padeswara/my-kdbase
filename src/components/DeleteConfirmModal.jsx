@@ -16,23 +16,23 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
         {/* Close Button */}
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
+          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
           title="Close"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Warning Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-500/30 backdrop-blur-sm flex items-center justify-center text-rose-400 mx-auto mb-4 shadow-lg shadow-rose-500/10">
+        <div className="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-500/30 backdrop-blur-sm flex items-center justify-center text-rose-500 dark:text-rose-400 mx-auto mb-4 shadow-lg shadow-rose-500/10">
           <AlertTriangle className="w-7 h-7" />
         </div>
 
-        <h3 className="text-base sm:text-lg font-black text-white m-0 tracking-tight">
+        <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-white m-0 tracking-tight">
           Delete Site Data?
         </h3>
 
-        <p className="text-xs sm:text-sm text-slate-400 mt-2 mb-6 leading-relaxed">
-          Are you sure you want to delete data for <span className="font-bold text-white">"{siteName}"</span>? This action cannot be undone.
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-2 mb-6 leading-relaxed">
+          Are you sure you want to delete data for <span className="font-bold text-slate-900 dark:text-white">"{siteName}"</span>? This action cannot be undone.
         </p>
 
         {/* Action Buttons */}
@@ -41,7 +41,7 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             type="button"
             onClick={onCancel}
             disabled={isDeleting}
-            className="w-full py-2.5 px-4 glass-btn-secondary text-slate-300 hover:text-white font-bold text-xs rounded-xl cursor-pointer disabled:opacity-50 active:scale-98"
+            className="w-full py-2.5 px-4 glass-btn-secondary text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white font-bold text-xs rounded-xl cursor-pointer disabled:opacity-50 active:scale-98"
           >
             Cancel
           </button>

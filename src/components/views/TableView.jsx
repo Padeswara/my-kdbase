@@ -11,9 +11,7 @@ import {
   Building2,
   ExternalLink,
   RotateCw,
-  RotateCcw,
-  Table,
-  LayoutGrid
+  RotateCcw
 } from 'lucide-react'
 import { exportSitesToExcel } from '../../utils/excelExport'
 import { StatusDropdown } from '../StatusDropdown'
@@ -21,12 +19,12 @@ import { ViewSwitcher } from '../ViewSwitcher'
 import { StatusFilterDropdown } from '../StatusFilterDropdown'
 import { SortDropdown } from '../SortDropdown'
 
-const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
-
 export function TableView({
   sites = [],
   loading = false,
   currentView = 'table',
+  statusFilter = 'ALL',
+  onStatusFilterChange,
   onViewChange,
   onOpenAddModal,
   onOpenEditModal,
@@ -36,7 +34,6 @@ export function TableView({
   onRefresh
 }) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [statusFilter, setStatusFilter] = useState('ALL')
   const [sortBy, setSortBy] = useState('date-desc')
   const [updatingId, setUpdatingId] = useState(null)
   const [openDropdownId, setOpenDropdownId] = useState(null)
@@ -45,7 +42,7 @@ export function TableView({
 
   const handleResetFilters = () => {
     setSearchTerm('')
-    setStatusFilter('ALL')
+    onStatusFilterChange?.('ALL')
     setSortBy('date-desc')
   }
 
@@ -100,29 +97,29 @@ export function TableView({
       {/* Main Action Buttons & View Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-base sm:text-lg font-black text-white m-0 tracking-tight">Site List</h2>
-          <p className="text-xs text-slate-400 m-0">Manage and monitor all site locations</p>
+          <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white m-0 tracking-tight">Site List</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 m-0">Manage and monitor all site locations</p>
         </div>
 
         <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
-          {/* View Switcher: Segmented on Desktop, Dropdown on Mobile (Positioned Left of Export to Excel) */}
+          {/* View Switcher: Segmented on Desktop, Dropdown on Mobile */}
           <ViewSwitcher currentView={currentView} onViewChange={onViewChange} />
 
           {/* Export to Excel */}
           <button
             onClick={handleExport}
             disabled={filteredSites.length === 0}
-            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl glass-btn-secondary text-slate-200 hover:text-white text-xs font-bold cursor-pointer disabled:opacity-50 active:scale-98"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl glass-btn-secondary text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white text-xs font-bold cursor-pointer disabled:opacity-50 active:scale-98"
             title="Download data as Excel spreadsheet (.xlsx)"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>Export to Excel</span>
           </button>
 
           {/* Add Site Button */}
           <button
             onClick={onOpenAddModal}
-            className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-200 text-slate-950 text-xs font-bold shadow-lg shadow-white/10 transition duration-200 cursor-pointer active:scale-98"
+            className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 text-xs font-bold shadow-md shadow-slate-900/15 dark:shadow-white/10 transition duration-200 cursor-pointer active:scale-98"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Site</span>
@@ -140,14 +137,17 @@ export function TableView({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search company, address, PIC, phone number..."
-            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
+            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
           />
         </div>
 
         {/* Filters, Sort & Refresh */}
         <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
           {/* Status Filter */}
-          <StatusFilterDropdown value={statusFilter} onChange={setStatusFilter} />
+          <StatusFilterDropdown 
+            value={statusFilter} 
+            onChange={(val) => onStatusFilterChange?.(val)} 
+          />
 
           {/* Sort Dropdown */}
           <SortDropdown value={sortBy} onChange={setSortBy} />
@@ -157,7 +157,7 @@ export function TableView({
             <button
               type="button"
               onClick={handleResetFilters}
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-300 hover:text-white text-xs font-bold cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold cursor-pointer active:scale-95"
               title="Reset all filters & sort"
             >
               <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
@@ -168,7 +168,7 @@ export function TableView({
           {onRefresh && (
             <button
               onClick={onRefresh}
-              className="p-2.5 text-slate-400 hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
+              className="p-2.5 text-slate-400 hover:text-slate-900 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95 ml-auto sm:ml-0"
               title="Refresh Data"
             >
               <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -183,7 +183,7 @@ export function TableView({
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-white/[0.04] backdrop-blur-md border-b border-white/10 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              <tr className="bg-slate-100/60 dark:bg-white/[0.04] backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 <th className="py-3.5 px-4 w-12 text-center">No</th>
                 <th className="py-3.5 px-4 w-20">Photo</th>
                 <th className="py-3.5 px-4 min-w-[200px]">Company & Address</th>
@@ -194,20 +194,20 @@ export function TableView({
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-white/10 text-sm">
+            <tbody className="divide-y divide-slate-200/70 dark:divide-white/10 text-sm">
               {loading && sites.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-16 text-center text-slate-400">
-                    <div className="inline-block w-7 h-7 border-2 border-white border-t-transparent rounded-full animate-spin mb-2"></div>
+                    <div className="inline-block w-7 h-7 border-2 border-slate-900 dark:border-white border-t-transparent rounded-full animate-spin mb-2"></div>
                     <div className="text-xs">Loading database...</div>
                   </td>
                 </tr>
               ) : filteredSites.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-16 text-center text-slate-400">
-                    <Building2 className="w-10 h-10 mx-auto text-slate-600 mb-2" />
-                    <div className="font-bold text-slate-200">No data found</div>
-                    <div className="text-xs text-slate-400 mt-1">
+                    <Building2 className="w-10 h-10 mx-auto text-slate-400 dark:text-slate-600 mb-2" />
+                    <div className="font-bold text-slate-800 dark:text-slate-200">No data found</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       {searchTerm || statusFilter !== 'ALL'
                         ? 'Try adjusting your search query or status filter'
                         : 'Click "Add Site" to create the first record'}
@@ -221,7 +221,7 @@ export function TableView({
                   return (
                     <tr 
                       key={site.id} 
-                      className={`hover:bg-white/[0.06] transition duration-150 group relative ${
+                      className={`hover:bg-slate-100/60 dark:hover:bg-white/[0.06] transition duration-150 group relative ${
                         isDropdownOpen ? 'z-30' : 'z-10'
                       }`}
                     >
@@ -235,7 +235,7 @@ export function TableView({
                         {site.image_url ? (
                           <div 
                             onClick={() => onPreviewImage(site.image_url, site.company_name)}
-                            className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 cursor-pointer group-hover:border-white/30 transition shadow-2xs relative bg-slate-900/60 flex items-center justify-center"
+                            className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200/80 dark:border-white/10 cursor-pointer group-hover:border-slate-400 dark:group-hover:border-white/30 transition shadow-2xs relative bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center"
                             title="Click to view full photo"
                           >
                             <img
@@ -251,7 +251,7 @@ export function TableView({
                             </div>
                           </div>
                         ) : (
-                          <div className="w-12 h-12 rounded-xl bg-slate-900/60 border border-white/10 flex items-center justify-center text-slate-500">
+                          <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-500">
                             <ImageIcon className="w-5 h-5" />
                           </div>
                         )}
@@ -259,17 +259,17 @@ export function TableView({
 
                       {/* Company & Address */}
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-white group-hover:text-blue-300 transition">
+                        <div className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">
                           {site.company_name}
                         </div>
-                        <div className="text-xs text-slate-300 mt-0.5 line-clamp-2 leading-relaxed">
+                        <div className="text-xs text-slate-500 dark:text-slate-300 mt-0.5 line-clamp-2 leading-relaxed">
                           {site.address}
                         </div>
                       </td>
 
                       {/* PIC & Contact */}
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-slate-200 flex items-center gap-1.5">
+                        <div className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
                           <span>{site.pic_name}</span>
                         </div>
                         <div className="mt-1">
@@ -277,10 +277,10 @@ export function TableView({
                             href={`https://wa.me/${site.pic_phone.replace(/[^0-9]/g, '').replace(/^0/, '62')}`}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-emerald-400 font-bold hover:underline"
+                            className="inline-flex items-center gap-1 text-xs text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-bold hover:underline"
                             title="Chat via WhatsApp"
                           >
-                            <Phone className="w-3 h-3 text-emerald-400" />
+                            <Phone className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                             <span>{site.pic_phone}</span>
                             <ExternalLink className="w-2.5 h-2.5 opacity-40" />
                           </a>
@@ -300,7 +300,7 @@ export function TableView({
 
                       {/* Notes */}
                       <td className="py-3.5 px-4">
-                        <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                        <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                           {site.notes || '-'}
                         </p>
                       </td>
@@ -310,14 +310,14 @@ export function TableView({
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => onOpenEditModal(site)}
-                            className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
                             title="Edit Data"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onDeleteSite(site.id)}
-                            className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-lg transition cursor-pointer"
                             title="Delete Data"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -334,25 +334,25 @@ export function TableView({
         </div>
 
         {/* Table Footer Summary (Status text hidden on mobile, dots only) */}
-        <div className="px-4 sm:px-5 py-3.5 bg-white/[0.03] backdrop-blur-md border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+        <div className="px-4 sm:px-5 py-3.5 bg-slate-100/40 dark:bg-white/[0.03] backdrop-blur-md border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
           <div>
-            Showing <span className="font-bold text-white">{filteredSites.length}</span> of{' '}
-            <span className="font-bold text-white">{sites.length}</span> total sites
+            Showing <span className="font-bold text-slate-900 dark:text-white">{filteredSites.length}</span> of{' '}
+            <span className="font-bold text-slate-900 dark:text-white">{sites.length}</span> total sites
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="inline-flex items-center gap-1.5 font-medium" title="On Going">
+            <span className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300" title="On Going">
               <span className="w-2 h-2 rounded-full bg-blue-500"></span>
               <span className="hidden sm:inline">On Going</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 font-medium" title="Pending">
+            <span className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300" title="Pending">
               <span className="w-2 h-2 rounded-full bg-amber-500"></span>
               <span className="hidden sm:inline">Pending</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 font-medium" title="Approve">
+            <span className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300" title="Approve">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               <span className="hidden sm:inline">Approve</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 font-medium" title="Decline">
+            <span className="inline-flex items-center gap-1.5 font-medium text-slate-600 dark:text-slate-300" title="Decline">
               <span className="w-2 h-2 rounded-full bg-rose-500"></span>
               <span className="hidden sm:inline">Decline</span>
             </span>

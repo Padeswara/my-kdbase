@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Database, AlertCircle, ArrowRight, Clock, X } from 'lucide-react'
+import { Database, AlertCircle, ArrowRight, Clock, X, Sun, Moon } from 'lucide-react'
 
-export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
+export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'dark', onToggleTheme }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -35,17 +35,33 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex flex-col justify-between items-center px-4 font-sans text-slate-100 bg-[#0b0f19]">
+    <div className="min-h-screen relative overflow-hidden flex flex-col justify-between items-center px-4 font-sans text-slate-900 dark:text-slate-100">
       
       {/* Ambient Background Glows */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 -right-20 w-88 h-88 bg-indigo-600/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 left-1/3 w-88 h-88 bg-emerald-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-500/15 dark:bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-20 w-88 h-88 bg-indigo-500/15 dark:bg-indigo-600/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 left-1/3 w-88 h-88 bg-emerald-500/15 dark:bg-emerald-600/20 rounded-full blur-3xl" />
       </div>
 
-      {/* Top Spacer */}
-      <div className="h-6"></div>
+      {/* Top Header Bar with Theme Switcher */}
+      <div className="w-full max-w-5xl mx-auto flex items-center justify-end pt-4 sm:pt-6">
+        {onToggleTheme && (
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            className="p-2 rounded-xl glass-btn-secondary transition cursor-pointer active:scale-95 flex items-center justify-center shadow-xs"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle theme mode"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-300 transition-transform duration-300 rotate-0 hover:rotate-45" />
+            ) : (
+              <Moon className="w-4 h-4 text-indigo-600 transition-transform duration-300 rotate-0 hover:-rotate-12" />
+            )}
+          </button>
+        )}
+      </div>
 
       {/* Minimalist Glass Login Card */}
       <div className="w-full max-w-sm my-auto">
@@ -53,21 +69,21 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
           
           {/* Header Brand */}
           <div className="text-center mb-6">
-            <div className="w-12 h-12 rounded-2xl bg-white text-slate-950 flex items-center justify-center mx-auto mb-3 shadow-md shadow-white/10">
+            <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-950 flex items-center justify-center mx-auto mb-3 shadow-md shadow-slate-900/15 dark:shadow-white/10">
               <Database className="w-5 h-5" />
             </div>
-            <h1 className="text-xl font-black tracking-tight text-white m-0">
+            <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white m-0">
               MY KDBASE
             </h1>
-            <p className="text-xs text-slate-400 m-0 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 m-0 mt-1">
               Sign in to manage the site database
             </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-medium rounded-xl animate-in fade-in backdrop-blur-sm">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400 mt-0.5" />
+            <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-500/15 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs font-medium rounded-xl animate-in fade-in backdrop-blur-sm">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-500 dark:text-rose-400 mt-0.5" />
               <div className="leading-snug">{error}</div>
             </div>
           )}
@@ -75,7 +91,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Username
               </label>
               <input
@@ -84,12 +100,12 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
-                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
+                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Password
               </label>
               <input
@@ -98,17 +114,17 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input text-white focus:outline-none"
+                className="w-full px-[14px] py-2.5 text-xs sm:text-sm rounded-xl glass-input focus:outline-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 py-2.5 px-4 bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-white/10 transition duration-200 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-98"
+              className="w-full mt-2 py-2.5 px-4 bg-slate-900 hover:bg-black text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-slate-900/15 dark:shadow-white/10 transition duration-200 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-98"
             >
               {isLoading ? (
-                <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
               ) : (
                 <>
                   <span>Sign In</span>
@@ -122,7 +138,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
       </div>
 
       {/* Footer */}
-      <footer className="w-full py-5 border-t border-white/10 text-center text-xs text-slate-400 bg-slate-950/40 backdrop-blur-xl">
+      <footer className="w-full py-5 border-t border-slate-200/80 dark:border-white/10 text-center text-xs text-slate-500 dark:text-slate-400 bg-white/40 dark:bg-slate-950/40 backdrop-blur-xl">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
@@ -134,22 +150,22 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
             <button
               type="button"
               onClick={() => setShowTimeoutModal(false)}
-              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
+              className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
               title="Close"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Timeout Clock Icon */}
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 text-amber-400 shadow-sm shadow-amber-500/20">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 text-amber-500 dark:text-amber-400 shadow-sm shadow-amber-500/20">
               <Clock className="w-7 h-7" />
             </div>
 
             {/* Title & Message */}
-            <h3 className="text-base sm:text-lg font-bold text-white mb-2">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
               Session Expired
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
               {idleNotice || 'You have been inactive for 10 minutes. For your account security, please sign in again.'}
             </p>
 
@@ -157,7 +173,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
             <button
               type="button"
               onClick={() => setShowTimeoutModal(false)}
-              className="w-full py-2.5 px-4 bg-white hover:bg-slate-200 text-slate-950 font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-white/10 transition duration-200 cursor-pointer active:scale-98"
+              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-black text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-slate-900/15 dark:shadow-white/10 transition duration-200 cursor-pointer active:scale-98"
             >
               Sign In Again
             </button>

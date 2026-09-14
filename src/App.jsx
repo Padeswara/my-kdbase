@@ -8,6 +8,7 @@ import { ImagePreviewModal } from './components/ImagePreviewModal'
 import { DeleteConfirmModal } from './components/DeleteConfirmModal'
 import { useSites } from './hooks/useSites'
 import { useIdleTimer } from './hooks/useIdleTimer'
+import { useTheme } from './hooks/useTheme'
 import { 
   Clock, 
   CheckCircle, 
@@ -16,6 +17,9 @@ import {
 } from 'lucide-react'
 
 export function App() {
+  // Theme Manager (Dark / Light Mode)
+  const { theme, toggleTheme } = useTheme()
+
   // 1. Simple Authentication
   const [currentUser, setCurrentUser] = useState(() => {
     try {
@@ -66,8 +70,9 @@ export function App() {
     deleteSite
   } = useSites()
 
-  // 3. Default View: 'card'
+  // 3. Views & Status Filter State (Lifted to App for top card synchronization)
   const [currentView, setCurrentView] = useState('card')
+  const [statusFilter, setStatusFilter] = useState('ALL')
 
   // 4. Modal States
   const [isSiteModalOpen, setIsSiteModalOpen] = useState(false)
@@ -124,27 +129,45 @@ export function App() {
     decline: sites.filter((s) => s.status === 'Decline').length
   }
 
+  // Card filter toggler: Clicking active card resets to ALL, clicking inactive sets it
+  const handleStatCardClick = (status) => {
+    if (status === 'ALL') {
+      setStatusFilter('ALL')
+    } else {
+      setStatusFilter((prev) => (prev === status ? 'ALL' : status))
+    }
+  }
+
   // If not logged in, render LoginPage
   if (!currentUser) {
-    return <LoginPage onLoginSuccess={handleLoginSuccess} idleNotice={idleNotice} />
+    return (
+      <LoginPage 
+        onLoginSuccess={handleLoginSuccess} 
+        idleNotice={idleNotice} 
+        theme={theme} 
+        onToggleTheme={toggleTheme} 
+      />
+    )
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] flex flex-col font-sans text-slate-100">
+    <div className="min-h-screen flex flex-col font-sans text-slate-900 dark:text-slate-100">
       
       {/* Responsive Navbar */}
       <Navbar
         currentUser={currentUser}
         onLogout={handleLogout}
         isDbOnline={isDbOnline}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Ambient Glass Background Glows */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-2/3 -left-20 w-88 h-88 bg-violet-600/15 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 right-1/4 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl" />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/15 dark:bg-blue-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-500/15 dark:bg-indigo-600/20 rounded-full blur-3xl" />
+        <div className="absolute top-2/3 -left-20 w-88 h-88 bg-violet-500/10 dark:bg-violet-600/15 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 right-1/4 w-96 h-96 bg-emerald-500/15 dark:bg-emerald-600/20 rounded-full blur-3xl" />
       </div>
 
       {/* Main Content */}
@@ -154,21 +177,38 @@ export function App() {
         <div className="space-y-2 sm:space-y-3">
           
           {/* Total Sites Card (100% Width) */}
-          <div className="w-full glass-panel-hover p-4 sm:p-5 rounded-2xl flex items-center justify-between cursor-default">
+          <div 
+            onClick={() => handleStatCardClick('ALL')}
+            className={`w-full glass-panel-hover p-4 sm:p-5 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition-all select-none ${
+              statusFilter === 'ALL'
+                ? 'ring-2 ring-slate-900/30 dark:ring-white/40 border-slate-900/40 dark:border-white/40 shadow-md'
+                : 'hover:border-slate-300 dark:hover:border-white/25'
+            }`}
+            title="Click to view all site locations"
+          >
             <div className="flex items-center gap-3.5 min-w-0">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white text-slate-950 flex items-center justify-center shrink-0 shadow-md shadow-white/10">
+              <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-md transition-all ${
+                statusFilter === 'ALL'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-slate-900/20 dark:shadow-white/20'
+                  : 'bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white border border-slate-200 dark:border-white/10'
+              }`}>
                 <Layers className="w-5 h-5" />
               </div>
               <div className="min-w-0">
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  Total Sites
+                <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>Total Sites</span>
+                  {statusFilter === 'ALL' && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-slate-900/10 dark:bg-white/15 text-slate-700 dark:text-slate-200 font-semibold lowercase">
+                      showing all
+                    </span>
+                  )}
                 </div>
-                <div className="text-xs text-slate-400 truncate hidden xs:block sm:block">
-                  Total number of registered site locations
+                <div className="text-xs text-slate-500 dark:text-slate-400 truncate hidden xs:block sm:block">
+                  Total registered site locations
                 </div>
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-black text-white shrink-0 pr-1">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white shrink-0 pr-1">
               {stats.total}
             </div>
           </div>
@@ -176,43 +216,111 @@ export function App() {
           {/* 4 Status Cards (2 Columns on Mobile, 4 Columns on Desktop) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             
-            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
+            {/* On Going Card */}
+            <div 
+              onClick={() => handleStatCardClick('On Going')}
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+                statusFilter === 'On Going'
+                  ? 'ring-2 ring-blue-500 border-blue-500 bg-blue-500/10 dark:bg-blue-500/20 shadow-md shadow-blue-500/20'
+                  : 'hover:border-blue-400/40'
+              }`}
+              title={statusFilter === 'On Going' ? 'Click to reset filter' : 'Click to filter On Going sites'}
+            >
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+                statusFilter === 'On Going'
+                  ? 'bg-blue-500 text-white border-blue-400 shadow-sm shadow-blue-500/50'
+                  : 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30 backdrop-blur-sm'
+              }`}>
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">On Going</div>
-                <div className="text-base sm:text-lg font-black text-white">{stats.onGoing}</div>
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
+                  On Going
+                </div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                  {stats.onGoing}
+                </div>
               </div>
             </div>
 
-            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
+            {/* Pending Card */}
+            <div 
+              onClick={() => handleStatCardClick('Pending')}
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+                statusFilter === 'Pending'
+                  ? 'ring-2 ring-amber-500 border-amber-500 bg-amber-500/10 dark:bg-amber-500/20 shadow-md shadow-amber-500/20'
+                  : 'hover:border-amber-400/40'
+              }`}
+              title={statusFilter === 'Pending' ? 'Click to reset filter' : 'Click to filter Pending sites'}
+            >
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+                statusFilter === 'Pending'
+                  ? 'bg-amber-500 text-white border-amber-400 shadow-sm shadow-amber-500/50'
+                  : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 backdrop-blur-sm'
+              }`}>
                 <Clock className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Pending</div>
-                <div className="text-base sm:text-lg font-black text-white">{stats.pending}</div>
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
+                  Pending
+                </div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                  {stats.pending}
+                </div>
               </div>
             </div>
 
-            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
+            {/* Approve Card */}
+            <div 
+              onClick={() => handleStatCardClick('Approve')}
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+                statusFilter === 'Approve'
+                  ? 'ring-2 ring-emerald-500 border-emerald-500 bg-emerald-500/10 dark:bg-emerald-500/20 shadow-md shadow-emerald-500/20'
+                  : 'hover:border-emerald-400/40'
+              }`}
+              title={statusFilter === 'Approve' ? 'Click to reset filter' : 'Click to filter Approved sites'}
+            >
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+                statusFilter === 'Approve'
+                  ? 'bg-emerald-500 text-white border-emerald-400 shadow-sm shadow-emerald-500/50'
+                  : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 backdrop-blur-sm'
+              }`}>
                 <CheckCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Approve</div>
-                <div className="text-base sm:text-lg font-black text-white">{stats.approve}</div>
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
+                  Approve
+                </div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                  {stats.approve}
+                </div>
               </div>
             </div>
 
-            <div className="glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-default">
-              <div className="w-8 h-8 rounded-xl bg-rose-500/15 text-rose-400 border border-rose-500/30 backdrop-blur-sm flex items-center justify-center shrink-0">
+            {/* Decline Card */}
+            <div 
+              onClick={() => handleStatCardClick('Decline')}
+              className={`glass-panel-hover p-3.5 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-98 transition-all select-none ${
+                statusFilter === 'Decline'
+                  ? 'ring-2 ring-rose-500 border-rose-500 bg-rose-500/10 dark:bg-rose-500/20 shadow-md shadow-rose-500/20'
+                  : 'hover:border-rose-400/40'
+              }`}
+              title={statusFilter === 'Decline' ? 'Click to reset filter' : 'Click to filter Declined sites'}
+            >
+              <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+                statusFilter === 'Decline'
+                  ? 'bg-rose-500 text-white border-rose-400 shadow-sm shadow-rose-500/50'
+                  : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 backdrop-blur-sm'
+              }`}>
                 <XCircle className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate">Decline</div>
-                <div className="text-base sm:text-lg font-black text-white">{stats.decline}</div>
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
+                  Decline
+                </div>
+                <div className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                  {stats.decline}
+                </div>
               </div>
             </div>
 
@@ -220,12 +328,14 @@ export function App() {
 
         </div>
 
-        {/* Active View: CardView or TableView */}
+        {/* Active View: CardView or TableView with synchronized statusFilter */}
         {currentView === 'card' ? (
           <CardView
             sites={sites}
             loading={loading}
             currentView={currentView}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
             onViewChange={setCurrentView}
             onOpenAddModal={handleOpenAddModal}
             onOpenEditModal={handleOpenEditModal}
@@ -239,6 +349,8 @@ export function App() {
             sites={sites}
             loading={loading}
             currentView={currentView}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
             onViewChange={setCurrentView}
             onOpenAddModal={handleOpenAddModal}
             onOpenEditModal={handleOpenEditModal}
@@ -252,7 +364,7 @@ export function App() {
       </main>
 
       {/* Sticky Bottom Footer */}
-      <footer className="mt-auto w-full py-5 border-t border-white/10 text-center text-xs text-slate-400 bg-slate-950/40 backdrop-blur-xl">
+      <footer className="mt-auto w-full py-5 border-t border-slate-200/80 dark:border-white/10 text-center text-xs text-slate-500 dark:text-slate-400 bg-white/40 dark:bg-slate-950/40 backdrop-blur-xl">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 

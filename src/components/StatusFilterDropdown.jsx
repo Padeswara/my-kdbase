@@ -55,10 +55,10 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
         onClick={() => setIsOpen(!isOpen)}
         className={`inline-flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border text-xs font-bold transition cursor-pointer select-none active:scale-98 min-w-[140px] sm:min-w-[155px] ${
           isOpen
-            ? 'border-white/30 bg-white/15 ring-2 ring-white/10 text-white shadow-xs'
+            ? 'border-slate-900/30 dark:border-white/30 bg-slate-900/10 dark:bg-white/15 ring-2 ring-slate-900/10 dark:ring-white/10 text-slate-900 dark:text-white shadow-xs'
             : value !== 'ALL'
-            ? 'border-white/20 bg-white/10 text-white shadow-xs'
-            : 'glass-btn-secondary text-slate-200 hover:text-white'
+            ? 'border-slate-300 dark:border-white/20 bg-slate-100/80 dark:bg-white/10 text-slate-900 dark:text-white shadow-2xs'
+            : 'glass-btn-secondary text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white'
         }`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
@@ -74,7 +74,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
         </div>
         <ChevronDown
           className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-white' : ''
+            isOpen ? 'rotate-180 text-slate-900 dark:text-white' : ''
           }`}
         />
       </button>
@@ -104,19 +104,19 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
                   }}
                   className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
                     isSelected
-                      ? 'bg-white text-slate-950 shadow-xs'
-                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-xs'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     {opt.value === 'ALL' ? (
-                      <Layers className={`w-3.5 h-3.5 ${isSelected ? 'text-slate-950' : 'text-slate-400'}`} />
+                      <Layers className={`w-3.5 h-3.5 ${isSelected ? 'text-white dark:text-slate-950' : 'text-slate-400'}`} />
                     ) : (
                       <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${opt.dot}`} />
                     )}
                     <span>{opt.label}</span>
                   </div>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-slate-950 shrink-0 ml-1.5" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-slate-950 shrink-0 ml-1.5" />}
                 </button>
               )
             })}
