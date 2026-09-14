@@ -161,13 +161,6 @@ export function App() {
         theme={theme}
         onToggleTheme={toggleTheme}
       />
-
-      {/* Ambient Glass Background Glows */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/15 dark:bg-blue-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-indigo-500/15 dark:bg-indigo-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-2/3 -left-20 w-88 h-88 bg-violet-500/10 dark:bg-violet-600/15 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 right-1/4 w-96 h-96 bg-emerald-500/15 dark:bg-emerald-600/20 rounded-full blur-3xl" />
       {/* Ambient Glass Background Glows (GPU-Accelerated) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none transform-gpu will-change-transform">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/15 dark:bg-blue-600/20 rounded-full blur-2xl" />

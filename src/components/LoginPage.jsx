@@ -36,13 +36,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', on
 
   return (
     <div className="min-h-screen relative overflow-hidden flex flex-col justify-between items-center px-4 font-sans text-slate-900 dark:text-slate-100">
-      
-      {/* Ambient Background Glows */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-500/15 dark:bg-blue-600/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 -right-20 w-88 h-88 bg-indigo-500/15 dark:bg-indigo-600/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 left-1/3 w-88 h-88 bg-emerald-500/15 dark:bg-emerald-600/20 rounded-full blur-3xl" />
-      {/* Ambient Background Glows (GPU-Accelerated) */}
+            {/* Ambient Background Glows (GPU-Accelerated) */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none transform-gpu will-change-transform">
         <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-500/15 dark:bg-blue-600/20 rounded-full blur-2xl" />
         <div className="absolute top-1/3 -right-20 w-88 h-88 bg-indigo-500/15 dark:bg-indigo-600/20 rounded-full blur-2xl" />
