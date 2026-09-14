@@ -71,11 +71,6 @@ ON storage.objects FOR DELETE
 TO anon, authenticated
 USING (bucket_id = 'site-images');
 
--- 5. Contoh data awal (opsional)
-INSERT INTO public.sites (company_name, address, pic_name, pic_phone, status, notes, image_url)
-VALUES 
-('PT Teknologi Nusantara', 'Jl. Jendral Sudirman No. 45, Jakarta Selatan', 'Budi Santoso', '081234567890', 'On Going', 'Instalasi jaringan server tahap 1', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400'),
-('CV Mitra Mandiri', 'Jl. Pemuda No. 12, Surabaya', 'Siti Rahma', '085712345678', 'Approve', 'Dokumentasi kontrak telah diverifikasi', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400'),
-('PT Samudra Logistics', 'Kawasan Industri Cikarang Blok B4, Bekasi', 'Hendra Wijaya', '081398765432', 'Pending', 'Menunggu persetujuan direksi', 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400')
-ON CONFLICT DO NOTHING;
+-- 5. Tabel siap digunakan dalam kondisi bersih tanpa data dummy.
+
 

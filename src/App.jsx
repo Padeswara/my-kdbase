@@ -10,8 +10,7 @@ import {
   Clock, 
   CheckCircle, 
   XCircle, 
-  Layers, 
-  Info 
+  Layers
 } from 'lucide-react'
 
 export function App() {
@@ -34,12 +33,13 @@ export function App() {
     setCurrentUser(null)
   }
 
-  // 2. Data Hook (Logika Terpisah dari Tampilan)
+  // 2. Data Hook Terpusat
   const {
     sites,
     loading,
     error,
     isSupabaseMode,
+    isDbOnline,
     fetchSites,
     addSite,
     updateSite,
@@ -47,10 +47,8 @@ export function App() {
     deleteSite
   } = useSites()
 
-  // 3. Pengaturan Tampilan UI (Bisa Diganti Menggunakan File Berbeda)
-  // 'table' menggunakan src/components/views/TableView.jsx
-  // 'card' menggunakan src/components/views/CardView.jsx
-  const [currentView, setCurrentView] = useState('table')
+  // 3. Tampilan Default: 'card' (tampilan kartu ringkas sesuai permintaan)
+  const [currentView, setCurrentView] = useState('card')
 
   // 4. Modal States
   const [isSiteModalOpen, setIsSiteModalOpen] = useState(false)
@@ -79,7 +77,7 @@ export function App() {
     setPreviewImage({ isOpen: true, url, title })
   }
 
-  // Ringkasan Statistik Data
+  // Ringkasan Statistik
   const stats = {
     total: sites.length,
     onGoing: sites.filter((s) => s.status === 'On Going').length,
@@ -96,98 +94,78 @@ export function App() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
       
-      {/* Navbar Atas */}
+      {/* Navbar Atas Responsif */}
       <Navbar
         currentUser={currentUser}
         onLogout={handleLogout}
-        isSupabaseMode={isSupabaseMode}
-        currentView={currentView}
-        onViewChange={setCurrentView}
+        isDbOnline={isDbOnline}
       />
 
       {/* Konten Utama */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4">
         
-        {/* Banner Info Kustomisasi UI */}
-        <div className="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-blue-900 shadow-2xs">
-          <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <span className="font-bold text-blue-950">Arsitektur Modular:</span> Tampilan UI dipisahkan di file terpisah.
-              Saat ini aktif: <code className="bg-white/80 px-2 py-0.5 rounded border border-blue-200 font-semibold text-blue-700">{currentView === 'table' ? 'src/components/views/TableView.jsx' : 'src/components/views/CardView.jsx'}</code>.
-              Anda bisa mendesain tampilan baru di file lain kapan saja tanpa mengubah logika database!
-            </div>
-          </div>
-          <div className="flex items-center gap-2 self-end sm:self-center">
-            <button
-              onClick={() => setCurrentView(currentView === 'table' ? 'card' : 'table')}
-              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition cursor-pointer text-[11px] whitespace-nowrap"
-            >
-              Ganti ke Tampilan {currentView === 'table' ? 'Kartu' : 'Tabel'}
-            </button>
-          </div>
-        </div>
-
-        {/* Baris Ringkasan Kartu Statistik */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+        {/* Baris Ringkasan Kartu Statistik (Compact & Mobile Friendly) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
           
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700">
-              <Layers className="w-5 h-5" />
+          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
+              <Layers className="w-4 h-4" />
             </div>
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Site</div>
-              <div className="text-xl font-bold text-slate-900">{stats.total}</div>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">On Going</div>
-              <div className="text-xl font-bold text-blue-600">{stats.onGoing}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Total Site</div>
+              <div className="text-base sm:text-lg font-bold text-slate-900">{stats.total}</div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <Clock className="w-5 h-5" />
+          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+              <Clock className="w-4 h-4" />
             </div>
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Pending</div>
-              <div className="text-xl font-bold text-amber-600">{stats.pending}</div>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <CheckCircle className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Approve</div>
-              <div className="text-xl font-bold text-emerald-600">{stats.approve}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">On Going</div>
+              <div className="text-base sm:text-lg font-bold text-blue-600">{stats.onGoing}</div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3.5 col-span-2 sm:col-span-1">
-            <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600">
-              <XCircle className="w-5 h-5" />
+          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+              <Clock className="w-4 h-4" />
             </div>
-            <div>
-              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Decline</div>
-              <div className="text-xl font-bold text-rose-600">{stats.decline}</div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Pending</div>
+              <div className="text-base sm:text-lg font-bold text-amber-600">{stats.pending}</div>
+            </div>
+          </div>
+
+          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+              <CheckCircle className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Approve</div>
+              <div className="text-base sm:text-lg font-bold text-emerald-600">{stats.approve}</div>
+            </div>
+          </div>
+
+          <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-2.5 col-span-2 sm:col-span-1">
+            <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
+              <XCircle className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">Decline</div>
+              <div className="text-base sm:text-lg font-bold text-rose-600">{stats.decline}</div>
             </div>
           </div>
 
         </div>
 
-        {/* Tampilan Aktif: Tabel atau Kartu */}
-        {currentView === 'table' ? (
-          <TableView
+        {/* Tampilan Aktif: Default CardView yang lebih compact */}
+        {currentView === 'card' ? (
+          <CardView
             sites={sites}
             loading={loading}
+            currentView={currentView}
+            onViewChange={setCurrentView}
             onOpenAddModal={handleOpenAddModal}
             onOpenEditModal={handleOpenEditModal}
             onUpdateStatus={updateStatus}
@@ -196,14 +174,17 @@ export function App() {
             onRefresh={fetchSites}
           />
         ) : (
-          <CardView
+          <TableView
             sites={sites}
             loading={loading}
+            currentView={currentView}
+            onViewChange={setCurrentView}
             onOpenAddModal={handleOpenAddModal}
             onOpenEditModal={handleOpenEditModal}
             onUpdateStatus={updateStatus}
             onDeleteSite={deleteSite}
             onPreviewImage={handlePreviewImage}
+            onRefresh={fetchSites}
           />
         )}
 

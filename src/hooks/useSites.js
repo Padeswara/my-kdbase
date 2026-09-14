@@ -3,52 +3,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
 const STORAGE_KEY = 'kdbase_sites_local'
 
-const DEFAULT_DEMO_SITES = [
-  {
-    id: 'demo-1',
-    company_name: 'PT Teknologi Nusantara',
-    address: 'Jl. Jendral Sudirman No. 45, Jakarta Selatan',
-    pic_name: 'Budi Santoso',
-    pic_phone: '081234567890',
-    status: 'On Going',
-    notes: 'Instalasi jaringan server tahap 1 dan penarikan fiber optik gedung utama.',
-    image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
-    created_at: new Date(Date.now() - 3600000 * 24 * 3).toISOString()
-  },
-  {
-    id: 'demo-2',
-    company_name: 'CV Mitra Mandiri Perkasa',
-    address: 'Jl. Pemuda No. 12, Surabaya, Jawa Timur',
-    pic_name: 'Siti Rahma',
-    pic_phone: '085712345678',
-    status: 'Approve',
-    notes: 'Dokumentasi kontrak & izin lingkungan sudah diverifikasi lengkap.',
-    image_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
-    created_at: new Date(Date.now() - 3600000 * 24 * 2).toISOString()
-  },
-  {
-    id: 'demo-3',
-    company_name: 'PT Samudra Logistics Indah',
-    address: 'Kawasan Industri Cikarang Blok B4, Bekasi',
-    pic_name: 'Hendra Wijaya',
-    pic_phone: '081398765432',
-    status: 'Pending',
-    notes: 'Menunggu review biaya dan persetujuan dari direktur operasional.',
-    image_url: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80',
-    created_at: new Date(Date.now() - 3600000 * 24 * 1).toISOString()
-  },
-  {
-    id: 'demo-4',
-    company_name: 'PT Buana Solusindo',
-    address: 'Jl. Ahmad Yani KM 7, Bandung',
-    pic_name: 'Rian Pratama',
-    pic_phone: '087811223344',
-    status: 'Decline',
-    notes: 'Spesifikasi teknis belum memenuhi standar minimum proyek.',
-    image_url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=600&q=80',
-    created_at: new Date().toISOString()
-  }
-]
+const DEFAULT_DEMO_SITES = []
 
 // Helper konversi file gambar ke Base64 (untuk fallback mode lokal)
 const fileToBase64 = (file) =>
@@ -64,6 +19,7 @@ export function useSites() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [isSupabaseMode] = useState(isSupabaseConfigured)
+  const [isDbOnline, setIsDbOnline] = useState(false)
 
   // 1. Fetch data dari Supabase atau LocalStorage
   const fetchSites = useCallback(async () => {
@@ -79,13 +35,16 @@ export function useSites() {
 
         if (sbError) throw sbError
         setSites(data || [])
+        setIsDbOnline(true)
       } catch (err) {
         console.error('Gagal mengambil data dari Supabase:', err)
         setError(err.message)
+        setIsDbOnline(false)
       } finally {
         setLoading(false)
       }
     } else {
+      setIsDbOnline(false)
       // Fallback Local Storage
       try {
         const localData = localStorage.getItem(STORAGE_KEY)
@@ -301,6 +260,7 @@ export function useSites() {
     loading,
     error,
     isSupabaseMode,
+    isDbOnline,
     fetchSites,
     addSite,
     updateSite,

@@ -11,7 +11,9 @@ import {
   ChevronDown,
   Building2,
   ExternalLink,
-  RotateCw
+  RotateCw,
+  Table,
+  LayoutGrid
 } from 'lucide-react'
 import { exportSitesToExcel } from '../../utils/excelExport'
 
@@ -39,6 +41,8 @@ const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 export function TableView({
   sites = [],
   loading = false,
+  currentView = 'table',
+  onViewChange,
   onOpenAddModal,
   onOpenEditModal,
   onUpdateStatus,
@@ -82,30 +86,90 @@ export function TableView({
   return (
     <div className="space-y-6">
       
-      {/* Top Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs">
-        
-        {/* Kiri: Search & Filter */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
-          {/* Search Box */}
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Cari perusahaan, alamat, PIC, nomor..."
-              className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-slate-50/50 hover:bg-white transition"
-            />
+      {/* Baris Tombol Aksi Utama & Switcher View (Di luar Search & Filter) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center justify-between sm:justify-start gap-3">
+          <div>
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 m-0">Tabel Site</h2>
+            <p className="text-xs text-slate-500 m-0">Kelola dan tinjau data site perusahaan</p>
           </div>
 
-          {/* Filter Status */}
-          <div className="relative min-w-[150px]">
-            <Filter className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+          {/* Switcher Tampilan (Kartu / Tabel) Di Atas Tabel */}
+          {onViewChange && (
+            <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200 shrink-0">
+              <button
+                type="button"
+                onClick={() => onViewChange('card')}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  currentView === 'card'
+                    ? 'bg-white text-blue-600 shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                title="Tampilan Kartu"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Kartu</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onViewChange('table')}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  currentView === 'table'
+                    ? 'bg-white text-blue-600 shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                title="Tampilan Tabel"
+              >
+                <Table className="w-3.5 h-3.5" />
+                <span>Tabel</span>
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 sm:flex items-center gap-2">
+          <button
+            onClick={handleExport}
+            disabled={filteredSites.length === 0}
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold transition cursor-pointer disabled:opacity-50 shadow-2xs"
+            title="Download data sebagai file Excel (.xlsx)"
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Export ke Excel</span>
+          </button>
+
+          <button
+            onClick={onOpenAddModal}
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Tambahkan Site</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Box Khusus Pencarian & Filter */}
+      <div className="bg-white p-2.5 sm:p-3 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+        {/* Search Box */}
+        <div className="relative flex-1">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Cari perusahaan, alamat, PIC, nomor..."
+            className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 hover:bg-white transition"
+          />
+        </div>
+
+        {/* Filter Status */}
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1 sm:w-44">
+            <Filter className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5 pointer-events-none" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full pl-9 pr-8 py-2 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 hover:bg-white transition font-medium text-slate-700 appearance-none cursor-pointer"
+              className="w-full pl-8 pr-7 py-2 text-xs font-medium rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 bg-slate-50/50 hover:bg-white transition text-slate-700 appearance-none cursor-pointer"
             >
               <option value="ALL">Semua Status</option>
               {ALL_STATUSES.map((st) => (
@@ -114,41 +178,19 @@ export function TableView({
                 </option>
               ))}
             </select>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-3 top-3 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
           </div>
 
           {onRefresh && (
             <button
               onClick={onRefresh}
-              className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl border border-slate-200 transition cursor-pointer"
+              className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl border border-slate-200 transition cursor-pointer shrink-0"
               title="Refresh Data"
             >
-              <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <RotateCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             </button>
           )}
         </div>
-
-        {/* Kanan: Tombol Export Excel & Tambahkan Site */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={handleExport}
-            disabled={filteredSites.length === 0}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-semibold transition cursor-pointer disabled:opacity-50"
-            title="Download data sebagai file Excel (.xlsx)"
-          >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
-            <span>Export ke Excel</span>
-          </button>
-
-          <button
-            onClick={onOpenAddModal}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-600/20 transition cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Tambahkan Site</span>
-          </button>
-        </div>
-
       </div>
 
       {/* Main Table Container */}
