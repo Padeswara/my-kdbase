@@ -55,6 +55,7 @@ export function CardView({
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('ALL')
   const [updatingId, setUpdatingId] = useState(null)
+  const [openDropdownId, setOpenDropdownId] = useState(null)
 
   const filteredSites = useMemo(() => {
     return sites.filter((item) => {
@@ -134,7 +135,7 @@ export function CardView({
             <span>Export ke Excel</span>
           </button>
 
-          {/* Tombol Tambah Site (Warna Slate 900 seperti tombol Login) */}
+          {/* Tombol Tambah Site */}
           <button
             onClick={onOpenAddModal}
             className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
@@ -190,7 +191,7 @@ export function CardView({
         </div>
       </div>
 
-      {/* Grid of Compact Cards */}
+      {/* Grid of Compact Cards (Tanpa overflow-hidden di card agar dropdown tidak terpotong) */}
       {filteredSites.length === 0 ? (
         <div className="bg-white rounded-2xl border border-slate-200/80 p-8 text-center text-slate-400 shadow-xs">
           <Building2 className="w-10 h-10 mx-auto text-slate-300 mb-2" />
@@ -203,14 +204,17 @@ export function CardView({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {filteredSites.map((site) => {
             const config = STATUS_CONFIG[site.status] || STATUS_CONFIG['Pending']
+            const isDropdownOpen = openDropdownId === site.id
 
             return (
               <div
                 key={site.id}
-                className={`bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-slate-300 hover:shadow-sm transition flex flex-col border-l-4 ${config.border} overflow-hidden`}
+                className={`bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-slate-300 hover:shadow-sm transition flex flex-col border-l-4 ${config.border} relative ${
+                  isDropdownOpen ? 'z-40' : 'z-10'
+                }`}
               >
-                {/* Header Foto Ringkas + Status Dropdown */}
-                <div className="relative h-28 bg-slate-100 overflow-hidden">
+                {/* Header Foto Ringkas (Rounded-tr-xl agar pas di dalam kartu) */}
+                <div className="relative h-28 bg-slate-100 rounded-tr-xl overflow-hidden">
                   {site.image_url ? (
                     <img
                       src={site.image_url}
@@ -223,16 +227,17 @@ export function CardView({
                       <ImageIcon className="w-6 h-6" />
                     </div>
                   )}
+                </div>
 
-                  {/* Status Dropdown Estetik di Pojok Kartu */}
-                  <div className="absolute top-2.5 right-2.5">
-                    <StatusDropdown
-                      currentStatus={site.status}
-                      disabled={updatingId === site.id}
-                      onChange={(newStatus) => handleStatusChange(site.id, newStatus)}
-                      size="sm"
-                    />
-                  </div>
+                {/* Status Dropdown Estetik di Pojok Kartu (DI LUAR container overflow foto agar tidak terpotong) */}
+                <div className="absolute top-2.5 right-2.5 z-30">
+                  <StatusDropdown
+                    currentStatus={site.status}
+                    disabled={updatingId === site.id}
+                    onChange={(newStatus) => handleStatusChange(site.id, newStatus)}
+                    onOpenChange={(isOpen) => setOpenDropdownId(isOpen ? site.id : null)}
+                    size="sm"
+                  />
                 </div>
 
                 {/* Body Kartu Ringkas */}

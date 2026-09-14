@@ -54,6 +54,7 @@ export function TableView({
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('ALL')
   const [updatingId, setUpdatingId] = useState(null)
+  const [openDropdownId, setOpenDropdownId] = useState(null)
 
   // Filter dan pencarian data
   const filteredSites = useMemo(() => {
@@ -233,10 +234,14 @@ export function TableView({
                 </tr>
               ) : (
                 filteredSites.map((site, index) => {
+                  const isDropdownOpen = openDropdownId === site.id
+
                   return (
                     <tr 
                       key={site.id} 
-                      className="hover:bg-slate-50/70 transition duration-150 group"
+                      className={`hover:bg-slate-50/70 transition duration-150 group relative ${
+                        isDropdownOpen ? 'z-30' : 'z-10'
+                      }`}
                     >
                       {/* No */}
                       <td className="py-3.5 px-4 text-center text-xs font-bold text-slate-400">
@@ -306,6 +311,7 @@ export function TableView({
                           currentStatus={site.status}
                           disabled={updatingId === site.id}
                           onChange={(newStatus) => handleInlineStatusChange(site.id, newStatus)}
+                          onOpenChange={(isOpen) => setOpenDropdownId(isOpen ? site.id : null)}
                           size="sm"
                         />
                       </td>

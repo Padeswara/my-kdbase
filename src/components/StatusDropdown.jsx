@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronDown, Check } from 'lucide-react'
 
 const STATUS_MAP = {
@@ -26,17 +27,87 @@ const STATUS_MAP = {
 
 const ALL_STATUSES = ['On Going', 'Pending', 'Approve', 'Decline']
 
-export function StatusDropdown({ currentStatus = 'Pending', onChange, disabled = false, size = 'sm' }) {
+export function StatusDropdown({ 
+  currentStatus = 'Pending', 
+  onChange, 
+  disabled = false, 
+  size = 'sm',
+  onOpenChange 
+}) {
   const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef(null)
+  const [menuStyle, setMenuStyle] = useState({})
+  const buttonRef = useRef(null)
+  const menuRef = useRef(null)
 
   const config = STATUS_MAP[currentStatus] || STATUS_MAP['Pending']
+
+  // Hitung posisi fixed menu agar keluar dari batas overflow table / card
+  const updatePosition = () => {
+    if (!buttonRef.current) return
+    const rect = buttonRef.current.getBoundingClientRect()
+    const menuWidth = 144 // 9rem = 144px
+    const menuHeight = 165 // estimasi tinggi 4 opsi + header
+    const spaceBelow = window.innerHeight - rect.bottom
+    const spaceAbove = rect.top
+    const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow
+
+    // Posisi horizontal: rata kanan tombol trigger
+    let left = rect.right - menuWidth
+    if (left < 10) left = 10
+    if (left + menuWidth > window.innerWidth - 10) {
+      left = window.innerWidth - menuWidth - 10
+    }
+
+    const top = openUp ? Math.max(10, rect.top - menuHeight - 6) : rect.bottom + 6
+
+    setMenuStyle({
+      position: 'fixed',
+      top: `${top}px`,
+      left: `${left}px`,
+      width: `${menuWidth}px`,
+      zIndex: 9999
+    })
+  }
+
+  // Buka / Tutup dropdown
+  const handleToggle = (e) => {
+    e.stopPropagation()
+    const nextState = !isOpen
+    if (nextState) {
+      updatePosition()
+    }
+    setIsOpen(nextState)
+    onOpenChange?.(nextState)
+  }
+
+  // Update posisi saat scroll layar atau resize
+  useEffect(() => {
+    if (!isOpen) return
+
+    updatePosition()
+
+    const handleScrollOrResize = () => {
+      updatePosition()
+    }
+
+    window.addEventListener('scroll', handleScrollOrResize, true)
+    window.addEventListener('resize', handleScrollOrResize)
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollOrResize, true)
+      window.removeEventListener('resize', handleScrollOrResize)
+    }
+  }, [isOpen])
 
   // Tutup dropdown jika klik di luar
   useEffect(() => {
     function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        buttonRef.current && !buttonRef.current.contains(event.target) &&
+        menuRef.current && !menuRef.current.contains(event.target)
+      ) {
         setIsOpen(false)
+        onOpenChange?.(false)
       }
     }
     if (isOpen) {
@@ -45,25 +116,24 @@ export function StatusDropdown({ currentStatus = 'Pending', onChange, disabled =
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [isOpen])
+  }, [isOpen, onOpenChange])
 
   const handleSelect = (status) => {
     if (status !== currentStatus && onChange) {
       onChange(status)
     }
     setIsOpen(false)
+    onOpenChange?.(false)
   }
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <>
       {/* Trigger Button Estetik */}
       <button
+        ref={buttonRef}
         type="button"
         disabled={disabled}
-        onClick={(e) => {
-          e.stopPropagation()
-          setIsOpen(!isOpen)
-        }}
+        onClick={handleToggle}
         className={`inline-flex items-center gap-1.5 font-bold rounded-xl border transition-all duration-200 cursor-pointer select-none active:scale-95 ${config.badge} ${
           size === 'sm' ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
         } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
@@ -74,10 +144,12 @@ export function StatusDropdown({ currentStatus = 'Pending', onChange, disabled =
         <ChevronDown className={`w-3 h-3 transition-transform duration-200 opacity-60 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      {/* Floating Menu Estetik dengan Animasi */}
-      {isOpen && (
+      {/* Floating Menu via React Portal: Bebas dari overflow-hidden / scroll wrapper tabel */}
+      {isOpen && typeof document !== 'undefined' && createPortal(
         <div 
-          className="absolute right-0 mt-1.5 w-36 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-900/10 border border-slate-200/80 p-1.5 z-40 animate-in fade-in zoom-in-95 duration-150"
+          ref={menuRef}
+          style={menuStyle}
+          className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl shadow-slate-900/15 border border-slate-200/80 p-1.5 animate-in fade-in zoom-in-95 duration-150 select-none"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1">
@@ -95,7 +167,7 @@ export function StatusDropdown({ currentStatus = 'Pending', onChange, disabled =
                   onClick={() => handleSelect(status)}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-slate-100 text-slate-900'
+                      ? 'bg-slate-100 text-slate-900 font-bold'
                       : `text-slate-700 ${itemConfig.hover}`
                   }`}
                 >
@@ -108,9 +180,9 @@ export function StatusDropdown({ currentStatus = 'Pending', onChange, disabled =
               )
             })}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+    </>
   )
 }
-
