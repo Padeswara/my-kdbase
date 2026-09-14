@@ -66,14 +66,14 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
       >
         <div className="flex items-center gap-2 min-w-0">
           {value === 'ALL' ? (
-            <Filter className="w-3.5 h-3.5 text-current shrink-0" />
+            <Filter className="w-3.5 h-3.5 text-current opacity-100 shrink-0" />
           ) : (
             <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${activeOption.dot}`} />
           )}
           <span className="truncate">{activeOption.label}</span>
         </div>
         <ChevronDown
-          className={`w-3.5 h-3.5 text-current shrink-0 transition-transform duration-200 ${
+          className={`w-3.5 h-3.5 text-current opacity-100 shrink-0 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -85,7 +85,7 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
           className="absolute left-0 top-full mt-1.5 w-48 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 select-none shadow-xl"
           role="listbox"
         >
-          <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 opacity-100">
             Filter Status
           </div>
 
@@ -110,13 +110,13 @@ export function StatusFilterDropdown({ value = 'ALL', onChange }) {
                 >
                   <div className="flex items-center gap-2">
                     {opt.value === 'ALL' ? (
-                      <Layers className={`w-3.5 h-3.5 ${isSelected ? 'text-white dark:text-slate-950' : 'text-slate-600 dark:text-slate-300'}`} />
+                      <Layers className={`w-3.5 h-3.5 opacity-100 ${isSelected ? 'text-white dark:text-slate-950' : 'text-current'}`} />
                     ) : (
                       <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${opt.dot}`} />
                     )}
                     <span>{opt.label}</span>
                   </div>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-slate-950 shrink-0 ml-1.5" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-slate-950 shrink-0 opacity-100 ml-1.5" />}
                 </button>
               )
             })}

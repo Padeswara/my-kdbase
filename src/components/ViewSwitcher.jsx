@@ -16,7 +16,7 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
         }`}
         title="Switch to Cards View"
       >
-        <LayoutGrid className="w-3.5 h-3.5" />
+        <LayoutGrid className="w-3.5 h-3.5 text-current opacity-100" />
         <span>Cards</span>
       </button>
       <button
@@ -29,7 +29,7 @@ export function ViewSwitcher({ currentView = 'card', onViewChange }) {
         }`}
         title="Switch to Table View"
       >
-        <Table className="w-3.5 h-3.5" />
+        <Table className="w-3.5 h-3.5 text-current opacity-100" />
         <span>Table</span>
       </button>
     </div>

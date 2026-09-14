@@ -95,7 +95,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', on
                 Username
               </label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
+                <User className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3 pointer-events-none" />
                 <input
                   type="text"
                   required
@@ -112,7 +112,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', on
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
+                <Lock className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3 pointer-events-none" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
@@ -124,14 +124,14 @@ export function LoginPage({ onLoginSuccess, idleNotice = '', theme = 'light', on
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 p-1 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition cursor-pointer active:scale-95"
+                  className="absolute right-3 top-2.5 p-1 rounded-lg text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white opacity-100 transition cursor-pointer active:scale-95"
                   title={showPassword ? 'Hide password' : 'Show password'}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
+                    <EyeOff className="w-4 h-4 text-current opacity-100" />
                   ) : (
-                    <Eye className="w-4 h-4" />
+                    <Eye className="w-4 h-4 text-current opacity-100" />
                   )}
                 </button>
               </div>

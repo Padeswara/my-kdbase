@@ -112,7 +112,7 @@ export function TableView({
             className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl glass-btn-secondary text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white text-xs font-bold cursor-pointer disabled:opacity-50 active:scale-98"
             title="Download data as Excel spreadsheet (.xlsx)"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-current opacity-100 shrink-0" />
             <span>Export to Excel</span>
           </button>
 
@@ -121,7 +121,7 @@ export function TableView({
             onClick={onOpenAddModal}
             className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white dark:bg-white dark:hover:bg-slate-200 dark:text-slate-950 text-xs font-bold shadow-md shadow-slate-900/15 dark:shadow-white/10 transition duration-200 cursor-pointer active:scale-98"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 text-current opacity-100" />
             <span>Add Site</span>
           </button>
         </div>
@@ -132,7 +132,7 @@ export function TableView({
         {/* Row 1 on Mobile / Left Column on Desktop: Search Bar + Mobile Refresh */}
         <div className="flex items-center gap-2 flex-1">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3" />
+            <Search className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3" />
             <input
               type="text"
               value={searchTerm}
@@ -144,10 +144,10 @@ export function TableView({
               <button
                 type="button"
                 onClick={() => setSearchTerm('')}
-                className="absolute right-3 top-2.5 p-0.5 rounded-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white cursor-pointer"
+                className="absolute right-3 top-2.5 p-0.5 rounded-full text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white opacity-100 cursor-pointer"
                 title="Clear search"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4 text-current opacity-100" />
               </button>
             )}
           </div>
@@ -160,7 +160,7 @@ export function TableView({
               className="sm:hidden p-2.5 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
               title="Refresh Data"
             >
-              <RotateCw className={`w-4 h-4 text-current ${loading ? 'animate-spin' : ''}`} />
+              <RotateCw className={`w-4 h-4 text-current opacity-100 ${loading ? 'animate-spin' : ''}`} />
             </button>
           )}
         </div>
@@ -188,7 +188,7 @@ export function TableView({
               className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl glass-btn-secondary text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white text-xs font-bold cursor-pointer active:scale-95 shrink-0"
               title="Reset all filters & sort"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-current" />
+              <RotateCcw className="w-3.5 h-3.5 text-current opacity-100" />
               <span className="hidden md:inline">Reset</span>
             </button>
           )}
@@ -201,7 +201,7 @@ export function TableView({
               className="hidden sm:flex p-2.5 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white glass-btn-secondary rounded-xl cursor-pointer shrink-0 active:scale-95"
               title="Refresh Data"
             >
-              <RotateCw className={`w-4 h-4 text-current ${loading ? 'animate-spin' : ''}`} />
+              <RotateCw className={`w-4 h-4 text-current opacity-100 ${loading ? 'animate-spin' : ''}`} />
             </button>
           )}
         </div>
@@ -310,9 +310,9 @@ export function TableView({
                             className="inline-flex items-center gap-1 text-xs text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-bold hover:underline"
                             title="Chat via WhatsApp"
                           >
-                            <Phone className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                            <Phone className="w-3 h-3 text-current opacity-100" />
                             <span>{site.pic_phone}</span>
-                            <ExternalLink className="w-2.5 h-2.5 opacity-40" />
+                            <ExternalLink className="w-2.5 h-2.5 text-current opacity-100" />
                           </a>
                         </div>
                       </td>
@@ -340,17 +340,17 @@ export function TableView({
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => onOpenEditModal(site)}
-                            className="p-1.5 text-slate-600 hover:text-slate-950 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg transition cursor-pointer"
                             title="Edit Data"
                           >
-                            <Edit className="w-4 h-4" />
+                            <Edit className="w-4 h-4 text-current opacity-100" />
                           </button>
                           <button
                             onClick={() => onDeleteSite(site.id)}
-                            className="p-1.5 text-slate-600 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-slate-700 hover:text-rose-600 dark:text-slate-300 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-lg transition cursor-pointer"
                             title="Delete Data"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4 text-current opacity-100" />
                           </button>
                         </div>
                       </td>

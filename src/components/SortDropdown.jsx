@@ -65,11 +65,11 @@ export function SortDropdown({ value = 'date-desc', onChange }) {
         title="Sort data"
       >
         <div className="flex items-center gap-2 min-w-0">
-          <ActiveIcon className="w-3.5 h-3.5 text-current shrink-0" />
+          <ActiveIcon className="w-3.5 h-3.5 text-current opacity-100 shrink-0" />
           <span className="truncate">{activeOption.label}</span>
         </div>
         <ChevronDown
-          className={`w-3.5 h-3.5 text-current shrink-0 transition-transform duration-200 ${
+          className={`w-3.5 h-3.5 text-current opacity-100 shrink-0 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -81,7 +81,7 @@ export function SortDropdown({ value = 'date-desc', onChange }) {
           className="absolute right-0 top-full mt-1.5 w-52 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 select-none shadow-xl"
           role="listbox"
         >
-          <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 opacity-100">
             Sort Sites By
           </div>
 
@@ -107,7 +107,7 @@ export function SortDropdown({ value = 'date-desc', onChange }) {
                 >
                   <div className="flex items-center gap-2">
                     <span className={`p-1 rounded-lg ${isSelected ? 'bg-slate-800 text-white dark:bg-slate-950 dark:text-white' : 'bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200'}`}>
-                      <Icon className="w-3.5 h-3.5" />
+                      <Icon className="w-3.5 h-3.5 text-current opacity-100" />
                     </span>
                     <div className="text-left">
                       <div className="leading-none">{opt.label}</div>
@@ -116,7 +116,7 @@ export function SortDropdown({ value = 'date-desc', onChange }) {
                       </div>
                     </div>
                   </div>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-slate-950 shrink-0 ml-1.5" />}
+                  {isSelected && <Check className="w-3.5 h-3.5 text-white dark:text-slate-950 shrink-0 opacity-100 ml-1.5" />}
                 </button>
               )
             })}

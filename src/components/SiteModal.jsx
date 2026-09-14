@@ -131,10 +131,10 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
+            className="p-1.5 text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-full transition cursor-pointer backdrop-blur-sm"
             title="Close"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4 text-current opacity-100" />
           </button>
         </div>
 
@@ -197,7 +197,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                 Company Name <span className="text-rose-500 dark:text-rose-400">*</span>
               </label>
               <div className="relative">
-                <Building2 className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3" />
+                <Building2 className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3" />
                 <input
                   type="text"
                   required
@@ -215,7 +215,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                 Full Address <span className="text-rose-500 dark:text-rose-400">*</span>
               </label>
               <div className="relative">
-                <MapPin className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3" />
+                <MapPin className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3" />
                 <input
                   type="text"
                   required
@@ -234,7 +234,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   PIC Name <span className="text-rose-500 dark:text-rose-400">*</span>
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3" />
+                  <User className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3" />
                   <input
                     type="text"
                     required
@@ -251,7 +251,7 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
                   PIC WhatsApp Number <span className="text-rose-500 dark:text-rose-400">*</span>
                 </label>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute left-3.5 top-3" />
+                  <Phone className="w-4 h-4 text-slate-700 dark:text-slate-300 opacity-100 absolute left-3.5 top-3" />
                   <input
                     type="tel"
                     required

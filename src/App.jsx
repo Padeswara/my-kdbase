@@ -194,7 +194,7 @@ export function App() {
                   ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-slate-900/20 dark:shadow-white/20'
                   : 'bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white border border-slate-200 dark:border-white/10'
               }`}>
-                <Layers className="w-5 h-5" />
+                <Layers className="w-5 h-5 text-current opacity-100" />
               </div>
               <div className="min-w-0">
                 <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -233,7 +233,7 @@ export function App() {
                   ? 'bg-blue-500 text-white border-blue-400 shadow-sm shadow-blue-500/50'
                   : 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30 backdrop-blur-sm'
               }`}>
-                <Clock className="w-4 h-4" />
+                <Clock className="w-4 h-4 text-current opacity-100" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
@@ -260,7 +260,7 @@ export function App() {
                   ? 'bg-amber-500 text-white border-amber-400 shadow-sm shadow-amber-500/50'
                   : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 backdrop-blur-sm'
               }`}>
-                <Clock className="w-4 h-4" />
+                <Clock className="w-4 h-4 text-current opacity-100" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
@@ -287,7 +287,7 @@ export function App() {
                   ? 'bg-emerald-500 text-white border-emerald-400 shadow-sm shadow-emerald-500/50'
                   : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 backdrop-blur-sm'
               }`}>
-                <CheckCircle className="w-4 h-4" />
+                <CheckCircle className="w-4 h-4 text-current opacity-100" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
@@ -314,7 +314,7 @@ export function App() {
                   ? 'bg-rose-500 text-white border-rose-400 shadow-sm shadow-rose-500/50'
                   : 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30 backdrop-blur-sm'
               }`}>
-                <XCircle className="w-4 h-4" />
+                <XCircle className="w-4 h-4 text-current opacity-100" />
               </div>
               <div className="min-w-0">
                 <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
