@@ -76,8 +76,14 @@ export function TableView({
             <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site List</h2>
             <p className="text-xs text-slate-400 m-0">Manage and monitor all site locations</p>
           </div>
+        <div>
+          <h2 className="text-base sm:text-lg font-black text-slate-900 m-0 tracking-tight">Site List</h2>
+          <p className="text-xs text-slate-400 m-0">Manage and monitor all site locations</p>
+        </div>
 
           {/* View Switcher (Cards / Table) */}
+        <div className="grid grid-cols-2 sm:flex sm:items-center gap-2">
+          {/* View Switcher: Segmented on Desktop, Dropdown on Mobile (Positioned Left of Export to Excel) */}
           {onViewChange && (
             <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 shrink-0">
               <button
@@ -107,10 +113,66 @@ export function TableView({
                 <span>Table</span>
               </button>
             </div>
+            <>
+              {/* Desktop Segmented Pill */}
+              <div className="hidden sm:flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200/80 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => onViewChange('card')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    currentView === 'card'
+                      ? 'bg-white text-slate-900 shadow-2xs'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                  title="Card View"
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>Cards</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onViewChange('table')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    currentView === 'table'
+                      ? 'bg-white text-slate-900 shadow-2xs'
+                      : 'text-slate-500 hover:text-slate-900'
+                  }`}
+                  title="Table View"
+                >
+                  <Table className="w-3.5 h-3.5" />
+                  <span>Table</span>
+                </button>
+              </div>
+
+              {/* Mobile View Dropdown */}
+              <div className="relative sm:hidden">
+                <div className="flex items-center justify-between gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200/80 bg-white text-slate-800 text-xs font-bold shadow-2xs">
+                  <div className="flex items-center gap-1.5">
+                    {currentView === 'card' ? (
+                      <LayoutGrid className="w-3.5 h-3.5 text-slate-900" />
+                    ) : (
+                      <Table className="w-3.5 h-3.5 text-slate-900" />
+                    )}
+                    <span>{currentView === 'card' ? 'Cards' : 'Table'}</span>
+                  </div>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                </div>
+                <select
+                  value={currentView}
+                  onChange={(e) => onViewChange(e.target.value)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  aria-label="Switch view mode"
+                >
+                  <option value="card">Cards View</option>
+                  <option value="table">Table View</option>
+                </select>
+              </div>
+            </>
           )}
         </div>
 
         <div className="grid grid-cols-2 sm:flex items-center gap-2">
+          {/* Export to Excel */}
           <button
             onClick={handleExport}
             disabled={filteredSites.length === 0}
@@ -118,12 +180,15 @@ export function TableView({
             title="Download data as Excel spreadsheet (.xlsx)"
           >
             <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span>Export to Excel</span>
           </button>
 
+          {/* Add Site Button */}
           <button
             onClick={onOpenAddModal}
             className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
+            className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white text-xs font-bold shadow-xs transition duration-200 cursor-pointer active:scale-98"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Site</span>
