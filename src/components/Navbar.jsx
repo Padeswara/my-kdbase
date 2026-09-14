@@ -3,7 +3,7 @@ import { Database, LogOut } from 'lucide-react'
 
 export function Navbar({ currentUser, onLogout, isDbOnline }) {
   return (
-    <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 shadow-2xs">
+    <header className="bg-white/75 backdrop-blur-xl border-b border-white/80 sticky top-0 z-30 shadow-xs shadow-slate-900/5">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 gap-2">
           
@@ -23,7 +23,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
             {/* Supabase Database Status (Online / Offline) */}
             {isDbOnline ? (
               <span 
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50/80 backdrop-blur-md text-emerald-700 border border-emerald-200/80 shadow-2xs"
                 title="Supabase database is connected and ready"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -31,7 +31,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
               </span>
             ) : (
               <span 
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200/80 shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50/80 backdrop-blur-md text-rose-700 border border-rose-200/80 shadow-2xs"
                 title="Supabase database is disconnected or offline"
               >
                 <span className="w-2 h-2 rounded-full bg-rose-500"></span>
@@ -40,7 +40,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
             )}
 
             {/* Minimalist User Profile */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-white/80 backdrop-blur-md border border-white/90 shadow-2xs text-xs">
               <div className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-[10px]">
                 {currentUser?.substring(0, 1) || 'K'}
               </div>
@@ -50,7 +50,7 @@ export function Navbar({ currentUser, onLogout, isDbOnline }) {
             {/* Logout Button */}
             <button
               onClick={onLogout}
-              className="p-1.5 sm:p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition cursor-pointer"
+              className="p-1.5 sm:p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50/80 rounded-xl transition cursor-pointer active:scale-95"
               title="Log out"
             >
               <LogOut className="w-4 h-4" />

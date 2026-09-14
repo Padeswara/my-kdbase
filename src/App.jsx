@@ -139,6 +139,13 @@ export function App() {
         isDbOnline={isDbOnline}
       />
 
+      {/* Ambient Glass Background Glows */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
+        <div className="absolute -top-28 -left-28 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-28 w-96 h-96 bg-indigo-100/30 rounded-full blur-3xl" />
+        <div className="absolute -bottom-28 left-1/3 w-96 h-96 bg-emerald-100/25 rounded-full blur-3xl" />
+      </div>
+
       {/* Main Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4">
         
@@ -146,7 +153,7 @@ export function App() {
         <div className="space-y-2 sm:space-y-3">
           
           {/* Total Sites Card (100% Width) */}
-          <div className="w-full bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
+          <div className="w-full bg-white/75 backdrop-blur-xl p-4 sm:p-5 rounded-2xl border border-white/80 shadow-xs shadow-slate-900/5 flex items-center justify-between transition-all duration-200 hover:bg-white/85">
             <div className="flex items-center gap-3.5 min-w-0">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
                 <Layers className="w-5 h-5" />
@@ -168,7 +175,7 @@ export function App() {
           {/* 4 Status Cards (2 Columns on Mobile, 4 Columns on Desktop) */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
@@ -178,7 +185,7 @@ export function App() {
               </div>
             </div>
 
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
                 <Clock className="w-4 h-4" />
               </div>
@@ -188,7 +195,7 @@ export function App() {
               </div>
             </div>
 
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
                 <CheckCircle className="w-4 h-4" />
               </div>
@@ -198,7 +205,7 @@ export function App() {
               </div>
             </div>
 
-            <div className="bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+            <div className="bg-white/75 backdrop-blur-xl p-3.5 rounded-2xl border border-white/80 shadow-xs hover:bg-white/90 hover:border-slate-300/80 transition-all duration-200 flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
                 <XCircle className="w-4 h-4" />
               </div>
@@ -244,7 +251,7 @@ export function App() {
       </main>
 
       {/* Sticky Bottom Footer */}
-      <footer className="mt-auto w-full py-5 border-t border-slate-200/60 text-center text-xs text-slate-400 bg-white/40">
+      <footer className="mt-auto w-full py-5 border-t border-white/80 text-center text-xs text-slate-400 bg-white/50 backdrop-blur-md">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 

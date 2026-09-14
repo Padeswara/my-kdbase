@@ -35,14 +35,21 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-between items-center px-4 font-sans text-slate-900">
+    <div className="min-h-screen relative overflow-hidden flex flex-col justify-between items-center px-4 font-sans text-slate-900">
       
+      {/* Ambient Background Glows */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 select-none">
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-sky-200/40 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-20 w-80 h-80 bg-indigo-200/35 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 left-1/3 w-80 h-80 bg-emerald-100/30 rounded-full blur-3xl" />
+      </div>
+
       {/* Top Spacer */}
       <div className="h-6"></div>
 
-      {/* Minimalist Login Card */}
+      {/* Minimalist Glass Login Card */}
       <div className="w-full max-w-sm my-auto">
-        <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 sm:p-8">
+        <div className="bg-white/75 backdrop-blur-2xl rounded-3xl border border-white/80 shadow-xl shadow-slate-900/5 p-6 sm:p-8">
           
           {/* Header Brand */}
           <div className="text-center mb-6">
@@ -59,7 +66,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium rounded-xl animate-in fade-in">
+            <div className="mb-4 flex items-start gap-2.5 p-3 bg-rose-50/90 border border-rose-200 text-rose-700 text-xs font-medium rounded-xl animate-in fade-in">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-500 mt-0.5" />
               <div className="leading-snug">{error}</div>
             </div>
@@ -79,7 +86,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Username"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition"
                 />
               </div>
             </div>
@@ -96,7 +103,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition"
                 />
               </div>
             </div>
@@ -121,14 +128,14 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
       </div>
 
       {/* Footer */}
-      <footer className="w-full py-5 border-t border-slate-200/60 text-center text-xs text-slate-400">
+      <footer className="w-full py-5 border-t border-white/80 text-center text-xs text-slate-400 bg-white/40 backdrop-blur-md">
         © 2026 Rittergeistworks by Padeswaraa. All rights reserved.
       </footer>
 
       {/* Session Timeout Modal */}
       {showTimeoutModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-sm bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 text-center relative animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="w-full max-w-sm bg-white/90 backdrop-blur-2xl rounded-3xl p-6 sm:p-7 shadow-2xl border border-white/80 text-center relative animate-in zoom-in-95 duration-200">
             {/* Close Button */}
             <button
               type="button"
@@ -140,7 +147,7 @@ export function LoginPage({ onLoginSuccess, idleNotice = '' }) {
             </button>
 
             {/* Timeout Clock Icon */}
-            <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center mx-auto mb-4 text-amber-600 shadow-xs">
+            <div className="w-14 h-14 rounded-2xl bg-amber-50/80 border border-amber-200/80 flex items-center justify-center mx-auto mb-4 text-amber-600 shadow-xs">
               <Clock className="w-7 h-7" />
             </div>
 

@@ -6,11 +6,11 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md animate-in fade-in duration-150"
       onClick={onCancel}
     >
       <div 
-        className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl border border-slate-100 p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-150 text-center"
+        className="relative w-full max-w-sm bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/80 p-6 sm:p-7 overflow-hidden animate-in zoom-in-95 duration-150 text-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -23,7 +23,7 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
         </button>
 
         {/* Warning Icon */}
-        <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-xs">
+        <div className="w-14 h-14 rounded-2xl bg-rose-50/80 border border-rose-200/80 flex items-center justify-center text-rose-600 mx-auto mb-4 shadow-xs">
           <AlertTriangle className="w-7 h-7" />
         </div>
 
@@ -41,7 +41,7 @@ export function DeleteConfirmModal({ isOpen, siteName, onConfirm, onCancel, isDe
             type="button"
             onClick={onCancel}
             disabled={isDeleting}
-            className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition cursor-pointer disabled:opacity-50"
+            className="w-full py-2.5 px-4 bg-white/80 hover:bg-white text-slate-700 font-bold text-xs rounded-xl border border-slate-200/80 shadow-2xs transition cursor-pointer disabled:opacity-50 active:scale-98"
           >
             Cancel
           </button>

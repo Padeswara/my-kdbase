@@ -106,16 +106,16 @@ export function SiteModal({ isOpen, onClose, onSave, editingSite = null }) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/40 backdrop-blur-md overflow-y-auto animate-in fade-in duration-150"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 my-auto animate-in zoom-in-95 duration-150"
+        className="relative w-full max-w-lg bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/80 my-auto animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header Modal */}
-        <div className="flex items-center justify-between px-6 py-5 bg-white border-b border-slate-100">
+        <div className="flex items-center justify-between px-6 py-5 bg-white/60 backdrop-blur-md border-b border-slate-200/60">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-xs">
               <Building2 className="w-5 h-5" />

@@ -85,7 +85,7 @@ export function TableView({
           <button
             onClick={handleExport}
             disabled={filteredSites.length === 0}
-            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50 shadow-2xs active:scale-98"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl border border-white/80 bg-white/75 backdrop-blur-xl hover:bg-white text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50 shadow-2xs active:scale-98"
             title="Download data as Excel spreadsheet (.xlsx)"
           >
             <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -104,7 +104,7 @@ export function TableView({
       </div>
 
       {/* Search & Filter Box */}
-      <div className="bg-white p-2.5 sm:p-3 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+      <div className="bg-white/75 backdrop-blur-xl p-2.5 sm:p-3 rounded-2xl border border-white/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
         {/* Search Box */}
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -113,7 +113,7 @@ export function TableView({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search company, address, PIC, phone number..."
-            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-900"
+            className="w-full pl-10 pr-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-900"
           />
         </div>
 
@@ -124,7 +124,7 @@ export function TableView({
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full pl-9 pr-8 py-2.5 text-xs font-bold rounded-xl border border-slate-200 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-slate-50/50 hover:bg-white transition text-slate-700 appearance-none cursor-pointer"
+              className="w-full pl-9 pr-8 py-2.5 text-xs font-bold rounded-xl border border-slate-200/80 focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 bg-white/60 hover:bg-white focus:bg-white backdrop-blur-sm transition text-slate-700 appearance-none cursor-pointer"
             >
               <option value="ALL">All Statuses</option>
               {ALL_STATUSES.map((st) => (
@@ -139,7 +139,7 @@ export function TableView({
           {onRefresh && (
             <button
               onClick={onRefresh}
-              className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition cursor-pointer shrink-0"
+              className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-white/80 rounded-xl border border-slate-200/80 bg-white/40 backdrop-blur-sm transition cursor-pointer shrink-0 active:scale-95"
               title="Refresh Data"
             >
               <RotateCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -149,12 +149,12 @@ export function TableView({
       </div>
 
       {/* Main Table Container */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white/75 backdrop-blur-xl rounded-2xl border border-white/80 shadow-xs overflow-hidden">
         
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/80 border-b border-slate-200/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              <tr className="bg-slate-100/50 backdrop-blur-md border-b border-slate-200/70 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <th className="py-3.5 px-4 w-12 text-center">No</th>
                 <th className="py-3.5 px-4 w-20">Photo</th>
                 <th className="py-3.5 px-4 min-w-[200px]">Company & Address</th>
@@ -192,7 +192,7 @@ export function TableView({
                   return (
                     <tr 
                       key={site.id} 
-                      className={`hover:bg-slate-50/70 transition duration-150 group relative ${
+                      className={`hover:bg-white/80 transition duration-150 group relative ${
                         isDropdownOpen ? 'z-30' : 'z-10'
                       }`}
                     >
@@ -281,14 +281,14 @@ export function TableView({
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => onOpenEditModal(site)}
-                            className="p-1.5 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-slate-400 hover:text-slate-900 hover:bg-white/80 rounded-lg transition cursor-pointer"
                             title="Edit Data"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onDeleteSite(site.id)}
-                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50/80 rounded-lg transition cursor-pointer"
                             title="Delete Data"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -305,7 +305,7 @@ export function TableView({
         </div>
 
         {/* Table Footer Summary (Status text hidden on mobile, dots only) */}
-        <div className="px-4 sm:px-5 py-3.5 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        <div className="px-4 sm:px-5 py-3.5 bg-white/50 backdrop-blur-md border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500">
           <div>
             Showing <span className="font-bold text-slate-800">{filteredSites.length}</span> of{' '}
             <span className="font-bold text-slate-800">{sites.length}</span> total sites
