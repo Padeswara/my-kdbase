@@ -65,6 +65,24 @@ export function useSites() {
 
   useEffect(() => {
     fetchSites()
+
+    // Otomatis cek & sambung ulang saat HP kembali online atau tab dibuka kembali
+    const handleOnline = () => {
+      fetchSites()
+    }
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        fetchSites()
+      }
+    }
+
+    window.addEventListener('online', handleOnline)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   }, [fetchSites])
 
   // Helper upload image

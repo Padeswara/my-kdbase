@@ -158,6 +158,9 @@ export function App() {
         currentUser={currentUser}
         onLogout={handleLogout}
         isDbOnline={isDbOnline}
+        isDbLoading={loading}
+        onRetryDb={fetchSites}
+        dbError={error}
         theme={theme}
         onToggleTheme={toggleTheme}
       />

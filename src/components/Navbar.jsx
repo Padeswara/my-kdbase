@@ -1,7 +1,16 @@
 import React from 'react'
 import { Database, LogOut, Sun, Moon } from 'lucide-react'
 
-export function Navbar({ currentUser, onLogout, isDbOnline, theme = 'dark', onToggleTheme }) {
+export function Navbar({ 
+  currentUser, 
+  onLogout, 
+  isDbOnline, 
+  isDbLoading = false,
+  onRetryDb,
+  dbError = '',
+  theme = 'dark', 
+  onToggleTheme 
+}) {
   return (
     <header className="glass-panel sticky top-0 z-40 border-b border-slate-200/80 dark:border-white/10 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -37,8 +46,16 @@ export function Navbar({ currentUser, onLogout, isDbOnline, theme = 'dark', onTo
               </button>
             )}
 
-            {/* Supabase Database Status (Online / Offline) */}
-            {isDbOnline ? (
+            {/* Supabase Database Status (Connecting / Online / Offline) */}
+            {isDbLoading && !isDbOnline ? (
+              <span 
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/15 backdrop-blur-md text-amber-700 dark:text-amber-300 border border-amber-500/30 shadow-2xs"
+                title="Connecting to Supabase database..."
+              >
+                <span className="w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-ping"></span>
+                <span className="text-[11px] font-bold">Connecting</span>
+              </span>
+            ) : isDbOnline ? (
               <span 
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 backdrop-blur-md text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 shadow-2xs"
                 title="Supabase database is connected and ready"
@@ -47,13 +64,15 @@ export function Navbar({ currentUser, onLogout, isDbOnline, theme = 'dark', onTo
                 <span className="text-[11px] font-bold">Online</span>
               </span>
             ) : (
-              <span 
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/15 backdrop-blur-md text-rose-700 dark:text-rose-300 border border-rose-500/30 shadow-2xs"
-                title="Supabase database is disconnected or offline"
+              <button 
+                type="button"
+                onClick={onRetryDb}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/15 backdrop-blur-md text-rose-700 dark:text-rose-300 border border-rose-500/30 shadow-2xs cursor-pointer hover:bg-rose-500/25 active:scale-95 transition"
+                title={dbError ? `Offline: ${dbError}. Click to retry.` : "Supabase database is offline. Click to retry."}
               >
                 <span className="w-2 h-2 rounded-full bg-rose-500 dark:bg-rose-400"></span>
-                <span className="text-[11px] font-bold">Offline</span>
-              </span>
+                <span className="text-[11px] font-bold">Offline (Retry)</span>
+              </button>
             )}
 
             {/* Minimalist User Profile */}
